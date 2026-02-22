@@ -1,0 +1,35 @@
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.22.1
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: block-env-files
+        name: block-env-files
+        entry: bash -c 'if git diff --cached --name-only | grep -qE "^\.env"; then echo "Blocked: .env file"; exit 1; fi'
+        language: system
+        always_run: true
+        pass_filenames: false
+
+      - id: block-claude-dir
+        name: block-claude-dir
+        entry: bash -c 'if git diff --cached --name-only | grep -qE "^\.claude/"; then echo "Blocked: .claude/ directory"; exit 1; fi'
+        language: system
+        always_run: true
+        pass_filenames: false

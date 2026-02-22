@@ -1,0 +1,62 @@
+# ── Secrets & credentials ─────────────────────
+.env
+.env.*
+credentials*
+*.tfstate*
+*.pem
+*.key
+*.p12
+*.pfx
+service-account*.json
+secrets*.yaml
+
+# ── Claude Code ───────────────────────────────
+.claude/
+CLAUDE.md
+
+# ── Python ────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.venv/
+.mypy_cache/
+.ruff_cache/
+
+# ── Node.js ───────────────────────────────────
+node_modules/
+
+# ── Test & coverage ───────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+playwright-report/
+
+# ── Generated output ──────────────────────────
+*.pdf
+*.png
+*.svg
+
+# ── Skill packaging ──────────────────────────
+*.skill
+evals/
+
+# ── Editors & IDE ─────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS artifacts ──────────────────────────────
+.DS_Store
+Thumbs.db
+._*
+
+# ── Exceptions ────────────────────────────────
+!.env.example
+!*.tfvars.example
