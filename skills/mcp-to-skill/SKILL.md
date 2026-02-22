@@ -1,5 +1,6 @@
 ---
 name: mcp-to-skill
+version: 1.0.0
 description: >
   Convert MCP (Model Context Protocol) servers into on-demand skills to dramatically
   reduce active context window usage. MCP tool schemas consume tokens on every turn

@@ -1,5 +1,6 @@
 ---
 name: concept-to-image
+version: 1.0.0
 description: >
   Turn any concept, idea, or description into a polished static HTML visual, then export it as a PNG or SVG image.
   Use this skill whenever the user wants to create a visual representation of an idea and needs an image file output
