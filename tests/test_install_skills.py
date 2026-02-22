@@ -204,6 +204,39 @@ class TestBuildInstallPlans:
         plans = build_install_plans(skills, install_dir)
         assert plans[0].action == InstallAction.SKIP
 
+    def test_reinstall_same_version(self, tmp_path: Path) -> None:
+        """With reinstall=True, same-version skills get REINSTALL action."""
+        install_dir = tmp_path / "install"
+        skill_dir = install_dir / "current-skill"
+        skill_dir.mkdir(parents=True)
+        (skill_dir / "SKILL.md").write_text(
+            "---\nname: current-skill\ndescription: test\nmetadata:\n  version: 1.0.0\n---\n"
+        )
+        skills = [self._make_skill("current-skill", "1.0.0", tmp_path)]
+        plans = build_install_plans(skills, install_dir, reinstall=True)
+        assert plans[0].action == InstallAction.REINSTALL
+        assert plans[0].installed_version == "1.0.0"
+
+    def test_reinstall_does_not_affect_new_installs(self, tmp_path: Path) -> None:
+        """New skills stay as INSTALL even with reinstall=True."""
+        install_dir = tmp_path / "install"
+        install_dir.mkdir()
+        skills = [self._make_skill("brand-new", "1.0.0", tmp_path)]
+        plans = build_install_plans(skills, install_dir, reinstall=True)
+        assert plans[0].action == InstallAction.INSTALL
+
+    def test_reinstall_does_not_affect_upgrades(self, tmp_path: Path) -> None:
+        """Upgradeable skills stay as UPGRADE even with reinstall=True."""
+        install_dir = tmp_path / "install"
+        skill_dir = install_dir / "old-skill"
+        skill_dir.mkdir(parents=True)
+        (skill_dir / "SKILL.md").write_text(
+            "---\nname: old-skill\ndescription: test\nmetadata:\n  version: 0.9.0\n---\n"
+        )
+        skills = [self._make_skill("old-skill", "1.0.0", tmp_path)]
+        plans = build_install_plans(skills, install_dir, reinstall=True)
+        assert plans[0].action == InstallAction.UPGRADE
+
     def test_skip_symlink(self, tmp_path: Path) -> None:
         """Symlinked skills are skipped entirely."""
         install_dir = tmp_path / "install"
