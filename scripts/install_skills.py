@@ -36,6 +36,7 @@ console = Console()
 class InstallAction(Enum):
     INSTALL = "install"
     UPGRADE = "upgrade"
+    REINSTALL = "reinstall"
     SKIP = "skip"
 
 
@@ -74,6 +75,14 @@ def parse_frontmatter(content: str) -> dict[str, str]:
     if not match:
         raise ValueError("No valid YAML frontmatter found")
     return yaml.safe_load(match.group(1))
+
+
+def extract_version(meta: dict[str, str]) -> str:
+    """Extract version from metadata.version (preferred) or top-level version (legacy)."""
+    metadata = meta.get("metadata")
+    if isinstance(metadata, dict) and metadata.get("version"):
+        return str(metadata["version"])
+    return str(meta.get("version", "0.0.0"))
 
 
 def discover_skills() -> list[SkillInfo]:
@@ -119,7 +128,7 @@ def _discover_from_skill_files() -> list[SkillInfo]:
 
         skills.append(SkillInfo(
             name=name,
-            version=meta.get("version", "0.0.0"),
+            version=extract_version(meta),
             description=meta.get("description", "").strip(),
             source_path=skill_dir,
         ))
@@ -139,14 +148,16 @@ def get_installed_version(install_dir: Path, skill_name: str) -> str | None:
     except ValueError:
         return "0.0.0"
 
-    return meta.get("version", "0.0.0")
+    return extract_version(meta)
 
 
 def build_install_plans(
     skills: list[SkillInfo],
     install_dir: Path,
+    *,
+    reinstall: bool = False,
 ) -> list[InstallPlan]:
-    """Determine install/upgrade/skip action for each skill."""
+    """Determine install/upgrade/reinstall/skip action for each skill."""
     plans: list[InstallPlan] = []
 
     for skill in skills:
@@ -164,6 +175,8 @@ def build_install_plans(
             action = InstallAction.INSTALL
         elif is_newer(skill.version, installed_version):
             action = InstallAction.UPGRADE
+        elif reinstall:
+            action = InstallAction.REINSTALL
         else:
             action = InstallAction.SKIP
 
@@ -189,6 +202,7 @@ def display_plans(plans: list[InstallPlan]) -> None:
     action_styles = {
         InstallAction.INSTALL: "[green]install[/green]",
         InstallAction.UPGRADE: "[yellow]upgrade[/yellow]",
+        InstallAction.REINSTALL: "[blue]reinstall[/blue]",
         InstallAction.SKIP: "[dim]skip[/dim]",
     }
 
@@ -270,6 +284,13 @@ def copy_skill(source: Path, target: Path) -> int:
     return count
 
 
+_ACTION_LABELS: dict[InstallAction, str] = {
+    InstallAction.INSTALL: "Installed",
+    InstallAction.UPGRADE: "Upgraded",
+    InstallAction.REINSTALL: "Reinstalled",
+}
+
+
 def execute_plans(plans: list[InstallPlan], selected: list[int]) -> None:
     """Execute selected installation plans."""
     to_install = [plans[i] for i in selected if plans[i].action != InstallAction.SKIP]
@@ -285,9 +306,9 @@ def execute_plans(plans: list[InstallPlan], selected: list[int]) -> None:
             progress.update(task, description=f"Installing {plan.skill.name}...")
             file_count = copy_skill(plan.skill.source_path, plan.target_path)
             progress.advance(task)
-            action_word = "Upgraded" if plan.action == InstallAction.UPGRADE else "Installed"
+            label = _ACTION_LABELS.get(plan.action, "Installed")
             console.print(
-                f"  {action_word} [cyan]{plan.skill.name}[/cyan] "
+                f"  {label} [cyan]{plan.skill.name}[/cyan] "
                 f"v{plan.skill.version} ({file_count} files)"
             )
 
@@ -299,12 +320,12 @@ def execute_plans(plans: list[InstallPlan], selected: list[int]) -> None:
     summary.add_column("Version")
 
     for plan in to_install:
-        action_word = "upgraded" if plan.action == InstallAction.UPGRADE else "installed"
+        label = _ACTION_LABELS.get(plan.action, "installed").lower()
         if plan.action == InstallAction.UPGRADE:
             ver = f"{plan.installed_version} → {plan.skill.version}"
         else:
             ver = plan.skill.version
-        summary.add_row(plan.skill.name, action_word, ver)
+        summary.add_row(plan.skill.name, label, ver)
 
     console.print(summary)
     console.print(
@@ -318,6 +339,16 @@ def execute_plans(plans: list[InstallPlan], selected: list[int]) -> None:
 
 def main() -> int:
     """Main entry point for the TUI installer."""
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Install praxis-skills to ~/.claude/skills/")
+    parser.add_argument(
+        "--reinstall",
+        action="store_true",
+        help="Allow reinstalling skills that are already at the same version",
+    )
+    args = parser.parse_args()
+
     console.print(Panel("praxis-skills installer", border_style="blue"))
 
     # Discover
@@ -330,7 +361,7 @@ def main() -> int:
     install_dir.mkdir(parents=True, exist_ok=True)
 
     # Build plans
-    plans = build_install_plans(skills, install_dir)
+    plans = build_install_plans(skills, install_dir, reinstall=args.reinstall)
     if not plans:
         console.print("[dim]No installable skills found.[/dim]")
         return 0
@@ -341,7 +372,7 @@ def main() -> int:
     # Count actionable
     actionable = [i for i, p in enumerate(plans) if p.action != InstallAction.SKIP]
     if not actionable:
-        console.print("[dim]All skills are up to date.[/dim]")
+        console.print("[dim]All skills are up to date. Use --reinstall to force reinstallation.[/dim]")
         return 0
 
     # Select
@@ -373,7 +404,7 @@ def main() -> int:
 
     # Confirm
     names = ", ".join(plans[i].skill.name for i in selected_actionable)
-    console.print(f"\nWill install/upgrade: [cyan]{names}[/cyan]")
+    console.print(f"\nWill install/upgrade/reinstall: [cyan]{names}[/cyan]")
     confirm = Prompt.ask("Proceed?", choices=["y", "n"], default="y")
     if confirm != "y":
         console.print("[dim]Cancelled.[/dim]")

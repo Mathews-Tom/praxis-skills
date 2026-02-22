@@ -10,6 +10,7 @@ from scripts.install_skills import (
     SkillInfo,
     build_install_plans,
     copy_skill,
+    extract_version,
     get_installed_version,
     is_newer,
     parse_selection,
@@ -52,6 +53,22 @@ class TestIsNewer:
 
     def test_older_version(self) -> None:
         assert is_newer("1.0.0", "2.0.0") is False
+
+
+class TestExtractVersion:
+    """Tests for version extraction from frontmatter."""
+
+    def test_metadata_version(self) -> None:
+        assert extract_version({"metadata": {"version": "2.0.0"}}) == "2.0.0"
+
+    def test_legacy_top_level(self) -> None:
+        assert extract_version({"version": "1.0.0"}) == "1.0.0"
+
+    def test_metadata_takes_precedence(self) -> None:
+        assert extract_version({"version": "1.0.0", "metadata": {"version": "2.0.0"}}) == "2.0.0"
+
+    def test_no_version_returns_fallback(self) -> None:
+        assert extract_version({}) == "0.0.0"
 
 
 class TestParseSelection:
@@ -117,6 +134,15 @@ class TestGetInstalledVersion:
         skill_dir = tmp_path / "test-skill"
         skill_dir.mkdir()
         (skill_dir / "SKILL.md").write_text(
+            "---\nname: test-skill\ndescription: test\nmetadata:\n  version: 1.2.3\n---\n"
+        )
+        assert get_installed_version(tmp_path, "test-skill") == "1.2.3"
+
+    def test_installed_with_legacy_version(self, tmp_path: Path) -> None:
+        """Legacy top-level version still detected."""
+        skill_dir = tmp_path / "test-skill"
+        skill_dir.mkdir()
+        (skill_dir / "SKILL.md").write_text(
             "---\nname: test-skill\nversion: 1.2.3\ndescription: test\n---\n"
         )
         assert get_installed_version(tmp_path, "test-skill") == "1.2.3"
@@ -160,7 +186,7 @@ class TestBuildInstallPlans:
         skill_dir = install_dir / "old-skill"
         skill_dir.mkdir(parents=True)
         (skill_dir / "SKILL.md").write_text(
-            "---\nname: old-skill\nversion: 0.9.0\ndescription: test\n---\n"
+            "---\nname: old-skill\ndescription: test\nmetadata:\n  version: 0.9.0\n---\n"
         )
         skills = [self._make_skill("old-skill", "1.0.0", tmp_path)]
         plans = build_install_plans(skills, install_dir)
@@ -172,11 +198,44 @@ class TestBuildInstallPlans:
         skill_dir = install_dir / "current-skill"
         skill_dir.mkdir(parents=True)
         (skill_dir / "SKILL.md").write_text(
-            "---\nname: current-skill\nversion: 1.0.0\ndescription: test\n---\n"
+            "---\nname: current-skill\ndescription: test\nmetadata:\n  version: 1.0.0\n---\n"
         )
         skills = [self._make_skill("current-skill", "1.0.0", tmp_path)]
         plans = build_install_plans(skills, install_dir)
         assert plans[0].action == InstallAction.SKIP
+
+    def test_reinstall_same_version(self, tmp_path: Path) -> None:
+        """With reinstall=True, same-version skills get REINSTALL action."""
+        install_dir = tmp_path / "install"
+        skill_dir = install_dir / "current-skill"
+        skill_dir.mkdir(parents=True)
+        (skill_dir / "SKILL.md").write_text(
+            "---\nname: current-skill\ndescription: test\nmetadata:\n  version: 1.0.0\n---\n"
+        )
+        skills = [self._make_skill("current-skill", "1.0.0", tmp_path)]
+        plans = build_install_plans(skills, install_dir, reinstall=True)
+        assert plans[0].action == InstallAction.REINSTALL
+        assert plans[0].installed_version == "1.0.0"
+
+    def test_reinstall_does_not_affect_new_installs(self, tmp_path: Path) -> None:
+        """New skills stay as INSTALL even with reinstall=True."""
+        install_dir = tmp_path / "install"
+        install_dir.mkdir()
+        skills = [self._make_skill("brand-new", "1.0.0", tmp_path)]
+        plans = build_install_plans(skills, install_dir, reinstall=True)
+        assert plans[0].action == InstallAction.INSTALL
+
+    def test_reinstall_does_not_affect_upgrades(self, tmp_path: Path) -> None:
+        """Upgradeable skills stay as UPGRADE even with reinstall=True."""
+        install_dir = tmp_path / "install"
+        skill_dir = install_dir / "old-skill"
+        skill_dir.mkdir(parents=True)
+        (skill_dir / "SKILL.md").write_text(
+            "---\nname: old-skill\ndescription: test\nmetadata:\n  version: 0.9.0\n---\n"
+        )
+        skills = [self._make_skill("old-skill", "1.0.0", tmp_path)]
+        plans = build_install_plans(skills, install_dir, reinstall=True)
+        assert plans[0].action == InstallAction.UPGRADE
 
     def test_skip_symlink(self, tmp_path: Path) -> None:
         """Symlinked skills are skipped entirely."""
@@ -194,7 +253,7 @@ class TestCopySkill:
     def test_copies_files(self, tmp_path: Path) -> None:
         source = tmp_path / "source"
         source.mkdir()
-        (source / "SKILL.md").write_text("---\nname: test\nversion: 1.0.0\ndescription: t\n---\n")
+        (source / "SKILL.md").write_text("---\nname: test\ndescription: t\nmetadata:\n  version: 1.0.0\n---\n")
         (source / "refs").mkdir()
         (source / "refs" / "data.txt").write_text("data")
 
@@ -208,7 +267,7 @@ class TestCopySkill:
     def test_excludes_pycache(self, tmp_path: Path) -> None:
         source = tmp_path / "source"
         source.mkdir()
-        (source / "SKILL.md").write_text("---\nname: test\nversion: 1.0.0\ndescription: t\n---\n")
+        (source / "SKILL.md").write_text("---\nname: test\ndescription: t\nmetadata:\n  version: 1.0.0\n---\n")
         (source / "__pycache__").mkdir()
         (source / "__pycache__" / "mod.pyc").write_text("bytecode")
 
@@ -222,7 +281,7 @@ class TestCopySkill:
         """Upgrade scenario: existing target is removed first."""
         source = tmp_path / "source"
         source.mkdir()
-        (source / "SKILL.md").write_text("---\nname: test\nversion: 2.0.0\ndescription: t\n---\n")
+        (source / "SKILL.md").write_text("---\nname: test\ndescription: t\nmetadata:\n  version: 2.0.0\n---\n")
 
         target = tmp_path / "target"
         target.mkdir()

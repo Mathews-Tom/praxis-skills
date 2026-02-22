@@ -1,7 +1,8 @@
 ---
 name: linkedin-post-style
-version: 1.0.0
 description: Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored, and precise. Use this skill whenever the user asks to write, draft, rewrite, or edit a LinkedIn post, social media post, tech commentary, or any public-facing short-form writing about technology, AI, software engineering, or developer tools. Also trigger when the user says "write this in my style", "post about this", "rewrite this for LinkedIn", "draft a post in my style", or provides raw content/notes and wants it shaped into a post.
+metadata:
+  version: 1.0.0
 ---
 
 # LinkedIn Post Style Guide

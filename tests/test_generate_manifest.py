@@ -12,10 +12,10 @@ class TestParseFrontmatter:
     """Tests for frontmatter extraction."""
 
     def test_extracts_all_fields(self) -> None:
-        content = "---\nname: my-skill\nversion: 1.2.3\ndescription: Does things.\n---\n# Body"
+        content = "---\nname: my-skill\ndescription: Does things.\nmetadata:\n  version: 1.2.3\n---\n# Body"
         meta = parse_frontmatter(content)
         assert meta["name"] == "my-skill"
-        assert meta["version"] == "1.2.3"
+        assert meta["metadata"]["version"] == "1.2.3"
         assert meta["description"] == "Does things."
 
     def test_raises_on_missing_frontmatter(self) -> None:

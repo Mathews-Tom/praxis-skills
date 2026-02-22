@@ -1,6 +1,5 @@
 ---
 name: manuscript-review
-version: 1.0.0
 description: >
   Systematic pre-publication manuscript audit producing a structured refactoring
   report with section-level diagnostics, citation hygiene analysis, and
@@ -13,6 +12,8 @@ description: >
   consistency, argument coherence, or formatting compliance. Covers partial
   requests like "check my references" or "does the abstract work" — the full
   diagnostic surfaces issues across all facets even when only one was asked about.
+metadata:
+  version: 1.0.0
 ---
 
 # Manuscript Review Skill
