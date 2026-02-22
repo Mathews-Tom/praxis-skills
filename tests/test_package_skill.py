@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from scripts.package_skill import (
+    extract_version,
     is_excluded,
     package_skill,
     parse_frontmatter,
@@ -19,14 +20,14 @@ class TestParseFrontmatter:
     """Tests for frontmatter parsing."""
 
     def test_valid_frontmatter(self) -> None:
-        content = "---\nname: test-skill\nversion: 1.0.0\ndescription: A test.\n---\n\n# Body"
+        content = "---\nname: test-skill\ndescription: A test.\nmetadata:\n  version: 1.0.0\n---\n\n# Body"
         result = parse_frontmatter(content)
         assert result["name"] == "test-skill"
-        assert result["version"] == "1.0.0"
+        assert result["metadata"]["version"] == "1.0.0"
         assert result["description"] == "A test."
 
     def test_multiline_description(self) -> None:
-        content = "---\nname: test\nversion: 1.0.0\ndescription: >\n  Long description\n  across lines.\n---\n"
+        content = "---\nname: test\ndescription: >\n  Long description\n  across lines.\nmetadata:\n  version: 1.0.0\n---\n"
         result = parse_frontmatter(content)
         assert "Long description" in result["description"]
 
@@ -57,14 +58,14 @@ class TestValidateFrontmatter:
         (skill_dir / "SKILL.md").write_text(
             "---\nname: test-skill\ndescription: A test.\n---\n"
         )
-        with pytest.raises(ValueError, match="missing required fields.*version"):
+        with pytest.raises(ValueError, match="missing required fields.*metadata.version"):
             validate_frontmatter(skill_dir)
 
     def test_invalid_version_format(self, tmp_path: Path) -> None:
         skill_dir = tmp_path / "test-skill"
         skill_dir.mkdir()
         (skill_dir / "SKILL.md").write_text(
-            "---\nname: test-skill\nversion: v1.0\ndescription: A test.\n---\n"
+            "---\nname: test-skill\ndescription: A test.\nmetadata:\n  version: v1.0\n---\n"
         )
         with pytest.raises(ValueError, match="Invalid version"):
             validate_frontmatter(skill_dir)
@@ -73,17 +74,47 @@ class TestValidateFrontmatter:
         skill_dir = tmp_path / "test-skill"
         skill_dir.mkdir()
         (skill_dir / "SKILL.md").write_text(
-            "---\nname: test-skill\nversion: 1.0.0\ndescription: A test.\n---\n"
+            "---\nname: test-skill\ndescription: A test.\nmetadata:\n  version: 1.0.0\n---\n"
         )
         meta = validate_frontmatter(skill_dir)
         assert meta["name"] == "test-skill"
-        assert meta["version"] == "1.0.0"
+        assert meta["_resolved_version"] == "1.0.0"
+
+    def test_legacy_top_level_version(self, tmp_path: Path) -> None:
+        """Backward compat: top-level version still works."""
+        skill_dir = tmp_path / "test-skill"
+        skill_dir.mkdir()
+        (skill_dir / "SKILL.md").write_text(
+            "---\nname: test-skill\nversion: 1.0.0\ndescription: A test.\n---\n"
+        )
+        meta = validate_frontmatter(skill_dir)
+        assert meta["_resolved_version"] == "1.0.0"
 
     def test_missing_skill_md(self, tmp_path: Path) -> None:
         skill_dir = tmp_path / "test-skill"
         skill_dir.mkdir()
         with pytest.raises(FileNotFoundError):
             validate_frontmatter(skill_dir)
+
+
+class TestExtractVersion:
+    """Tests for version extraction from frontmatter."""
+
+    def test_metadata_version(self) -> None:
+        meta = {"name": "x", "metadata": {"version": "2.0.0"}}
+        assert extract_version(meta) == "2.0.0"
+
+    def test_legacy_top_level_version(self) -> None:
+        meta = {"name": "x", "version": "1.0.0"}
+        assert extract_version(meta) == "1.0.0"
+
+    def test_metadata_takes_precedence(self) -> None:
+        meta = {"name": "x", "version": "1.0.0", "metadata": {"version": "2.0.0"}}
+        assert extract_version(meta) == "2.0.0"
+
+    def test_no_version(self) -> None:
+        meta = {"name": "x"}
+        assert extract_version(meta) is None
 
 
 class TestIsExcluded:
@@ -114,7 +145,7 @@ class TestPackageSkill:
         skill_dir = tmp_path / "test-skill"
         skill_dir.mkdir()
         (skill_dir / "SKILL.md").write_text(
-            "---\nname: test-skill\nversion: 2.1.0\ndescription: A test.\n---\n# Content\n"
+            "---\nname: test-skill\ndescription: A test.\nmetadata:\n  version: 2.1.0\n---\n# Content\n"
         )
 
         output_dir = tmp_path / "dist"
@@ -129,7 +160,7 @@ class TestPackageSkill:
         skill_dir = tmp_path / "test-skill"
         skill_dir.mkdir()
         (skill_dir / "SKILL.md").write_text(
-            "---\nname: test-skill\nversion: 1.0.0\ndescription: A test.\n---\n"
+            "---\nname: test-skill\ndescription: A test.\nmetadata:\n  version: 1.0.0\n---\n"
         )
         pycache = skill_dir / "__pycache__"
         pycache.mkdir()

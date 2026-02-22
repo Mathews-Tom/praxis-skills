@@ -9,8 +9,9 @@ Each skill lives in its own directory under `skills/` and must contain a `SKILL.
 ```yaml
 ---
 name: my-skill-name
-version: 1.0.0
 description: What this skill does in plain language.
+metadata:
+  version: 1.0.0
 ---
 ```
 
@@ -22,7 +23,7 @@ Optional subdirectories:
 
 ## Versioning
 
-Skills use [semantic versioning](https://semver.org/) via the `version` field in SKILL.md frontmatter.
+Skills use [semantic versioning](https://semver.org/) via the `metadata.version` field in SKILL.md frontmatter.
 
 | Change Type | Bump | Example |
 |-------------|------|---------|
@@ -125,7 +126,7 @@ uv run scripts/package_skill.py skills/my-skill-name
 
 Before opening a PR, confirm:
 
-- [ ] `SKILL.md` has valid YAML frontmatter with `name`, `version`, and `description`
+- [ ] `SKILL.md` has valid YAML frontmatter with `name`, `description`, and `metadata.version`
 - [ ] Version bumped according to semver (MAJOR/MINOR/PATCH)
 - [ ] Manifest regenerated: `uv run scripts/generate_manifest.py`
 - [ ] Skill name is kebab-case, under 64 characters
