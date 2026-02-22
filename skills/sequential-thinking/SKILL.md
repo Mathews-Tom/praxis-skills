@@ -1,5 +1,6 @@
 ---
 name: sequential-thinking
+version: 1.0.0
 description: >
   Structured, reflective problem-solving through sequential chain-of-thought reasoning.
   Replaces the Sequential Thinking MCP server (sequentialthinking tool). Use this skill

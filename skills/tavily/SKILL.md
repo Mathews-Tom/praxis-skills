@@ -1,5 +1,6 @@
 ---
 name: tavily
+version: 1.0.0
 description: >
   AI-optimized web search and content extraction via Tavily API. Use this skill when you need
   to search the web for current information, recent events, technical documentation, news, or

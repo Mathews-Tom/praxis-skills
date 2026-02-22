@@ -1,5 +1,6 @@
 ---
 name: skill-evaluator
+version: 1.0.0
 description: >
   Evaluate Claude Code skill quality across 6 weighted dimensions: frontmatter quality,
   trigger coverage, structural completeness, content depth, consistency and integrity,

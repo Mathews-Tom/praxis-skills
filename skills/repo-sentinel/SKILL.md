@@ -1,5 +1,6 @@
 ---
 name: repo-sentinel
+version: 1.0.0
 description: >
   Full security audit and enforcement for public repositories across 12 attack surfaces: git
   history, source code, docs, config, .gitignore recon, CI/CD, containers, dependencies, binaries,

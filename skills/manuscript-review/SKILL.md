@@ -1,5 +1,6 @@
 ---
 name: manuscript-review
+version: 1.0.0
 description: >
   Systematic pre-publication manuscript audit producing a structured refactoring
   report with section-level diagnostics, citation hygiene analysis, and

@@ -1,5 +1,6 @@
 ---
 name: static-web-artifacts-builder
+version: 1.0.0
 description: >
   Suite of tools for creating elaborate, self-contained static HTML artifacts — infographics,
   interactive diagrams, architecture visuals, data dashboards, and rich visual deliverables.

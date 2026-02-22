@@ -28,6 +28,11 @@ def parse_frontmatter(content: str) -> dict[str, str]:
     return yaml.safe_load(match.group(1))
 
 
+def validate_version(version: str) -> None:
+    if not re.match(r"^\d+\.\d+\.\d+$", version):
+        raise ValueError(f"Invalid version '{version}' — must be semver (e.g. 1.0.0)")
+
+
 def validate_frontmatter(skill_dir: Path) -> dict[str, str]:
     skill_md = skill_dir / "SKILL.md"
     if not skill_md.exists():
@@ -36,9 +41,11 @@ def validate_frontmatter(skill_dir: Path) -> dict[str, str]:
     content = skill_md.read_text(encoding="utf-8")
     meta = parse_frontmatter(content)
 
-    missing = [field for field in ("name", "description") if not meta.get(field)]
+    missing = [field for field in ("name", "version", "description") if not meta.get(field)]
     if missing:
         raise ValueError(f"SKILL.md missing required fields: {', '.join(missing)}")
+
+    validate_version(meta["version"])
 
     return meta
 
@@ -71,7 +78,8 @@ def collect_files(skill_dir: Path) -> tuple[list[Path], list[Path]]:
 def package_skill(skill_dir: Path, output_dir: Path) -> Path:
     meta = validate_frontmatter(skill_dir)
     skill_name: str = meta["name"]
-    archive_name = f"{skill_name}.skill"
+    skill_version: str = meta["version"]
+    archive_name = f"{skill_name}-{skill_version}.skill"
     output_path = output_dir / archive_name
 
     included, excluded = collect_files(skill_dir)

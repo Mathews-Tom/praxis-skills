@@ -60,23 +60,41 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 
 ## Installation
 
-**Option 1 — GitHub Releases (recommended)**
+**Option 1 — Skills CLI (recommended)**
 
-Download the `.skill` files from the [Releases](../../releases) page. In Claude Code, add the skill directory to your configuration.
-
-**Option 2 — Clone the repo**
+Install any skill directly using [`npx skills`](https://github.com/vercel-labs/skills):
 
 ```bash
-git clone https://github.com/<your-username>/praxis-skills.git
+# Install all skills
+npx skills add Mathews-Tom/praxis-skills
+
+# Install a specific skill
+npx skills add Mathews-Tom/praxis-skills -s architecture-reviewer
+
+# List available skills without installing
+npx skills add Mathews-Tom/praxis-skills -l
 ```
 
-Point Claude Code at individual skill folders:
+**Option 2 — TUI Installer**
 
 ```bash
-claude --add-dir skills/architecture-reviewer
+git clone https://github.com/Mathews-Tom/praxis-skills.git
+cd praxis-skills
+uv run scripts/install_skills.py
 ```
 
-Or copy skill folders into your local skills path.
+Displays a version-aware table of all skills, detects installed versions, and lets you select which to install or upgrade.
+
+**Option 3 — Manual**
+
+Clone the repo and point Claude Code at individual skill folders:
+
+```bash
+git clone https://github.com/Mathews-Tom/praxis-skills.git
+claude --add-dir praxis-skills/skills/architecture-reviewer
+```
+
+Or download `.skill` archives from the [Releases](../../releases) page.
 
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: manuscript-provenance
+version: 1.0.0
 description: >
   Computational provenance audit verifying that every number, table, figure,
   ordering, and terminology in a manuscript is derived from code and scripts —

@@ -1,5 +1,6 @@
 ---
 name: architecture-reviewer
+version: 1.0.0
 description: >
   Architecture reviews across 7 dimensions: structural integrity, scalability, enterprise
   readiness (SOC2/HIPAA/GDPR/PCI-DSS), performance, security, operational excellence, and
