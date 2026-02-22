@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept Visual</title>
+<style>
+  /* === RESET === */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* === PALETTE — edit these custom properties to theme the visual === */
+  :root {
+    --c-bg: #f8f6f1;
+    --c-surface: #ffffff;
+    --c-primary: #1a1a2e;
+    --c-accent: #e94560;
+    --c-secondary: #0f3460;
+    --c-muted: #6b7280;
+    --c-border: #d1d5db;
+
+    /* Typography */
+    --font-display: 'Georgia', 'Times New Roman', serif;
+    --font-body: 'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono: 'Courier New', 'Consolas', monospace;
+  }
+
+  body {
+    background: #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font-body);
+  }
+
+  /* === CANVAS — this is the element that gets exported ===
+     Set width/height to your target export size.
+     The render script captures this element specifically. */
+  .canvas {
+    width: 1200px;
+    height: 630px;
+    background: var(--c-bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* === YOUR STYLES BELOW === */
+
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <!-- Your visual content goes here -->
+</div>
+
+</body>
+</html>
