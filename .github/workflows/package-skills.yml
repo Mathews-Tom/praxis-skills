@@ -23,6 +23,11 @@ jobs:
       - name: Install dependencies
         run: pip install pyyaml
 
+      - name: Validate manifest
+        run: |
+          python scripts/generate_manifest.py
+          git diff --exit-code skills.yaml
+
       - name: Package all skills
         run: |
           mkdir -p dist
