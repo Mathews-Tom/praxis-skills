@@ -1,0 +1,57 @@
+name: Repo Sentinel
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@cb7149a9b57195b609c63e8518d2c6056109571f
+
+  file-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Check for .env files
+        run: |
+          if find . -name '.env' -not -path './.git/*' | grep -q .; then
+            echo "ERROR: .env file(s) found in repository"
+            find . -name '.env' -not -path './.git/*'
+            exit 1
+          fi
+          echo "No .env files found"
+
+      - name: Check for credential files
+        run: |
+          found=0
+          for pattern in '*.pem' '*.key' '*.p12'; do
+            if find . -name "${pattern}" -not -path './.git/*' | grep -q .; then
+              echo "ERROR: Credential file(s) matching ${pattern} found"
+              find . -name "${pattern}" -not -path './.git/*'
+              found=1
+            fi
+          done
+          if [ "${found}" -eq 1 ]; then
+            exit 1
+          fi
+          echo "No credential files found"
+
+      - name: Check for .claude directory
+        run: |
+          if [ -d ".claude" ]; then
+            echo "ERROR: .claude directory found in repository"
+            exit 1
+          fi
+          echo "No .claude directory found"
