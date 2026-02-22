@@ -76,6 +76,14 @@ def parse_frontmatter(content: str) -> dict[str, str]:
     return yaml.safe_load(match.group(1))
 
 
+def extract_version(meta: dict[str, str]) -> str:
+    """Extract version from metadata.version (preferred) or top-level version (legacy)."""
+    metadata = meta.get("metadata")
+    if isinstance(metadata, dict) and metadata.get("version"):
+        return str(metadata["version"])
+    return str(meta.get("version", "0.0.0"))
+
+
 def discover_skills() -> list[SkillInfo]:
     """Discover available skills from manifest or SKILL.md files."""
     if MANIFEST_PATH.exists():
@@ -119,7 +127,7 @@ def _discover_from_skill_files() -> list[SkillInfo]:
 
         skills.append(SkillInfo(
             name=name,
-            version=meta.get("version", "0.0.0"),
+            version=extract_version(meta),
             description=meta.get("description", "").strip(),
             source_path=skill_dir,
         ))
@@ -139,7 +147,7 @@ def get_installed_version(install_dir: Path, skill_name: str) -> str | None:
     except ValueError:
         return "0.0.0"
 
-    return meta.get("version", "0.0.0")
+    return extract_version(meta)
 
 
 def build_install_plans(

@@ -26,6 +26,14 @@ def parse_frontmatter(content: str) -> dict[str, str]:
     return yaml.safe_load(match.group(1))
 
 
+def extract_version(meta: dict[str, str]) -> str:
+    """Extract version from metadata.version (preferred) or top-level version (legacy)."""
+    metadata = meta.get("metadata")
+    if isinstance(metadata, dict) and metadata.get("version"):
+        return str(metadata["version"])
+    return str(meta.get("version", ""))
+
+
 def collect_skills() -> list[dict[str, str]]:
     """Walk skills/*/SKILL.md and build manifest entries."""
     entries: list[dict[str, str]] = []
@@ -39,7 +47,7 @@ def collect_skills() -> list[dict[str, str]]:
         meta = parse_frontmatter(content)
 
         name = meta.get("name", "")
-        version = meta.get("version", "")
+        version = extract_version(meta)
         description = meta.get("description", "")
 
         if not name:

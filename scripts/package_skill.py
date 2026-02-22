@@ -9,6 +9,8 @@ from pathlib import Path
 
 import yaml
 
+from typing import Any
+
 
 EXCLUDE_NAMES: set[str] = {
     "__pycache__",
@@ -21,7 +23,7 @@ EXCLUDE_NAMES: set[str] = {
 EXCLUDE_SUFFIXES: set[str] = {".pyc"}
 
 
-def parse_frontmatter(content: str) -> dict[str, str]:
+def parse_frontmatter(content: str) -> dict[str, Any]:
     match = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
     if not match:
         raise ValueError("No valid YAML frontmatter found in SKILL.md")
@@ -33,7 +35,17 @@ def validate_version(version: str) -> None:
         raise ValueError(f"Invalid version '{version}' — must be semver (e.g. 1.0.0)")
 
 
-def validate_frontmatter(skill_dir: Path) -> dict[str, str]:
+def extract_version(meta: dict[str, Any]) -> str | None:
+    """Extract version from metadata.version (preferred) or top-level version (legacy)."""
+    metadata = meta.get("metadata")
+    if isinstance(metadata, dict) and metadata.get("version"):
+        return str(metadata["version"])
+    if meta.get("version"):
+        return str(meta["version"])
+    return None
+
+
+def validate_frontmatter(skill_dir: Path) -> dict[str, Any]:
     skill_md = skill_dir / "SKILL.md"
     if not skill_md.exists():
         raise FileNotFoundError(f"SKILL.md not found in {skill_dir}")
@@ -41,11 +53,20 @@ def validate_frontmatter(skill_dir: Path) -> dict[str, str]:
     content = skill_md.read_text(encoding="utf-8")
     meta = parse_frontmatter(content)
 
-    missing = [field for field in ("name", "version", "description") if not meta.get(field)]
+    version = extract_version(meta)
+    missing: list[str] = []
+    if not meta.get("name"):
+        missing.append("name")
+    if not version:
+        missing.append("metadata.version")
+    if not meta.get("description"):
+        missing.append("description")
     if missing:
         raise ValueError(f"SKILL.md missing required fields: {', '.join(missing)}")
 
-    validate_version(meta["version"])
+    assert version is not None
+    validate_version(version)
+    meta["_resolved_version"] = version
 
     return meta
 
@@ -78,7 +99,7 @@ def collect_files(skill_dir: Path) -> tuple[list[Path], list[Path]]:
 def package_skill(skill_dir: Path, output_dir: Path) -> Path:
     meta = validate_frontmatter(skill_dir)
     skill_name: str = meta["name"]
-    skill_version: str = meta["version"]
+    skill_version: str = meta["_resolved_version"]
     archive_name = f"{skill_name}-{skill_version}.skill"
     output_path = output_dir / archive_name
 
