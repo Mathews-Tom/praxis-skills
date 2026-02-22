@@ -1,6 +1,5 @@
 ---
 name: github
-version: 1.0.0
 description: >
   GitHub CLI operations via `gh` for issues, pull requests, CI/Actions, releases, repos, search,
   gists, and the REST/GraphQL API. Structured output with `--json` and `--jq` for parsing.
@@ -13,6 +12,8 @@ description: >
   "why did CI fail", "check CI status", "merge a PR", "manage releases",
   "query the GitHub API", "search repositories", "triage workflows",
   "automate GitHub operations". Also triggers when the user pastes a GitHub URL.
+metadata:
+  version: 1.0.0
 ---
 
 # GitHub

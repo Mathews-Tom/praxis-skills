@@ -1,6 +1,5 @@
 ---
 name: manuscript-provenance
-version: 1.0.0
 description: >
   Computational provenance audit verifying that every number, table, figure,
   ordering, and terminology in a manuscript is derived from code and scripts —
@@ -12,6 +11,8 @@ description: >
   "audit my pipeline", "are my numbers from code", "check manuscript against
   scripts", "provenance audit", or any request to verify that manuscript
   content traces back to computational outputs.
+metadata:
+  version: 1.0.0
 ---
 
 # Manuscript Provenance Audit

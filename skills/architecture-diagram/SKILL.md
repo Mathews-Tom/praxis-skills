@@ -1,7 +1,8 @@
 ---
 name: architecture-diagram
-version: 1.0.0
 description: Generate detailed layered architecture diagrams as self-contained HTML artifacts with inline SVG icons, CSS Grid nested container layout, SVG path connection overlays, and color-coded connection legends. Use when the user asks to create architecture diagrams, infrastructure diagrams, system topology diagrams, network diagrams, cloud architecture visuals, deployment diagrams, integration flow diagrams, or any request involving visual representation of system components, their containment hierarchy, and interconnections. Triggers on terms like "architecture diagram", "infra diagram", "system diagram", "topology", "deployment diagram", "network diagram", "integration architecture", or when the user provides a system description and asks for a visual/diagram.
+metadata:
+  version: 1.0.0
 ---
 
 # Architecture Diagram Generator

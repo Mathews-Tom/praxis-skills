@@ -1,6 +1,5 @@
 ---
 name: md-to-pdf
-version: 1.0.0
 description: >
   Convert Markdown files to professionally styled PDF documents with full support for Mermaid diagrams,
   LaTeX/KaTeX math equations, tables, syntax-highlighted code blocks, and all standard Markdown features.
@@ -11,6 +10,8 @@ description: >
   "generate a pdf report", "how do I export markdown as PDF", "convert my notes to PDF",
   "can you make a PDF from this markdown".
 license: MIT. See LICENSE.txt for complete terms.
+metadata:
+  version: 1.0.0
 ---
 
 # Markdown to PDF Converter

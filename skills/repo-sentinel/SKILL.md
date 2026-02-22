@@ -1,6 +1,5 @@
 ---
 name: repo-sentinel
-version: 1.0.0
 description: >
   Full security audit and enforcement for public repositories across 12 attack surfaces: git
   history, source code, docs, config, .gitignore recon, CI/CD, containers, dependencies, binaries,
@@ -13,6 +12,8 @@ description: >
   secret leaks, credential rotation, .claude/ tracking, repo hygiene, security scanning, or
   is this safe to push, pre-oss, open source readiness, release audit, or open source audit.
   This is the gatekeeper between internal and public.
+metadata:
+  version: 1.0.0
 ---
 
 # Repo Sentinel

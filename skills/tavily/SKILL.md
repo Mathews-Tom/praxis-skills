@@ -1,6 +1,5 @@
 ---
 name: tavily
-version: 1.0.0
 description: >
   AI-optimized web search and content extraction via Tavily API. Use this skill when you need
   to search the web for current information, recent events, technical documentation, news, or
@@ -10,6 +9,8 @@ description: >
   "extract page content", "get article text", "scrape URL". Tavily returns clean, AI-ready
   snippets — prefer it over raw web fetch for search queries. Use extract for full page content
   when a specific URL is already known.
+metadata:
+  version: 1.0.0
 ---
 
 # Tavily Search

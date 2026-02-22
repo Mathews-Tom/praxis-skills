@@ -1,6 +1,5 @@
 ---
 name: skill-evaluator
-version: 1.0.0
 description: >
   Evaluate Claude Code skill quality across 6 weighted dimensions: frontmatter quality,
   trigger coverage, structural completeness, content depth, consistency and integrity,
@@ -13,6 +12,8 @@ description: >
   "how good is this skill", or when a user asks for feedback on a SKILL.md file. Use this
   skill when reviewing skills before deployment, comparing skill quality across a repo,
   or diagnosing why a skill fails to activate on relevant queries.
+metadata:
+  version: 1.0.0
 ---
 
 # Skill Evaluator
