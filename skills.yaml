@@ -67,6 +67,16 @@ skills:
     "condense this", "technical summary", "strip the fluff", or "reformat this spec". See assets/template.md for the standard
     output structure.
   path: skills/doc-condenser
+- name: filesystem
+  version: 1.0.0
+  description: 'File and directory operations using Claude Code built-in tools — replaces the Filesystem MCP server. Maps
+    all 11 MCP tools to native equivalents: Read, Write, Edit, Glob, Grep, and Bash. Covers file reading with line ranges,
+    parallel reads, pattern-based file search, regex content search, directory listing, tree traversal, move/copy/rename,
+    and metadata inspection. Trigger phrases: "read this file", "write to file", "create a file", "edit file", "find files
+    matching", "search for text in files", "list directory", "show directory tree", "move file", "rename file", "copy file",
+    "file info", "find all Python files", "search codebase for". Use this skill when performing file operations, navigating
+    codebases, or managing directories.'
+  path: skills/filesystem
 - name: github
   version: 1.0.0
   description: 'GitHub CLI operations via `gh` for issues, pull requests, CI/Actions, releases, repos, search, gists, and
@@ -195,3 +205,13 @@ skills:
     page content", "get article text", "scrape URL". Tavily returns clean, AI-ready snippets — prefer it over raw web fetch
     for search queries. Use extract for full page content when a specific URL is already known.'
   path: skills/tavily
+- name: web-fetch
+  version: 1.0.0
+  description: 'Web content fetching and URL retrieval via curl and WebFetch — replaces the Fetch MCP server (fetch_html,
+    fetch_json, fetch_markdown, fetch_txt). Covers HTTP GET/POST requests, JSON API consumption with jq, HTML retrieval, markdown
+    conversion, plain text extraction, authenticated requests, redirects, cookies, and timeouts. Trigger phrases: "fetch this
+    URL", "get the page content", "download HTML", "call this API", "curl this endpoint", "grab the JSON", "fetch markdown
+    from", "retrieve web content", "hit this endpoint", "scrape this page", "read this URL", "pull data from API", "make an
+    HTTP request". Use this skill when the user provides a URL and wants its content, when consuming REST APIs, or when extracting
+    readable content from web pages.'
+  path: skills/web-fetch

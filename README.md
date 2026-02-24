@@ -1,6 +1,6 @@
 # praxis-skills
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 20](https://img.shields.io/badge/skills-20-informational)](skills/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 22](https://img.shields.io/badge/skills-22-informational)](skills/)
 
 Curated, production-grade skills for AI coding agents. No magic, no demos — battle-tested workflows built for developers who use AI seriously.
 
@@ -24,9 +24,11 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | [agent-builder](skills/agent-builder/) | Build AI agents using the Claude Agent SDK and headless CLI mode — covers tool definitions, MCP servers, and programmatic orchestration    |
 | [github](skills/github/)               | GitHub CLI operations via `gh` — issues, PRs, CI/Actions, releases, search, REST/GraphQL API, with error handling and automation workflows |
-| [mcp-to-skill](skills/mcp-to-skill/)   | Convert MCP servers into on-demand skills to reduce active context window token usage                                                      |
+| [filesystem](skills/filesystem/)       | File and directory operations via Claude Code built-in tools — replaces the Filesystem MCP server with native Read, Write, Edit, Glob, Grep |
+| [mcp-to-skill](skills/mcp-to-skill/)   | Convert MCP servers into on-demand skills to reduce active context window token usage                                                       |
 | [gpu-optimizer](skills/gpu-optimizer/) | GPU optimization for consumer GPUs (8-24GB VRAM) — PyTorch, XGBoost, CuPy/RAPIDS, memory management, and CUDA tuning                       |
-| [tavily](skills/tavily/)               | AI-optimized web search and content extraction via Tavily API with structured output parsing                                               |
+| [tavily](skills/tavily/)               | AI-optimized web search and content extraction via Tavily API with structured output parsing                                                |
+| [web-fetch](skills/web-fetch/)         | Web content fetching via curl and WebFetch — replaces the Fetch MCP server with native HTTP operations and jq parsing                       |
 
 ### Review & Quality
 
