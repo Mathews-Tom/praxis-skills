@@ -2,6 +2,8 @@ name: Package Skills
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
 
@@ -40,9 +42,29 @@ jobs:
             fi
           done
 
-      - name: Create GitHub Release
+      - name: Create versioned release
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
         with:
+          files: dist/*.skill
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update latest release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        with:
+          tag_name: latest
+          name: Latest Skills (rolling)
+          body: |
+            Rolling release — automatically updated on every push to `main`.
+
+            Contains the latest packaged `.skill` files from the repository.
+            For stable releases, use a versioned tag (e.g., `v1.0.0`).
+
+            **Last updated:** ${{ github.sha }}
+          prerelease: true
+          make_latest: false
           files: dist/*.skill
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
