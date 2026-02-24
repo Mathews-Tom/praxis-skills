@@ -1,6 +1,6 @@
 # praxis-skills
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 18](https://img.shields.io/badge/skills-18-informational)](skills/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 19](https://img.shields.io/badge/skills-19-informational)](skills/)
 
 Curated, production-grade skills for AI coding agents. No magic, no demos — battle-tested workflows built for developers who use AI seriously.
 
@@ -44,6 +44,7 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | [architecture-diagram](skills/architecture-diagram/)                 | Layered architecture diagrams as self-contained HTML with inline SVG icons and CSS Grid layout                   |
 | [concept-to-image](skills/concept-to-image/)                         | Turn concepts into polished HTML visuals, export as PNG or SVG                                                   |
+| [concept-to-video](skills/concept-to-video/)                         | Turn concepts into animated explainer videos using Manim — MP4/GIF output with iterative preview                 |
 | [html-presentation](skills/html-presentation/)                       | Convert documents and outlines into self-contained HTML slide presentations                                      |
 | [static-web-artifacts-builder](skills/static-web-artifacts-builder/) | Self-contained interactive HTML artifacts — infographics, dashboards, diagrams                                   |
 | [md-to-pdf](skills/md-to-pdf/)                                       | Markdown to styled PDF with Mermaid diagrams, KaTeX math, and syntax highlighting                                |
