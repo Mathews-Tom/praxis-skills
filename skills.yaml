@@ -39,6 +39,16 @@ skills:
     of", "make a visual", "design a graphic", "export as PNG", "save as SVG", "concept to image", "turn this into an image",
     "screenshot this HTML", "generate an infographic", or any request combining a concept description with image output.'
   path: skills/concept-to-image
+- name: concept-to-video
+  version: 1.0.0
+  description: 'Turn any concept into an animated explainer video using Manim (Python). Use whenever the user wants animated
+    visualizations, motion graphics, or video output (MP4/GIF) for technical concepts. Covers: architecture animations, data
+    flow visualizations, algorithm step-throughs, pipeline explainers, math proofs, comparisons, agent interactions, training
+    loops, or any "animate X" / "make a video of X" request. Also trigger for existing Manim scene edits or re-renders. Trigger
+    on: "create a video", "animate this", "make an explainer", "concept to video", "manim animation", "show this as a video",
+    "motion graphic", "visualize this process", or any concept + video/animation output request. Use this skill even for casual
+    "animate" requests about technical ideas.'
+  path: skills/concept-to-video
 - name: doc-condenser
   version: 1.0.0
   description: Transform verbose technical documentation into concise, scannable specs. Use this skill when you need to condense,
