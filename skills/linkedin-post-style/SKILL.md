@@ -148,6 +148,50 @@ When the user provides raw content, notes, or an existing draft:
 10. **Rhythm check**: Read aloud. Long/short alternation? Does it breathe?
 11. **Anti-pattern sweep**: Zero violations against the hard blocks list.
 
+## Visual Companion
+
+Posts pair with visuals when the content warrants it. Three tiers, in order of default preference:
+
+### Tier 1: `md-to-pdf` (default for technical/architecture posts)
+
+Write each act as a Markdown section with Mermaid diagram blocks where applicable. Render to PDF, upload as a LinkedIn document carousel.
+
+Carousel is the highest-engagement LinkedIn format (~6.6% vs ~4% text-only). The 5-act structure maps directly to 5 PDF pages.
+
+Execution:
+- One act per page. Use explicit page breaks (`<div style="page-break-after: always;"></div>`) between acts.
+- Include Mermaid blocks (`flowchart`, `sequenceDiagram`, `stateDiagram-v2`) for Acts 2–4 where the content is structural.
+- Use `--css` with a LinkedIn-optimized carousel stylesheet: square page size (1080×1080px), large fonts (minimum 24px body, 48px headings) for mobile legibility, high-contrast background.
+- Invoke the `md-to-pdf` skill for rendering.
+
+### Tier 2: `concept-to-image` (custom visuals/data viz)
+
+When the visual needs bespoke HTML/CSS/SVG design beyond what Markdown can express. Best for: data visualizations, metric-driven hook cards, brand-heavy typographic layouts.
+
+Output dimensions: 1200×630 (link preview) or 1080×1080 (square post image).
+
+Invoke the `concept-to-image` skill for rendering.
+
+### Tier 3: `concept-to-video` (temporal subjects only)
+
+Animation via Manim, restricted to concepts inherently about change over time: agent behavior traces, before/after transformations, process evolution.
+
+Video reach is declining on LinkedIn. Use only when static formats cannot convey the temporal dimension.
+
+Invoke the `concept-to-video` skill for rendering.
+
+### Carousel Adaptation (5-Act → 5 Slides)
+
+When using Tier 1, map the 5-act structure to slides:
+
+| Slide | Act               | Visual Treatment                                                              |
+| ----- | ----------------- | ----------------------------------------------------------------------------- |
+| 1     | Hook              | Metric or fact as bold typographic card. No diagrams.                         |
+| 2     | Legend            | Visual decoder — diagram key, orientation, symbol mapping.                    |
+| 3     | Credibility Spike | Dense technical pipeline as Mermaid flowchart. Maximum information density.   |
+| 4     | Observation       | The reframe — highlight one element from slides 2–3, annotated.              |
+| 5     | Meaning           | Staccato text on clean background. No diagram. White space is the visual.     |
+
 ## Length
 
 150–300 words. The author does not pad. If the content is 120 words, it's 120 words.
@@ -164,6 +208,8 @@ Baseline LinkedIn engagement rates by format: text-only ~4%, text+image ~4.85%, 
 - Applies to tech and developer topics only; does not handle business, personal branding, or non-technical subject matter.
 - Does not generate engagement-bait, clickbait, or follower-growth tactics — those patterns are blocked by design.
 - Posts are 150–200 words in practice; cannot produce long-form LinkedIn articles (1,000+ words) in this voice without structural breakdown.
+- Carousel and document posts require companion skills (`md-to-pdf`, `concept-to-image`). The base skill produces text and post structure only.
+- Video companion requires `concept-to-video` and is restricted to temporal subjects.
 
 ---
 
