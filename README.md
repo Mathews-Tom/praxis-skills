@@ -1,6 +1,6 @@
 # praxis-skills
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 23](https://img.shields.io/badge/skills-23-informational)](skills/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 37](https://img.shields.io/badge/skills-37-informational)](skills/)
 
 Curated, production-grade skills for AI coding agents. No magic, no demos — battle-tested workflows built for developers who use AI seriously.
 
@@ -28,6 +28,8 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 | [mcp-to-skill](skills/mcp-to-skill/)   | Convert MCP servers into on-demand skills to reduce active context window token usage                                                       |
 | [gpu-optimizer](skills/gpu-optimizer/) | GPU optimization for consumer GPUs (8-24GB VRAM) — PyTorch, XGBoost, CuPy/RAPIDS, memory management, and CUDA tuning                       |
 | [tavily](skills/tavily/)               | AI-optimized web search and content extraction via Tavily API with structured output parsing                                                |
+| [test-harness](skills/test-harness/)   | Comprehensive pytest suite generation — happy path, edge cases, error conditions, fixtures, mocks, async, parametrized tests                |
+| [debug-investigator](skills/debug-investigator/) | Systematic debugging framework — hypothesis-driven investigation with bisection, log analysis, instrumentation, and minimal reproduction |
 | [web-fetch](skills/web-fetch/)         | Web content fetching via curl and WebFetch — replaces the Fetch MCP server with native HTTP operations and jq parsing                       |
 
 ### Review & Quality
@@ -41,6 +43,7 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 | [manuscript-provenance](skills/manuscript-provenance/) | Computational provenance audit verifying every number, table, and figure in a manuscript traces back to code                                       |
 | [repo-sentinel](skills/repo-sentinel/)                 | Security audit and enforcement for public repos — 12 attack surfaces, pre-release readiness, history scrubbing, CI gates                           |
 | [skill-evaluator](skills/skill-evaluator/)             | Evaluate skill quality across 6 weighted dimensions — frontmatter, triggers, structure, depth, consistency, compliance                             |
+| [dependency-audit](skills/dependency-audit/)           | Dependency risk assessment — license compliance, maintenance health scoring, CVE detection, bloat identification, supply chain analysis            |
 
 ### Visualization & Documents
 
@@ -53,6 +56,32 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 | [static-web-artifacts-builder](skills/static-web-artifacts-builder/) | Self-contained interactive HTML artifacts — infographics, dashboards, diagrams                                   |
 | [md-to-pdf](skills/md-to-pdf/)                                       | Markdown to styled PDF with Mermaid diagrams, KaTeX math, and syntax highlighting                                |
 | [doc-condenser](skills/doc-condenser/)                               | Transform verbose technical documentation into concise, scannable specs with KEEP/CONDENSE/REMOVE classification |
+
+### Documentation & Release
+
+| Skill                                              | Description                                                                                                               |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| [changelog-composer](skills/changelog-composer/)   | Structured changelogs from git history — conventional commit parsing, audience filtering, breaking change detection        |
+| [adr-writer](skills/adr-writer/)                   | Architecture Decision Records — context capture, alternatives analysis, consequence projection, status lifecycle           |
+| [api-docs-generator](skills/api-docs-generator/)   | API documentation audit and enhancement — FastAPI docstrings, Pydantic examples, OpenAPI spec enrichment, coverage reports |
+
+### Backend & Data
+
+| Skill                                                          | Description                                                                                              |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| [sql-optimizer](skills/sql-optimizer/)                         | SQL performance analysis — EXPLAIN interpretation, anti-pattern detection, index recommendations, rewrites |
+| [regex-builder](skills/regex-builder/)                         | Regex pattern generation from examples — component explanations, edge-case tests, Python + JS output      |
+| [migration-risk-analyzer](skills/migration-risk-analyzer/)     | Database migration risk assessment — lock analysis, downtime estimation, rollback strategies, validation   |
+| [benchmark-runner](skills/benchmark-runner/)                   | Structured benchmark design — metric selection, test case matrix, environment capture, statistical rigor   |
+
+### AI/ML & Planning
+
+| Skill                                                    | Description                                                                                            |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [prompt-lab](skills/prompt-lab/)                         | Systematic prompt engineering — variant generation, evaluation rubrics, failure mode analysis, test suites |
+| [rag-auditor](skills/rag-auditor/)                       | RAG pipeline evaluation — retrieval metrics, generation quality, failure taxonomy, diagnostic queries     |
+| [task-decomposer](skills/task-decomposer/)               | Feature decomposition — phased task breakdown, dependency mapping, edge case enumeration, sizing          |
+| [estimate-calibrator](skills/estimate-calibrator/)       | Calibrated three-point estimates — PERT ranges, unknown identification, confidence intervals, bias correction |
 
 ### Writing & Reasoning
 
