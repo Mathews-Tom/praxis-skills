@@ -1,8 +1,17 @@
 ---
 name: linkedin-post-style
-description: Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored, and precise. Use this skill whenever the user asks to write, draft, rewrite, or edit a LinkedIn post, social media post, tech commentary, or any public-facing short-form writing about technology, AI, software engineering, or developer tools. Also trigger when the user says "write this in my style", "post about this", "rewrite this for LinkedIn", "draft a post in my style", or provides raw content/notes and wants it shaped into a post.
+description: >
+  Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored,
+  and precise. Use this skill whenever the user asks to write, draft, rewrite, review, improve, or
+  refine a LinkedIn post, social media post, tech commentary, or any public-facing short-form writing
+  about technology, AI, software engineering, or developer tools. Also trigger when the user says
+  "write this in my style", "post about this", "rewrite this for LinkedIn", "draft a post in my style",
+  "does this sound right", "how should I phrase this", or provides raw content/notes and wants it shaped
+  into a post. Includes visual companion guidance for pairing posts with document carousels (via
+  md-to-pdf with Mermaid diagrams), custom images (via concept-to-image), or animations (via
+  concept-to-video).
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # LinkedIn Post Style Guide
@@ -28,6 +37,7 @@ Posts follow a 5-act structure. Not rigidly, but as gravitational pull:
 1. **Hook** — Specific metric + compressed timeframe. No adjective, no opinion. Just the fact.
    - "This is what 3,982 commits in 14 days looks like."
    - "Anthropic just announced Opus 4.6 and published a piece about it building a C compiler from scratch."
+   - Target 150–210 characters for the hook sentence. LinkedIn mobile truncates at this point with a "See more" fold. Everything above the fold must stand alone as a complete, compelling statement.
 
 2. **Legend** — Orient the reader. Visual or contextual decoder. Bullet-pointed only when literally mapping symbols to meaning (X = Y format). Terse.
 
@@ -47,6 +57,8 @@ Two modes for first person, depending on post type:
 - **Experience posts** (evaluating something the author uses): First person deployed early when personal experience is the credibility basis. "I use Claude Code daily" establishes authority. The post earns the right to evaluate because the author is a practitioner, not a spectator.
 
 Default to the withholding pattern. Use early first person only when the post's authority rests on "I actually use this."
+
+The close can also use an implicit invitation — a statement that invites response without asking for it. "I'm curious whether that holds outside compiler projects." This is not a CTA. It surfaces genuine uncertainty. Avoid degraded forms: "What do you think?", "Agree?", "Thoughts?" remain hard-blocked.
 
 ## Sentence Mechanics
 
@@ -102,6 +114,7 @@ Rules:
 
 - Links, tools, credits, attribution go in a follow-up comment. Never the post body.
 - The comment is bibliography; the post is narrative.
+- 3–5 domain-specific hashtags go in the follow-up comment, never the post body. Maintains voice purity while improving discoverability.
 
 ## Anti-Patterns (Hard Blocks)
 
@@ -144,9 +157,67 @@ When the user provides raw content, notes, or an existing draft:
 10. **Rhythm check**: Read aloud. Long/short alternation? Does it breathe?
 11. **Anti-pattern sweep**: Zero violations against the hard blocks list.
 
+## Edge Cases
+
+| Situation | Resolution |
+| --------- | ---------- |
+| No metric available for Hook | Use a declarative framing statement instead — a specific claim or event, not a number. "Anthropic just announced Opus 4.6" works without a metric. |
+| Source material too thin for 5 acts | Collapse to 3 acts: Hook, Observation, Meaning. Do not pad. |
+| User draft has multiple anti-pattern violations | Prioritize removal: superlatives first, then CTAs/audience questions, then formatting (emoji, hashtags, exclamation marks). Rewrite in passes, not all at once. |
+| Content is an experience/review, not an observation | Switch to early first-person mode (see "For Me" Move). The 5-act structure still applies but the Reporter voice carries personal authority from the start. |
+| Post exceeds 300 words after drafting | Run the cut pass again. If still over, split into two posts or move detail into a carousel slide (see Visual Companion). |
+
+## Visual Companion
+
+Posts pair with visuals when the content warrants it. Three tiers, in order of default preference:
+
+### Tier 1: `md-to-pdf` (default for technical/architecture posts)
+
+Write each act as a Markdown section with Mermaid diagram blocks where applicable. Render to PDF, upload as a LinkedIn document carousel.
+
+Carousel is the highest-engagement LinkedIn format (~6.6% vs ~4% text-only). The 5-act structure maps directly to 5 PDF pages.
+
+Execution:
+- One act per page. Use explicit page breaks (`<div style="page-break-after: always;"></div>`) between acts.
+- Include Mermaid blocks (`flowchart`, `sequenceDiagram`, `stateDiagram-v2`) for Acts 2–4 where the content is structural.
+- Use `--css` with a LinkedIn-optimized carousel stylesheet: square page size (1080×1080px), large fonts (minimum 24px body, 48px headings) for mobile legibility, high-contrast background.
+- Invoke the `md-to-pdf` skill for rendering.
+
+### Tier 2: `concept-to-image` (custom visuals/data viz)
+
+When the visual needs bespoke HTML/CSS/SVG design beyond what Markdown can express. Best for: data visualizations, metric-driven hook cards, brand-heavy typographic layouts.
+
+Output dimensions: 1200×630 (link preview) or 1080×1080 (square post image).
+
+Invoke the `concept-to-image` skill for rendering.
+
+### Tier 3: `concept-to-video` (temporal subjects only)
+
+Animation via Manim, restricted to concepts inherently about change over time: agent behavior traces, before/after transformations, process evolution.
+
+Video reach is declining on LinkedIn. Use only when static formats cannot convey the temporal dimension.
+
+Invoke the `concept-to-video` skill for rendering.
+
+### Carousel Adaptation (5-Act → 5 Slides)
+
+When using Tier 1, map the 5-act structure to slides:
+
+| Slide | Act               | Visual Treatment                                                              |
+| ----- | ----------------- | ----------------------------------------------------------------------------- |
+| 1     | Hook              | Metric or fact as bold typographic card. No diagrams.                         |
+| 2     | Legend            | Visual decoder — diagram key, orientation, symbol mapping.                    |
+| 3     | Credibility Spike | Dense technical pipeline as Mermaid flowchart. Maximum information density.   |
+| 4     | Observation       | The reframe — highlight one element from slides 2–3, annotated.              |
+| 5     | Meaning           | Staccato text on clean background. No diagram. White space is the visual.     |
+
 ## Length
 
 150–300 words. The author does not pad. If the content is 120 words, it's 120 words.
+
+## Format Engagement Context
+
+Baseline LinkedIn engagement rates by format: text-only ~4%, text+image ~4.85%, document/carousel ~6.6%. These numbers inform format selection, not content quality. A well-written text post outperforms a mediocre carousel.
 
 ---
 
@@ -156,6 +227,8 @@ When the user provides raw content, notes, or an existing draft:
 - Applies to tech and developer topics only; does not handle business, personal branding, or non-technical subject matter.
 - Does not generate engagement-bait, clickbait, or follower-growth tactics — those patterns are blocked by design.
 - Posts are 150–200 words in practice; cannot produce long-form LinkedIn articles (1,000+ words) in this voice without structural breakdown.
+- Carousel and document posts require companion skills (`md-to-pdf`, `concept-to-image`). The base skill produces text and post structure only.
+- Video companion requires `concept-to-video` and is restricted to temporal subjects.
 
 ---
 
