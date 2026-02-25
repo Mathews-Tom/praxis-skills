@@ -87,7 +87,7 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 
 | Skill                                              | Description                                                                                         |
 | -------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| [linkedin-post-style](skills/linkedin-post-style/) | Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored |
+| [linkedin-post-style](skills/linkedin-post-style/) | Write LinkedIn posts in a specific technical voice with visual companion support — carousels via md-to-pdf, images via concept-to-image, video via concept-to-video |
 | [sequential-thinking](skills/sequential-thinking/) | Structured chain-of-thought reasoning with revision, branching, and scope tracking                  |
 
 ---
