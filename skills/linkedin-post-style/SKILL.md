@@ -1,8 +1,17 @@
 ---
 name: linkedin-post-style
-description: Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored, and precise. Use this skill whenever the user asks to write, draft, rewrite, or edit a LinkedIn post, social media post, tech commentary, or any public-facing short-form writing about technology, AI, software engineering, or developer tools. Also trigger when the user says "write this in my style", "post about this", "rewrite this for LinkedIn", "draft a post in my style", or provides raw content/notes and wants it shaped into a post.
+description: >
+  Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored,
+  and precise. Use this skill whenever the user asks to write, draft, rewrite, review, improve, or
+  refine a LinkedIn post, social media post, tech commentary, or any public-facing short-form writing
+  about technology, AI, software engineering, or developer tools. Also trigger when the user says
+  "write this in my style", "post about this", "rewrite this for LinkedIn", "draft a post in my style",
+  "does this sound right", "how should I phrase this", or provides raw content/notes and wants it shaped
+  into a post. Includes visual companion guidance for pairing posts with document carousels (via
+  md-to-pdf with Mermaid diagrams), custom images (via concept-to-image), or animations (via
+  concept-to-video).
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # LinkedIn Post Style Guide
@@ -147,6 +156,16 @@ When the user provides raw content, notes, or an existing draft:
 9. **Cut pass**: Remove every sentence that doesn't earn its place. If removing it doesn't hurt, remove it.
 10. **Rhythm check**: Read aloud. Long/short alternation? Does it breathe?
 11. **Anti-pattern sweep**: Zero violations against the hard blocks list.
+
+## Edge Cases
+
+| Situation | Resolution |
+| --------- | ---------- |
+| No metric available for Hook | Use a declarative framing statement instead — a specific claim or event, not a number. "Anthropic just announced Opus 4.6" works without a metric. |
+| Source material too thin for 5 acts | Collapse to 3 acts: Hook, Observation, Meaning. Do not pad. |
+| User draft has multiple anti-pattern violations | Prioritize removal: superlatives first, then CTAs/audience questions, then formatting (emoji, hashtags, exclamation marks). Rewrite in passes, not all at once. |
+| Content is an experience/review, not an observation | Switch to early first-person mode (see "For Me" Move). The 5-act structure still applies but the Reporter voice carries personal authority from the start. |
+| Post exceeds 300 words after drafting | Run the cut pass again. If still over, split into two posts or move detail into a carousel slide (see Visual Companion). |
 
 ## Visual Companion
 
