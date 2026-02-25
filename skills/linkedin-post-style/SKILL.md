@@ -28,6 +28,7 @@ Posts follow a 5-act structure. Not rigidly, but as gravitational pull:
 1. **Hook** — Specific metric + compressed timeframe. No adjective, no opinion. Just the fact.
    - "This is what 3,982 commits in 14 days looks like."
    - "Anthropic just announced Opus 4.6 and published a piece about it building a C compiler from scratch."
+   - Target 150–210 characters for the hook sentence. LinkedIn mobile truncates at this point with a "See more" fold. Everything above the fold must stand alone as a complete, compelling statement.
 
 2. **Legend** — Orient the reader. Visual or contextual decoder. Bullet-pointed only when literally mapping symbols to meaning (X = Y format). Terse.
 
@@ -47,6 +48,8 @@ Two modes for first person, depending on post type:
 - **Experience posts** (evaluating something the author uses): First person deployed early when personal experience is the credibility basis. "I use Claude Code daily" establishes authority. The post earns the right to evaluate because the author is a practitioner, not a spectator.
 
 Default to the withholding pattern. Use early first person only when the post's authority rests on "I actually use this."
+
+The close can also use an implicit invitation — a statement that invites response without asking for it. "I'm curious whether that holds outside compiler projects." This is not a CTA. It surfaces genuine uncertainty. Avoid degraded forms: "What do you think?", "Agree?", "Thoughts?" remain hard-blocked.
 
 ## Sentence Mechanics
 
@@ -102,6 +105,7 @@ Rules:
 
 - Links, tools, credits, attribution go in a follow-up comment. Never the post body.
 - The comment is bibliography; the post is narrative.
+- 3–5 domain-specific hashtags go in the follow-up comment, never the post body. Maintains voice purity while improving discoverability.
 
 ## Anti-Patterns (Hard Blocks)
 
@@ -147,6 +151,10 @@ When the user provides raw content, notes, or an existing draft:
 ## Length
 
 150–300 words. The author does not pad. If the content is 120 words, it's 120 words.
+
+## Format Engagement Context
+
+Baseline LinkedIn engagement rates by format: text-only ~4%, text+image ~4.85%, document/carousel ~6.6%. These numbers inform format selection, not content quality. A well-written text post outperforms a mediocre carousel.
 
 ---
 
