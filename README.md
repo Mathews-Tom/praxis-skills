@@ -1,6 +1,6 @@
 # praxis-skills
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 37](https://img.shields.io/badge/skills-37-informational)](skills/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 38](https://img.shields.io/badge/skills-38-informational)](skills/)
 
 Curated, production-grade skills for AI coding agents. No magic, no demos — battle-tested workflows built for developers who use AI seriously.
 
@@ -31,6 +31,7 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 | [test-harness](skills/test-harness/)   | Comprehensive pytest suite generation — happy path, edge cases, error conditions, fixtures, mocks, async, parametrized tests                |
 | [debug-investigator](skills/debug-investigator/) | Systematic debugging framework — hypothesis-driven investigation with bisection, log analysis, instrumentation, and minimal reproduction |
 | [web-fetch](skills/web-fetch/)         | Web content fetching via curl and WebFetch — replaces the Fetch MCP server with native HTTP operations and jq parsing                       |
+| [youtube-analysis](skills/youtube-analysis/) | YouTube video transcript extraction and structured concept analysis — multi-level summaries, key concepts, takeaways, no API keys required |
 
 ### Review & Quality
 
