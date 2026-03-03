@@ -191,13 +191,16 @@ Output dimensions: 1200×630 (link preview) or 1080×1080 (square post image).
 
 Invoke the `concept-to-image` skill for rendering.
 
-### Tier 3: `concept-to-video` (temporal subjects only)
+### Tier 3: `concept-to-video` or `remotion-video` (temporal subjects only)
 
-Animation via Manim, restricted to concepts inherently about change over time: agent behavior traces, before/after transformations, process evolution.
+Animation restricted to concepts inherently about change over time: agent behavior traces, before/after transformations, process evolution.
 
 Video reach is declining on LinkedIn. Use only when static formats cannot convey the temporal dimension.
 
-Invoke the `concept-to-video` skill for rendering.
+- **`concept-to-video`** (Manim/Python) — algorithm visualizations, math concepts, technical step-throughs. Works headless.
+- **`remotion-video`** (React/Node.js) — branded motion graphics, product demos, data-driven video with audio sync and TailwindCSS styling.
+
+Invoke the matching video skill for rendering.
 
 ### Carousel Adaptation (5-Act → 5 Slides)
 
@@ -228,7 +231,7 @@ Baseline LinkedIn engagement rates by format: text-only ~4%, text+image ~4.85%, 
 - Does not generate engagement-bait, clickbait, or follower-growth tactics — those patterns are blocked by design.
 - Posts are 150–200 words in practice; cannot produce long-form LinkedIn articles (1,000+ words) in this voice without structural breakdown.
 - Carousel and document posts require companion skills (`md-to-pdf`, `concept-to-image`). The base skill produces text and post structure only.
-- Video companion requires `concept-to-video` and is restricted to temporal subjects.
+- Video companion requires `concept-to-video` or `remotion-video` and is restricted to temporal subjects.
 
 ---
 
