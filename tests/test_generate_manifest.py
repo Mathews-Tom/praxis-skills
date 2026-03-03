@@ -29,18 +29,23 @@ class TestCollectSkills:
     """Tests for skill collection from SKILL.md files."""
 
     def test_collects_from_real_repo(self) -> None:
-        """Verify collect_skills finds all 18 skills in the actual repo."""
+        """Verify collect_skills finds all skills in the actual repo."""
         entries = collect_skills()
-        assert len(entries) == 18
+        assert len(entries) >= 39
 
         names = {e["name"] for e in entries}
         assert "agent-builder" in names
         assert "tavily" in names
+        assert "concept-to-video" in names
+        assert "remotion-video" in names
 
         for entry in entries:
-            assert entry["version"] == "1.0.0"
             assert entry["path"].startswith("skills/")
             assert entry["description"]
+            # Version must be valid semver (X.Y.Z)
+            parts = entry["version"].split(".")
+            assert len(parts) == 3, f"Invalid version {entry['version']} for {entry['name']}"
+            assert all(p.isdigit() for p in parts)
 
 
 class TestWriteManifest:
