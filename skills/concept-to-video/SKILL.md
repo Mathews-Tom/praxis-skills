@@ -3,15 +3,16 @@ name: concept-to-video
 description: >
   Turn any concept into an animated explainer video using Manim (Python). Use whenever the user
   wants animated visualizations, motion graphics, or video output (MP4/GIF) for technical concepts.
-  Covers: architecture animations, data flow visualizations, algorithm step-throughs, pipeline
-  explainers, math proofs, comparisons, agent interactions, training loops, or any "animate X" /
-  "make a video of X" request. Also trigger for existing Manim scene edits or re-renders.
+  Covers: architecture animations, data flows, algorithm step-throughs, pipeline explainers,
+  math proofs, comparisons, agent interactions, training loops, image embedding, multi-scene
+  composition. Supports audio overlay via ffmpeg, parametric templates, and subtitles. Works
+  headless — no browser or Node.js required. Also trigger for Manim scene edits or re-renders.
   Trigger on: "create a video", "animate this", "make an explainer", "concept to video",
   "manim animation", "show this as a video", "motion graphic", "visualize this process",
-  or any concept + video/animation output request. Use this skill even for casual "animate"
-  requests about technical ideas.
+  "add voiceover to video", "animate with audio", or any concept + video/animation request.
+  For branded motion graphics or React-based video, use remotion-video instead.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Concept to Video
@@ -20,10 +21,28 @@ Creates animated explainer videos from concepts using Manim (Python) as a progra
 
 ## Reference Files
 
-| File                            | Purpose                                                                    |
-| ------------------------------- | -------------------------------------------------------------------------- |
-| `references/scene-patterns.md`  | Common scene patterns for different concept types with reusable templates  |
-| `scripts/render_video.py`       | Wrapper around Manim CLI — handles quality, format, output path cleanup    |
+| File                                          | Purpose                                                                 |
+| --------------------------------------------- | ----------------------------------------------------------------------- |
+| `references/rules/pipeline-flow.md`           | RAG, ETL, CI/CD — sequential stage animations with arrows               |
+| `references/rules/architecture-layers.md`     | System stacks, network layers, abstraction hierarchies                  |
+| `references/rules/algorithm-stepthrough.md`   | Sorting, search, graph traversal — stateful step-by-step animations     |
+| `references/rules/comparison.md`              | Side-by-side A vs B, before/after, trade-off visualizations             |
+| `references/rules/agent-interaction.md`       | Multi-agent message passing, distributed systems, pub/sub               |
+| `references/rules/math-concept.md`            | Equations, formulas, geometric proofs — LaTeX-free by default           |
+| `references/rules/training-loop.md`           | Gradient descent, RL loops, cyclic iterative processes                  |
+| `references/rules/transitions.md`             | Fade and wipe transitions between scene sections                        |
+| `references/rules/text-animation.md`          | Text replacement, progressive bullet reveal, callouts, emphasis         |
+| `references/rules/layout.md`                  | Canvas coordinates, VGroup arrangement, spacing guidelines              |
+| `references/rules/audio-overlay.md`           | ffmpeg audio overlay — background music, voiceover, multi-track mixing  |
+| `references/rules/voiceover-scaffold.md`      | Timing script generation, TTS handoff, narration best practices         |
+| `references/rules/images.md`                  | ImageMobject usage, logo/screenshot patterns, scaling and positioning   |
+| `references/rules/subtitles.md`               | SRT generation from scene timing, ffmpeg subtitle burning               |
+| `references/rules/multi-scene.md`             | Multiple Scene classes, ffmpeg concat, chapter-based composition        |
+| `references/templates/data_flow_template.py`  | Parametric pipeline/data flow animation (config-driven STAGES list)     |
+| `references/templates/comparison_template.py` | Parametric side-by-side comparison (config-driven LEFT/RIGHT items)     |
+| `references/templates/timeline_template.py`   | Parametric timeline animation (config-driven EVENTS list)               |
+| `scripts/render_video.py`                     | Wrapper around Manim CLI — handles quality, format, output path cleanup |
+| `scripts/add_audio.py`                        | ffmpeg wrapper — audio overlay, volume, fade-in/out, trim-to-video      |
 
 ## Why Manim as the engine
 
@@ -57,21 +76,40 @@ Verify with: `python3 -c "import manim; print(manim.__version__)"`
 
 ## Step 1: Interpret the concept
 
-Determine the best animation pattern. Read `references/scene-patterns.md` for detailed templates.
+Determine the best animation pattern, then read the matching rule file before writing any code.
 
-| User intent                     | Animation pattern            | Key Manim primitives                          |
-| ------------------------------- | ---------------------------- | --------------------------------------------- |
-| Explain a pipeline/flow         | Sequential flow animation    | Arrow, Rectangle, Text, AnimationGroup        |
-| Show architecture layers        | Layer build-up               | VGroup, Arrange, FadeIn with shift            |
-| Algorithm step-through          | State machine transitions    | Transform, ReplacementTransform, Indicate     |
-| Compare approaches              | Side-by-side morph           | Split screen VGroups, simultaneous animations |
-| Data transformation             | Object metamorphosis         | Transform chains, color transitions           |
-| Mathematical concept            | Equation + geometric proof   | MathTex, geometric shapes, Rotate, Scale      |
-| Agent/multi-system interaction  | Message passing animation    | Arrows between entities, Create/FadeOut       |
-| Training/optimization loop      | Iterative cycle animation    | Loop with Transform, ValueTracker, plots      |
-| Timeline/history                | Left-to-right progression    | NumberLine, sequential Indicate                |
+| User intent                      | Rule file to read                              | Key Manim primitives                          |
+| -------------------------------- | ---------------------------------------------- | --------------------------------------------- |
+| Explain a pipeline/flow          | `references/rules/pipeline-flow.md`            | Arrow, Rectangle, Text, AnimationGroup        |
+| Show architecture layers         | `references/rules/architecture-layers.md`      | VGroup, Arrange, FadeIn with shift            |
+| Algorithm step-through           | `references/rules/algorithm-stepthrough.md`    | Transform, ReplacementTransform, Indicate     |
+| Compare approaches               | `references/rules/comparison.md`               | Split screen VGroups, simultaneous animations |
+| Mathematical concept             | `references/rules/math-concept.md`             | MathTex, geometric shapes, Rotate, Scale      |
+| Agent/multi-system interaction   | `references/rules/agent-interaction.md`        | Arrows between entities, Create/FadeOut       |
+| Training/optimization loop       | `references/rules/training-loop.md`            | Loop with Transform, ValueTracker, plots      |
+| Timeline/history                 | `references/templates/timeline_template.py`    | NumberLine, sequential Indicate               |
+| Embed images or screenshots      | `references/rules/images.md`                   | ImageMobject, SVGMobject                      |
+| Add subtitles or captions        | `references/rules/subtitles.md`                | SRT generation, ffmpeg subtitle burn          |
+| Multiple distinct chapters       | `references/rules/multi-scene.md`              | Multiple Scene classes, ffmpeg concat         |
+| Add audio or voiceover           | `references/rules/audio-overlay.md`            | ffmpeg, scripts/add_audio.py                  |
+| Transition between sections      | `references/rules/transitions.md`              | FadeOut all, shift off-screen                 |
+| Text reveal, callouts, emphasis  | `references/rules/text-animation.md`           | ReplacementTransform, LaggedStart, Indicate   |
+| Positioning, spacing, layout     | `references/rules/layout.md`                   | next_to, arrange, to_edge, move_to            |
 
 ## Step 2: Design the Manim scene
+
+### Template-first vs from-scratch
+
+Check whether a parametric template covers the concept before writing a scene from scratch:
+
+| If the concept is...            | Start with template                                      |
+| ------------------------------- | -------------------------------------------------------- |
+| A linear pipeline (A→B→C→D)     | `references/templates/data_flow_template.py` — edit `STAGES` |
+| A two-option comparison         | `references/templates/comparison_template.py` — edit `LEFT_ITEMS`, `RIGHT_ITEMS` |
+| A chronological timeline        | `references/templates/timeline_template.py` — edit `EVENTS` |
+| Anything else                   | Write from scratch using the relevant rule file          |
+
+When using a template: copy it to the working directory, edit the config constants at the top, do not restructure the class.
 
 Core rules:
 
@@ -180,6 +218,25 @@ Present both:
 
 Copy the final video to `/mnt/user-data/outputs/` and present it.
 
+## Step 5.5: Optional audio overlay
+
+If the user provides audio (music or voiceover), or requests it:
+
+```bash
+# Background music at 25% volume with fade-in/out
+python3 scripts/add_audio.py final.mp4 music.mp3 \
+    --output final_with_audio.mp4 \
+    --volume 0.25 --fade-in 2 --fade-out 3 --trim-to-video
+
+# Voiceover at full volume, trimmed to video length
+python3 scripts/add_audio.py final.mp4 voiceover.mp3 \
+    --output final_narrated.mp4 --trim-to-video
+```
+
+For voiceover scripting before recording, read `references/rules/voiceover-scaffold.md`.
+For subtitles/captions, read `references/rules/subtitles.md`.
+For advanced multi-track mixing, read `references/rules/audio-overlay.md`.
+
 ## Error Handling
 
 | Error                          | Cause                                      | Resolution                                                |
@@ -205,11 +262,12 @@ If LaTeX is not available, avoid `MathTex` and `Tex`. Use `Text` with Unicode ma
 ## Limitations
 
 - **Manim + ffmpeg required** — cannot render without these dependencies.
-- **No audio support in this workflow** — Manim supports audio but adds complexity. Keep videos silent or add audio post-export.
+- **Audio is post-render only** — Manim renders silent MP4s. Use `scripts/add_audio.py` to overlay audio after export.
 - **LaTeX optional** — MathTex requires a LaTeX installation. Fall back to Text with Unicode for math.
 - **Render time scales with complexity** — a 30-second 1080p scene with many objects can take 1-2 minutes to render.
 - **3D scenes require OpenGL** — ThreeDScene may not work in headless containers. Stick to 2D Scene class.
 - **No interactivity** — output is a static video file, not an interactive widget.
+- **GIF output is silent** — audio overlay only works with MP4/WEBM output formats.
 
 ## Design anti-patterns to avoid
 
