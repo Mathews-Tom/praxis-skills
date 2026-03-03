@@ -83,14 +83,15 @@ skills:
     "screenshot this HTML", "generate an infographic", or any request combining a concept description with image output.'
   path: skills/concept-to-image
 - name: concept-to-video
-  version: 1.0.0
+  version: 1.1.0
   description: 'Turn any concept into an animated explainer video using Manim (Python). Use whenever the user wants animated
     visualizations, motion graphics, or video output (MP4/GIF) for technical concepts. Covers: architecture animations, data
-    flow visualizations, algorithm step-throughs, pipeline explainers, math proofs, comparisons, agent interactions, training
-    loops, or any "animate X" / "make a video of X" request. Also trigger for existing Manim scene edits or re-renders. Trigger
-    on: "create a video", "animate this", "make an explainer", "concept to video", "manim animation", "show this as a video",
-    "motion graphic", "visualize this process", or any concept + video/animation output request. Use this skill even for casual
-    "animate" requests about technical ideas.'
+    flows, algorithm step-throughs, pipeline explainers, math proofs, comparisons, agent interactions, training loops, image
+    embedding, multi-scene composition. Supports audio overlay via ffmpeg, parametric templates, and subtitles. Works headless
+    — no browser or Node.js required. Also trigger for Manim scene edits or re-renders. Trigger on: "create a video", "animate
+    this", "make an explainer", "concept to video", "manim animation", "show this as a video", "motion graphic", "visualize
+    this process", "add voiceover to video", "animate with audio", or any concept + video/animation request. For branded motion
+    graphics or React-based video, use remotion-video instead.'
   path: skills/concept-to-video
 - name: debug-investigator
   version: 1.0.0
@@ -260,6 +261,17 @@ skills:
     from", "build regex", "create pattern", "explain this regex", "what does this regex do", "regex to match", "parse with
     regex", "validate format". Use this skill when building, explaining, or testing a regular expression pattern.'
   path: skills/regex-builder
+- name: remotion-video
+  version: 1.0.0
+  description: 'Create production-grade motion graphics and videos using Remotion (React). Use whenever the user wants branded
+    video content, product demos, data-driven video generation, or motion graphics with audio sync, web fonts, TailwindCSS
+    styling, or media embedding. Covers: marketing videos, product launches, data visualizations, social media content, personalized
+    video at scale, explainer videos with voiceover, animated charts, 3D scenes via Three.js. Requires Node.js and Claude
+    Code environment. Trigger on: "create a Remotion video", "React video", "motion graphics", "branded video", "product demo
+    video", "remotion", "video with audio", "TailwindCSS video", "data-driven video generation", "personalized video at scale",
+    "video with voiceover". For mathematical animations, algorithm visualizations, or headless container rendering, use concept-to-video
+    (Manim) instead.'
+  path: skills/remotion-video
 - name: repo-sentinel
   version: 1.0.0
   description: 'Full security audit and enforcement for public repositories across 12 attack surfaces: git history, source
