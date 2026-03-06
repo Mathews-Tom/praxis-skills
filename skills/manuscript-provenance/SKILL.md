@@ -276,7 +276,7 @@ Classification:
 Produce the **macro manifest** — the primary handoff artifact to manuscript-review.
 For every data-carrying macro identified in Phase 1a and traced in Phase 2a:
 
-```
+```text
 Macro: \bestf
 Value: 0.847
 Source: results/metrics.json → scripts/generate_latex_macros.py → generated/metrics.tex
@@ -291,7 +291,7 @@ Also include every **bare number** (not a macro) found in Phase 1a that
 carries data (metrics, counts, parameters) — these are values that SHOULD
 be macros but aren't:
 
-```
+```text
 Bare value: 50
 Location: paper.tex:198 — "convergence after 50 epochs"
 Should-be-macro: YES — this is a training parameter, should trace to config
@@ -322,7 +322,7 @@ and note that the macro manifest is available for its Pass 13.
 
 Load `references/checklist.md` and `references/report-template.md`.
 
-```
+```text
 Read references/checklist.md
 Read references/report-template.md
 ```

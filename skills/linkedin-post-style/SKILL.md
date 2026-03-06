@@ -66,13 +66,13 @@ The close can also use an implicit invitation — a statement that invites respo
 
 The rhythm alternates between longer explanatory sentences that hold technical detail and short punchy fragments for emphasis:
 
-```
+```text
 Most agent demos show accumulation.
 Files go up, nothing comes down.
 This one shows iteration.
 ```
 
-```
+```text
 Use them.
 They're real and they're good.
 Just don't confuse the nail gun with the person holding it.
@@ -159,13 +159,13 @@ When the user provides raw content, notes, or an existing draft:
 
 ## Edge Cases
 
-| Situation | Resolution |
-| --------- | ---------- |
-| No metric available for Hook | Use a declarative framing statement instead — a specific claim or event, not a number. "Anthropic just announced Opus 4.6" works without a metric. |
-| Source material too thin for 5 acts | Collapse to 3 acts: Hook, Observation, Meaning. Do not pad. |
-| User draft has multiple anti-pattern violations | Prioritize removal: superlatives first, then CTAs/audience questions, then formatting (emoji, hashtags, exclamation marks). Rewrite in passes, not all at once. |
-| Content is an experience/review, not an observation | Switch to early first-person mode (see "For Me" Move). The 5-act structure still applies but the Reporter voice carries personal authority from the start. |
-| Post exceeds 300 words after drafting | Run the cut pass again. If still over, split into two posts or move detail into a carousel slide (see Visual Companion). |
+| Situation                                           | Resolution                                                                                                                                                      |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| No metric available for Hook                        | Use a declarative framing statement instead — a specific claim or event, not a number. "Anthropic just announced Opus 4.6" works without a metric.              |
+| Source material too thin for 5 acts                 | Collapse to 3 acts: Hook, Observation, Meaning. Do not pad.                                                                                                     |
+| User draft has multiple anti-pattern violations     | Prioritize removal: superlatives first, then CTAs/audience questions, then formatting (emoji, hashtags, exclamation marks). Rewrite in passes, not all at once. |
+| Content is an experience/review, not an observation | Switch to early first-person mode (see "For Me" Move). The 5-act structure still applies but the Reporter voice carries personal authority from the start.      |
+| Post exceeds 300 words after drafting               | Run the cut pass again. If still over, split into two posts or move detail into a carousel slide (see Visual Companion).                                        |
 
 ## Visual Companion
 
@@ -178,6 +178,7 @@ Write each act as a Markdown section with Mermaid diagram blocks where applicabl
 Carousel is the highest-engagement LinkedIn format (~6.6% vs ~4% text-only). The 5-act structure maps directly to 5 PDF pages.
 
 Execution:
+
 - One act per page. Use explicit page breaks (`<div style="page-break-after: always;"></div>`) between acts.
 - Include Mermaid blocks (`flowchart`, `sequenceDiagram`, `stateDiagram-v2`) for Acts 2–4 where the content is structural.
 - Use `--css` with a LinkedIn-optimized carousel stylesheet: square page size (1080×1080px), large fonts (minimum 24px body, 48px headings) for mobile legibility, high-contrast background.
@@ -206,13 +207,13 @@ Invoke the matching video skill for rendering.
 
 When using Tier 1, map the 5-act structure to slides:
 
-| Slide | Act               | Visual Treatment                                                              |
-| ----- | ----------------- | ----------------------------------------------------------------------------- |
-| 1     | Hook              | Metric or fact as bold typographic card. No diagrams.                         |
-| 2     | Legend            | Visual decoder — diagram key, orientation, symbol mapping.                    |
-| 3     | Credibility Spike | Dense technical pipeline as Mermaid flowchart. Maximum information density.   |
-| 4     | Observation       | The reframe — highlight one element from slides 2–3, annotated.              |
-| 5     | Meaning           | Staccato text on clean background. No diagram. White space is the visual.     |
+| Slide | Act               | Visual Treatment                                                            |
+| ----- | ----------------- | --------------------------------------------------------------------------- |
+| 1     | Hook              | Metric or fact as bold typographic card. No diagrams.                       |
+| 2     | Legend            | Visual decoder — diagram key, orientation, symbol mapping.                  |
+| 3     | Credibility Spike | Dense technical pipeline as Mermaid flowchart. Maximum information density. |
+| 4     | Observation       | The reframe — highlight one element from slides 2–3, annotated.             |
+| 5     | Meaning           | Staccato text on clean background. No diagram. White space is the visual.   |
 
 ## Length
 
@@ -241,7 +242,7 @@ These are the author's actual posts. Pattern-match against the writing, not just
 
 ### Example 1: Gource Visualization Post
 
-```
+```text
 This is what 3,982 commits in 14 days looks like.
 
 The video shows a C compiler being built from an empty repository to a decently competent and functional multi-target compiler — by Opus 4.6, working autonomously.
@@ -276,7 +277,7 @@ That's the interesting part for me.
 
 Comment:
 
-```
+```text
 https://www.anthropic.com/engineering/building-c-compiler
 ffmpeg and Gource to build the visual
 Inspiration from David Knickerbocker (for the graph) and Yan Holtz (for the lovely visualizations)
@@ -284,7 +285,7 @@ Inspiration from David Knickerbocker (for the graph) and Yan Holtz (for the love
 
 ### Example 2: AI Coding Tools Analysis Post
 
-```
+```text
 Anthropic just announced Opus 4.6 and published a piece about it building a C compiler from scratch. I use Claude Code daily.
 
 A C compiler is a solved problem. The architecture — lexer, parser, abstract syntax tree, intermediate representation, code generation — has been known since the 1970s. Every stage is documented in textbooks. The language specification is written down. Test suites exist to verify correctness.

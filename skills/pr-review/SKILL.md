@@ -24,13 +24,13 @@ findings.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|---|---|---|
-| `references/code-review.md` | Guideline compliance, bug detection, confidence scoring | Always |
-| `references/test-analysis.md` | Behavioral test coverage, criticality rating | Test files changed |
-| `references/error-handling.md` | Silent failure patterns, catch block analysis | Error handling changed |
-| `references/type-design.md` | Invariant analysis, 4-dimension rating rubric | Type definitions added/modified |
-| `references/comment-quality.md` | Comment accuracy, long-term value, rot detection | Comments/docstrings added |
+| File                            | Contents                                                | Load When                       |
+| ------------------------------- | ------------------------------------------------------- | ------------------------------- |
+| `references/code-review.md`     | Guideline compliance, bug detection, confidence scoring | Always                          |
+| `references/test-analysis.md`   | Behavioral test coverage, criticality rating            | Test files changed              |
+| `references/error-handling.md`  | Silent failure patterns, catch block analysis           | Error handling changed          |
+| `references/type-design.md`     | Invariant analysis, 4-dimension rating rubric           | Type definitions added/modified |
+| `references/comment-quality.md` | Comment accuracy, long-term value, rot detection        | Comments/docstrings added       |
 
 ---
 
@@ -49,13 +49,13 @@ findings.
 
 Classify changed files and select applicable dimensions:
 
-| Condition | Dimension | Reference to Load |
-|---|---|---|
-| Always | Code review | `references/code-review.md` |
-| Files matching `*test*`, `*spec*`, `*_test.*`, `test_*` | Test analysis | `references/test-analysis.md` |
-| Files containing try/catch, except, .catch, Result, error callbacks | Error handling | `references/error-handling.md` |
-| Files containing class, interface, type, struct, enum, dataclass definitions | Type design | `references/type-design.md` |
-| Files with new/modified docstrings, JSDoc, or block comments | Comment quality | `references/comment-quality.md` |
+| Condition                                                                    | Dimension       | Reference to Load               |
+| ---------------------------------------------------------------------------- | --------------- | ------------------------------- |
+| Always                                                                       | Code review     | `references/code-review.md`     |
+| Files matching `*test*`, `*spec*`, `*_test.*`, `test_*`                      | Test analysis   | `references/test-analysis.md`   |
+| Files containing try/catch, except, .catch, Result, error callbacks          | Error handling  | `references/error-handling.md`  |
+| Files containing class, interface, type, struct, enum, dataclass definitions | Type design     | `references/type-design.md`     |
+| Files with new/modified docstrings, JSDoc, or block comments                 | Comment quality | `references/comment-quality.md` |
 
 Load only the reference files that apply. Skip dimensions with no matching files.
 
@@ -78,25 +78,26 @@ For each applicable dimension, analyze the diff using the loaded methodology:
 Merge all findings into a single report, deduplicated and severity-ranked.
 
 **Deduplication rules:**
+
 - If two dimensions flag the same file:line, keep the higher-severity finding
 - If code-review and error-handling both flag an empty catch block, merge into one
   finding with the error-handling severity (it's the specialist)
 
 **Severity mapping across dimensions:**
 
-| Dimension | Maps to Critical | Maps to Important | Maps to Suggestion |
-|---|---|---|---|
-| Code review | Confidence 90-100 | Confidence 80-89 | — |
-| Test analysis | Rating 9-10 | Rating 7-8 | Rating 5-6 |
-| Error handling | CRITICAL | HIGH | MEDIUM |
-| Type design | Any rating <= 3/10 | Any rating 4-6/10 | Rating 7-8/10 |
+| Dimension       | Maps to Critical    | Maps to Important        | Maps to Suggestion    |
+| --------------- | ------------------- | ------------------------ | --------------------- |
+| Code review     | Confidence 90-100   | Confidence 80-89         | —                     |
+| Test analysis   | Rating 9-10         | Rating 7-8               | Rating 5-6            |
+| Error handling  | CRITICAL            | HIGH                     | MEDIUM                |
+| Type design     | Any rating <= 3/10  | Any rating 4-6/10        | Rating 7-8/10         |
 | Comment quality | Factually incorrect | Misleading or incomplete | Restates obvious code |
 
 ---
 
 ## Output Format
 
-```
+```text
 # PR Review Summary
 
 **Scope:** [X files changed, Y dimensions applied]
@@ -130,14 +131,14 @@ a brief summary of what was reviewed and which dimensions were applied.
 
 Users can request specific dimensions instead of running all:
 
-| User Says | Dimensions Applied |
-|---|---|
-| "review my PR" / "check my changes" | All applicable (default) |
-| "review the code" / "check code quality" | Code review only |
-| "check the tests" / "is test coverage good" | Test analysis only |
-| "check error handling" / "find silent failures" | Error handling only |
-| "review the types" / "check type design" | Type design only |
-| "check the comments" / "review documentation" | Comment quality only |
+| User Says                                       | Dimensions Applied       |
+| ----------------------------------------------- | ------------------------ |
+| "review my PR" / "check my changes"             | All applicable (default) |
+| "review the code" / "check code quality"        | Code review only         |
+| "check the tests" / "is test coverage good"     | Test analysis only       |
+| "check error handling" / "find silent failures" | Error handling only      |
+| "review the types" / "check type design"        | Type design only         |
+| "check the comments" / "review documentation"   | Comment quality only     |
 
 When a specific aspect is requested, load only that reference file and skip routing.
 
@@ -145,12 +146,12 @@ When a specific aspect is requested, load only that reference file and skip rout
 
 ## Error Handling
 
-| Problem | Resolution |
-|---|---|
-| No git diff available | Ask user to specify files or scope |
-| CLAUDE.md not found | Review against general best practices; note the absence |
-| No test files in diff | Skip test analysis dimension; note in output |
-| Diff is empty | Report "no changes to review" and stop |
+| Problem                     | Resolution                                                                    |
+| --------------------------- | ----------------------------------------------------------------------------- |
+| No git diff available       | Ask user to specify files or scope                                            |
+| CLAUDE.md not found         | Review against general best practices; note the absence                       |
+| No test files in diff       | Skip test analysis dimension; note in output                                  |
+| Diff is empty               | Report "no changes to review" and stop                                        |
 | Diff exceeds context limits | Focus on files the user is most likely to care about; summarize skipped files |
 
 ---

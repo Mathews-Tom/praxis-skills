@@ -23,12 +23,12 @@ and failure mode identification.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/prompt-patterns.md` | Prompt structure catalog: zero-shot, few-shot, CoT, persona, structured output | Always |
-| `references/evaluation-metrics.md` | Quality metrics (accuracy, format compliance, completeness), rubric design | Evaluation needed |
-| `references/failure-modes.md` | Common prompt failure taxonomy, detection strategies, mitigations | Failure analysis requested |
-| `references/output-constraints.md` | Techniques for constraining LLM output format, JSON mode, schema enforcement | Format control needed |
+| File                               | Contents                                                                       | Load When                  |
+| ---------------------------------- | ------------------------------------------------------------------------------ | -------------------------- |
+| `references/prompt-patterns.md`    | Prompt structure catalog: zero-shot, few-shot, CoT, persona, structured output | Always                     |
+| `references/evaluation-metrics.md` | Quality metrics (accuracy, format compliance, completeness), rubric design     | Evaluation needed          |
+| `references/failure-modes.md`      | Common prompt failure taxonomy, detection strategies, mitigations              | Failure analysis requested |
+| `references/output-constraints.md` | Techniques for constraining LLM output format, JSON mode, schema enforcement   | Format control needed      |
 
 ## Prerequisites
 
@@ -63,15 +63,16 @@ If an existing prompt is provided:
 
 Create 2-4 prompt variants, each testing a different hypothesis:
 
-| Variant Type | Hypothesis | When to Use |
-|-------------|-----------|-------------|
-| Direct instruction | Clear instruction is sufficient | Simple tasks, capable models |
-| Few-shot | Examples improve output consistency | Pattern-following tasks |
-| Chain-of-thought | Reasoning improves accuracy | Multi-step logic, math, analysis |
-| Persona/role | Role framing improves tone/expertise | Domain-specific tasks |
-| Structured output | Format specification prevents errors | JSON, CSV, specific templates |
+| Variant Type       | Hypothesis                           | When to Use                      |
+| ------------------ | ------------------------------------ | -------------------------------- |
+| Direct instruction | Clear instruction is sufficient      | Simple tasks, capable models     |
+| Few-shot           | Examples improve output consistency  | Pattern-following tasks          |
+| Chain-of-thought   | Reasoning improves accuracy          | Multi-step logic, math, analysis |
+| Persona/role       | Role framing improves tone/expertise | Domain-specific tasks            |
+| Structured output  | Format specification prevents errors | JSON, CSV, specific templates    |
 
 For each variant:
+
 - State the hypothesis (why this variant might work)
 - Identify the risk (what could go wrong)
 - Provide the complete prompt text
@@ -80,13 +81,13 @@ For each variant:
 
 1. **Rubric** — Define weighted criteria:
 
-   | Criterion | What It Measures | Typical Weight |
-   |-----------|-----------------|---------------|
-   | Correctness | Output matches expected answer | 30-50% |
-   | Format compliance | Follows specified structure | 15-25% |
-   | Completeness | All required elements present | 15-25% |
-   | Conciseness | No unnecessary content | 5-15% |
-   | Tone/style | Matches requested voice | 5-10% |
+   | Criterion         | What It Measures               | Typical Weight |
+   | ----------------- | ------------------------------ | -------------- |
+   | Correctness       | Output matches expected answer | 30-50%         |
+   | Format compliance | Follows specified structure    | 15-25%         |
+   | Completeness      | All required elements present  | 15-25%         |
+   | Conciseness       | No unnecessary content         | 5-15%          |
+   | Tone/style        | Matches requested voice        | 5-10%          |
 
 2. **Test cases** — Minimum 5 cases covering:
    - Happy path (standard input)
@@ -100,7 +101,7 @@ Present variants, rubric, and test cases in a structured format ready for execut
 
 ## Output Format
 
-```
+```text
 ## Prompt Lab: {Task Name}
 
 ### Objective
@@ -120,22 +121,28 @@ Present variants, rubric, and test cases in a structured format ready for execut
 
 #### Variant A: {Strategy Name}
 ```
+
 {Complete prompt text}
-```
+
+```text
 **Hypothesis:** {Why this approach might work}
 **Risk:** {What could go wrong}
 
 #### Variant B: {Strategy Name}
 ```
+
 {Complete prompt text}
-```
+
+```text
 **Hypothesis:** {Why this approach might work}
 **Risk:** {What could go wrong}
 
 #### Variant C: {Strategy Name}
 ```
+
 {Complete prompt text}
-```
+
+```text
 **Hypothesis:** {Why this approach might work}
 **Risk:** {What could go wrong}
 
@@ -180,17 +187,18 @@ Present variants, rubric, and test cases in a structured format ready for execut
 
 ## Error Handling
 
-| Problem | Resolution |
-|---------|------------|
-| No clear objective | Ask the user to define what "good output" looks like with 2-3 examples. |
-| Prompt is for a task LLMs are bad at (math, counting) | Flag the limitation. Suggest tool-augmented approaches or pre/post-processing. |
-| Too many variables to test | Focus on the highest-impact variable first. Iterative refinement beats combinatorial testing. |
-| No existing prompt to analyze | Start with the simplest possible prompt. The first variant IS the baseline. |
-| Output format requirements are strict | Use structured output mode (JSON mode, function calling) instead of prompt-only constraints. |
+| Problem                                               | Resolution                                                                                    |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| No clear objective                                    | Ask the user to define what "good output" looks like with 2-3 examples.                       |
+| Prompt is for a task LLMs are bad at (math, counting) | Flag the limitation. Suggest tool-augmented approaches or pre/post-processing.                |
+| Too many variables to test                            | Focus on the highest-impact variable first. Iterative refinement beats combinatorial testing. |
+| No existing prompt to analyze                         | Start with the simplest possible prompt. The first variant IS the baseline.                   |
+| Output format requirements are strict                 | Use structured output mode (JSON mode, function calling) instead of prompt-only constraints.  |
 
 ## When NOT to Use
 
 Push back if:
+
 - The task doesn't need an LLM (deterministic rules, regex, SQL) — use the right tool
 - The user wants prompt execution, not design — this skill designs and evaluates, it doesn't run prompts
 - The prompt is for safety-critical decisions without human review — LLM output should not be the sole input

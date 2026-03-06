@@ -19,11 +19,11 @@ Creates polished visuals from concepts using HTML/CSS/SVG as a refineable interm
 
 ## Reference Files
 
-| File                          | Purpose                                                                              |
-| ----------------------------- | ------------------------------------------------------------------------------------ |
-| `references/design-guide.md`  | Design patterns, anti-patterns, color palettes, typography choices, layout examples  |
-| `scripts/render_to_image.py`  | Playwright-based export script — takes HTML in, PNG or SVG out                      |
-| `assets/template.html`        | Base HTML template with `.canvas` container and CSS custom properties pre-configured |
+| File                         | Purpose                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| `references/design-guide.md` | Design patterns, anti-patterns, color palettes, typography choices, layout examples  |
+| `scripts/render_to_image.py` | Playwright-based export script — takes HTML in, PNG or SVG out                       |
+| `assets/template.html`       | Base HTML template with `.canvas` container and CSS custom properties pre-configured |
 
 ## Why HTML as intermediate
 
@@ -31,7 +31,7 @@ HTML is the refineable layer between idea and image. Unlike direct canvas render
 
 ## Workflow
 
-```
+```text
 Concept → HTML artifact (view + refine) → PNG or SVG export
 ```
 
@@ -129,13 +129,13 @@ Present the output file to the user. Always deliver both the HTML (for future ed
 
 ## Error Handling
 
-| Error                              | Cause                                                    | Resolution                                                                  |
-| ---------------------------------- | -------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `playwright` not found             | Playwright package not installed                         | Run `npx playwright install chromium` or `pip install playwright && playwright install chromium` |
-| Browser launch failure             | Headless Chromium fails to start                         | Verify `--headless` mode is supported; check available memory (Chromium needs ~200 MB) |
-| `.canvas` selector not found       | HTML does not contain an element matching `.canvas`      | Verify `assets/template.html` was used as the base; check the root container has `class="canvas"` |
-| Render timeout                     | Complex HTML takes too long to render before screenshot  | Increase the timeout via `--timeout` flag in the script, or simplify the HTML (reduce DOM depth, inline fewer SVGs) |
-| SVG export falls back to PNG       | `.canvas` element contains HTML/CSS content, not a root SVG | See SVG export section; redesign with a single root `<svg>` if vector output is required |
+| Error                        | Cause                                                       | Resolution                                                                                                          |
+| ---------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `playwright` not found       | Playwright package not installed                            | Run `npx playwright install chromium` or `pip install playwright && playwright install chromium`                    |
+| Browser launch failure       | Headless Chromium fails to start                            | Verify `--headless` mode is supported; check available memory (Chromium needs ~200 MB)                              |
+| `.canvas` selector not found | HTML does not contain an element matching `.canvas`         | Verify `assets/template.html` was used as the base; check the root container has `class="canvas"`                   |
+| Render timeout               | Complex HTML takes too long to render before screenshot     | Increase the timeout via `--timeout` flag in the script, or simplify the HTML (reduce DOM depth, inline fewer SVGs) |
+| SVG export falls back to PNG | `.canvas` element contains HTML/CSS content, not a root SVG | See SVG export section; redesign with a single root `<svg>` if vector output is required                            |
 
 ## Limitations
 
@@ -149,7 +149,7 @@ Present the output file to the user. Always deliver both the HTML (for future ed
 
 After a successful export, the script prints the output path and file stats:
 
-```
+```text
 Exported: concept-diagram.png
   Size:       2400 × 1260 px  (2× scale from 1200 × 630 canvas)
   File size:  ~180 KB
@@ -157,6 +157,7 @@ Exported: concept-diagram.png
 ```
 
 Filename pattern follows whatever was passed as the output argument. Typical file sizes:
+
 - Simple diagrams (text + shapes): 80–200 KB
 - Dense infographics with gradients: 300–600 KB
 - Full 1920×1080 at 2× scale: 500 KB–1.5 MB

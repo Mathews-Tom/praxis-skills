@@ -150,7 +150,7 @@ frontmatter checklist, and quality checklist.
 
 The generated skill structure:
 
-```
+```text
 skill-name/
   SKILL.md
     Frontmatter (name, description with aggressive triggers)

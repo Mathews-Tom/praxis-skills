@@ -24,12 +24,12 @@ explicit rationale.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/estimation-methods.md` | PERT formula, three-point estimation, Monte Carlo basics | Always |
-| `references/unknown-categories.md` | Technical, scope, external, and organizational uncertainty types | Unknown identification |
-| `references/calibration-tips.md` | Cognitive biases in estimation, historical calibration, buffer strategies | Always |
-| `references/sizing-heuristics.md` | Common task size patterns, complexity indicators, reference class data | Quick sizing needed |
+| File                               | Contents                                                                  | Load When              |
+| ---------------------------------- | ------------------------------------------------------------------------- | ---------------------- |
+| `references/estimation-methods.md` | PERT formula, three-point estimation, Monte Carlo basics                  | Always                 |
+| `references/unknown-categories.md` | Technical, scope, external, and organizational uncertainty types          | Unknown identification |
+| `references/calibration-tips.md`   | Cognitive biases in estimation, historical calibration, buffer strategies | Always                 |
+| `references/sizing-heuristics.md`  | Common task size patterns, complexity indicators, reference class data    | Quick sizing needed    |
 
 ## Prerequisites
 
@@ -52,11 +52,11 @@ If the work item is not already decomposed into atomic units:
 
 For each task, estimate three scenarios:
 
-| Scenario | Definition | Mindset |
-|----------|-----------|---------|
-| Best case | Everything goes right. No surprises. | "If I've done this exact thing before" |
-| Likely case | Normal friction. Some minor obstacles. | "Realistic expectation with typical setbacks" |
-| Worst case | Significant problems. Not catastrophic. | "Murphy's law but not a disaster" |
+| Scenario    | Definition                              | Mindset                                       |
+| ----------- | --------------------------------------- | --------------------------------------------- |
+| Best case   | Everything goes right. No surprises.    | "If I've done this exact thing before"        |
+| Likely case | Normal friction. Some minor obstacles.  | "Realistic expectation with typical setbacks" |
+| Worst case  | Significant problems. Not catastrophic. | "Murphy's law but not a disaster"             |
 
 **Key rule:** Worst case is NOT "everything goes wrong." It's the realistic bad scenario
 (90th percentile), not the apocalyptic one (99th percentile).
@@ -65,38 +65,39 @@ For each task, estimate three scenarios:
 
 Categorize unknowns that affect estimates:
 
-| Category | Example | Impact |
-|----------|---------|--------|
-| Technical | "Never used this library before" | Likely case inflated, worst case much higher |
-| Scope | "Requirements may change" | All estimates may shift |
-| External | "Depends on API access from partner" | Blocking risk — could delay entirely |
-| Integration | "Haven't tested with production data" | Hidden complexity at integration |
-| Organizational | "Need design approval" | Calendar time, not effort time |
+| Category       | Example                               | Impact                                       |
+| -------------- | ------------------------------------- | -------------------------------------------- |
+| Technical      | "Never used this library before"      | Likely case inflated, worst case much higher |
+| Scope          | "Requirements may change"             | All estimates may shift                      |
+| External       | "Depends on API access from partner"  | Blocking risk — could delay entirely         |
+| Integration    | "Haven't tested with production data" | Hidden complexity at integration             |
+| Organizational | "Need design approval"                | Calendar time, not effort time               |
 
 ### Phase 4: Calculate Ranges
 
 For individual tasks, use the PERT formula:
 
-```
+```text
 Expected = (Best + 4 × Likely + Worst) / 6
 Std Dev = (Worst - Best) / 6
 ```
 
 For aggregate (project) estimates:
+
 - **Sum of expected values** for total expected duration
 - **Root sum of squares of std devs** for aggregate uncertainty
 
 ### Phase 5: Assign Confidence
 
-| Confidence | Meaning | When |
-|-----------|---------|------|
-| High | Likely case within ±20% | Well-understood task, team has done it before |
-| Medium | Likely case within ±50% | Some unknowns, moderate familiarity |
-| Low | Likely case within ±100% or more | Significant unknowns, new technology |
+| Confidence | Meaning                          | When                                          |
+| ---------- | -------------------------------- | --------------------------------------------- |
+| High       | Likely case within ±20%          | Well-understood task, team has done it before |
+| Medium     | Likely case within ±50%          | Some unknowns, moderate familiarity           |
+| Low        | Likely case within ±100% or more | Significant unknowns, new technology          |
 
 ## Output Format
 
-```
+```text
 ## Estimate: {Work Item}
 
 ### Summary
@@ -154,17 +155,18 @@ For aggregate (project) estimates:
 
 ## Error Handling
 
-| Problem | Resolution |
-|---------|------------|
-| Work item not decomposed | Decompose into 3-8 tasks first (or suggest task-decomposer skill). |
-| No historical reference | Estimate relative to a known task: "This is about 2x the auth feature." |
-| Stakeholder wants a single number | Provide PERT expected with buffer matching confidence level (High: +20%, Medium: +50%, Low: +100%). |
-| Estimate seems too large | Check for scope creep in task list. Remove non-essential tasks. Identify what can be deferred. |
-| Team has never done this type of work | Mark confidence as Low. Recommend a spike before committing to an estimate. |
+| Problem                               | Resolution                                                                                          |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Work item not decomposed              | Decompose into 3-8 tasks first (or suggest task-decomposer skill).                                  |
+| No historical reference               | Estimate relative to a known task: "This is about 2x the auth feature."                             |
+| Stakeholder wants a single number     | Provide PERT expected with buffer matching confidence level (High: +20%, Medium: +50%, Low: +100%). |
+| Estimate seems too large              | Check for scope creep in task list. Remove non-essential tasks. Identify what can be deferred.      |
+| Team has never done this type of work | Mark confidence as Low. Recommend a spike before committing to an estimate.                         |
 
 ## When NOT to Estimate
 
 Push back if:
+
 - The work is exploratory (research, spikes) — timebox instead of estimating
 - Requirements are completely undefined — define scope first
 - The user wants precision (hours) for a large project — provide ranges, not false precision

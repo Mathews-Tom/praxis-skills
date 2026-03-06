@@ -156,7 +156,7 @@ yt-dlp "ytsearch10:${QUERY}" \
 
 Prefix with a header row:
 
-```
+```text
 | Title | Channel | Views | Duration | Date |
 |-------|---------|-------|----------|------|
 ```

@@ -22,12 +22,12 @@ genuinely useful API documentation.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/fastapi-patterns.md` | FastAPI-specific documentation patterns, Path/Query/Body parameter docs | FastAPI endpoint |
-| `references/example-generation.md` | Creating realistic field examples, model_config patterns | Example values needed |
-| `references/response-codes.md` | Standard HTTP response documentation, error response schemas | Response documentation needed |
-| `references/openapi-enhancement.md` | OpenAPI spec enrichment, tag organization, schema documentation | OpenAPI spec review |
+| File                                | Contents                                                                | Load When                     |
+| ----------------------------------- | ----------------------------------------------------------------------- | ----------------------------- |
+| `references/fastapi-patterns.md`    | FastAPI-specific documentation patterns, Path/Query/Body parameter docs | FastAPI endpoint              |
+| `references/example-generation.md`  | Creating realistic field examples, model_config patterns                | Example values needed         |
+| `references/response-codes.md`      | Standard HTTP response documentation, error response schemas            | Response documentation needed |
+| `references/openapi-enhancement.md` | OpenAPI spec enrichment, tag organization, schema documentation         | OpenAPI spec review           |
 
 ## Prerequisites
 
@@ -48,14 +48,14 @@ genuinely useful API documentation.
 
 For each endpoint, check:
 
-| Check | What to Verify | Common Gap |
-|-------|---------------|------------|
-| Endpoint description | Handler has a docstring | Missing or "TODO" |
-| Parameter descriptions | Each param has `description=` | Path params undocumented |
-| Request example | Body model has `example=` or `json_schema_extra` | No request example |
-| Response model | `response_model=` specified | Returns raw dict |
-| Error responses | 4xx/5xx documented with `responses=` | Only 200 documented |
-| Tags | Endpoint assigned to a tag group | Untagged endpoints |
+| Check                  | What to Verify                                   | Common Gap               |
+| ---------------------- | ------------------------------------------------ | ------------------------ |
+| Endpoint description   | Handler has a docstring                          | Missing or "TODO"        |
+| Parameter descriptions | Each param has `description=`                    | Path params undocumented |
+| Request example        | Body model has `example=` or `json_schema_extra` | No request example       |
+| Response model         | `response_model=` specified                      | Returns raw dict         |
+| Error responses        | 4xx/5xx documented with `responses=`             | Only 200 documented      |
+| Tags                   | Endpoint assigned to a tag group                 | Untagged endpoints       |
 
 ### Phase 3: Generate Enhancements
 
@@ -73,7 +73,7 @@ Produce a coverage report and enhanced code.
 
 ## Output Format
 
-```
+````
 ## API Documentation Audit
 
 ### Coverage Summary
@@ -117,7 +117,7 @@ async def {handler}(
         404: {Entity} not found
         403: Insufficient permissions
     """
-```
+````
 
 #### Model: `{ModelName}`
 
@@ -133,7 +133,8 @@ class {ModelName}(BaseModel):
         }}
     )
 ```
-```
+
+```text
 
 ## Calibration Rules
 
@@ -165,3 +166,4 @@ Push back if:
 - The API design itself is wrong (bad URL patterns, wrong HTTP methods) — fix the API first
 - The user wants SDK generation from OpenAPI — different tool
 - The code is a prototype that will change significantly — document after stabilization
+```

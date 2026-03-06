@@ -66,12 +66,14 @@ Before touching anything, build a mental model:
 Identify what's actually wrong before reaching for solutions. Categorize issues by severity:
 
 **Critical** (always fix):
+
 - Dead code (unreachable branches, unused variables/imports)
 - Redundant operations (double-checking the same condition, re-computing cached values)
 - Logic that can be replaced by a stdlib/language built-in
 - Mutation of shared state that could be avoided
 
 **High** (fix unless there's a clear reason not to):
+
 - Functions with >3 levels of nesting
 - Functions with >5 parameters
 - God functions (>40 lines or >3 responsibilities)
@@ -80,13 +82,15 @@ Identify what's actually wrong before reaching for solutions. Categorize issues 
 - Stringly-typed enumerations
 
 **Medium** (fix when it improves clarity without adding risk):
+
 - Unclear variable/function names
 - Missing or misleading type annotations
 - Unnecessary intermediate variables
 - Over-abstraction (wrappers that add no value)
-- Comments that restate the code instead of explaining *why*
+- Comments that restate the code instead of explaining _why_
 
 **Low** (fix only in a dedicated cleanup pass):
+
 - Inconsistent formatting (defer to linter)
 - Import ordering
 - Trailing whitespace, line length
@@ -96,14 +100,18 @@ Identify what's actually wrong before reaching for solutions. Categorize issues 
 Apply changes using these tactics, ordered by impact-to-risk ratio:
 
 #### 3a. Eliminate Dead Weight
+
 Remove before restructuring. Less code = less to think about.
+
 - Delete unused imports, variables, functions
 - Remove unreachable branches (but verify they're truly unreachable)
-- Strip comments that restate the obvious (keep comments that explain *why*)
+- Strip comments that restate the obvious (keep comments that explain _why_)
 - Remove no-op wrapper functions that just forward calls
 
 #### 3b. Flatten Structure
+
 Reduce nesting and cognitive load:
+
 - **Guard clauses**: Convert deep `if` nesting to early returns
 - **Extract conditions**: Name complex boolean expressions (`is_valid_order = ...`)
 - **Decompose loops**: If a loop does filter + transform + accumulate, break it apart
@@ -111,23 +119,29 @@ Reduce nesting and cognitive load:
 - **Invert conditionals**: When the `else` branch is the "happy path", flip it
 
 #### 3c. Consolidate and Name
+
 Make the code's intent visible:
+
 - **Extract functions** for repeated logic or distinct responsibilities
-  - Name by *what it accomplishes*, not *how it works*
+  - Name by _what it accomplishes_, not _how it works_
   - Functions should do one thing at one level of abstraction
 - **Replace magic values** with named constants
 - **Rename for intent**: `data` → `user_records`, `process` → `validate_and_enqueue`
 - **Group related parameters** into a config/options struct when count > 3
 
 #### 3d. Leverage Language Idioms
+
 Apply language-specific patterns (consult `references/<language>.md` for details):
+
 - Python: comprehensions, context managers, dataclasses, structural pattern matching
 - Go: table-driven tests, error wrapping, functional options, interface satisfaction
 - TypeScript: discriminated unions, branded types, const assertions, satisfies
 - Rust: iterator chains, `?` operator, From/Into, newtype pattern
 
 #### 3e. Tighten Types
+
 Types are documentation that the compiler checks:
+
 - Add return type annotations to public functions
 - Replace stringly-typed parameters with enums/unions
 - Narrow `any`/`interface{}` to specific types where possible
@@ -153,7 +167,7 @@ and trust what changed before committing.
 
 For each file modified, provide:
 
-```
+```text
 ## <filename>
 
 ### Changes
@@ -192,18 +206,19 @@ These are hard rules. Do not violate them regardless of how much cleaner the cod
 
 The user may specify different modes. If they don't, default to **standard**.
 
-| Mode | Scope | Severity Threshold | Test Requirement |
-|------|-------|--------------------|------------------|
-| `quick` | Single file or function | Critical + High only | Tests recommended |
-| `standard` | Recent git changes | Critical + High + Medium | Tests required if they exist |
-| `deep` | Entire module/package | All severities | Tests mandatory |
-| `surgical` | User-specified lines/functions | All severities | Manual trace sufficient |
+| Mode       | Scope                          | Severity Threshold       | Test Requirement             |
+| ---------- | ------------------------------ | ------------------------ | ---------------------------- |
+| `quick`    | Single file or function        | Critical + High only     | Tests recommended            |
+| `standard` | Recent git changes             | Critical + High + Medium | Tests required if they exist |
+| `deep`     | Entire module/package          | All severities           | Tests mandatory              |
+| `surgical` | User-specified lines/functions | All severities           | Manual trace sufficient      |
 
 The user can specify mode by saying things like "just do a quick pass" or "deep clean this module".
 
 ## When NOT to Refine
 
 Push back (politely) if:
+
 - The code has no tests and the user wants a deep refactor → suggest writing tests first
 - The code is auto-generated (protobuf, OpenAPI, ORM models) → suggest modifying the generator
 - The request is really a feature change disguised as "cleanup" → clarify intent

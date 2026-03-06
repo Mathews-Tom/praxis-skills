@@ -50,7 +50,7 @@ Manim is the "SVG of video" — you write Python code that describes animations 
 
 ## Workflow
 
-```
+```text
 Concept → Manim scene (.py) → Preview (low-quality) → Iterate → Final render (MP4/GIF)
 ```
 
@@ -78,23 +78,23 @@ Verify with: `python3 -c "import manim; print(manim.__version__)"`
 
 Determine the best animation pattern, then read the matching rule file before writing any code.
 
-| User intent                      | Rule file to read                              | Key Manim primitives                          |
-| -------------------------------- | ---------------------------------------------- | --------------------------------------------- |
-| Explain a pipeline/flow          | `references/rules/pipeline-flow.md`            | Arrow, Rectangle, Text, AnimationGroup        |
-| Show architecture layers         | `references/rules/architecture-layers.md`      | VGroup, Arrange, FadeIn with shift            |
-| Algorithm step-through           | `references/rules/algorithm-stepthrough.md`    | Transform, ReplacementTransform, Indicate     |
-| Compare approaches               | `references/rules/comparison.md`               | Split screen VGroups, simultaneous animations |
-| Mathematical concept             | `references/rules/math-concept.md`             | MathTex, geometric shapes, Rotate, Scale      |
-| Agent/multi-system interaction   | `references/rules/agent-interaction.md`        | Arrows between entities, Create/FadeOut       |
-| Training/optimization loop       | `references/rules/training-loop.md`            | Loop with Transform, ValueTracker, plots      |
-| Timeline/history                 | `references/templates/timeline_template.py`    | NumberLine, sequential Indicate               |
-| Embed images or screenshots      | `references/rules/images.md`                   | ImageMobject, SVGMobject                      |
-| Add subtitles or captions        | `references/rules/subtitles.md`                | SRT generation, ffmpeg subtitle burn          |
-| Multiple distinct chapters       | `references/rules/multi-scene.md`              | Multiple Scene classes, ffmpeg concat         |
-| Add audio or voiceover           | `references/rules/audio-overlay.md`            | ffmpeg, scripts/add_audio.py                  |
-| Transition between sections      | `references/rules/transitions.md`              | FadeOut all, shift off-screen                 |
-| Text reveal, callouts, emphasis  | `references/rules/text-animation.md`           | ReplacementTransform, LaggedStart, Indicate   |
-| Positioning, spacing, layout     | `references/rules/layout.md`                   | next_to, arrange, to_edge, move_to            |
+| User intent                     | Rule file to read                           | Key Manim primitives                          |
+| ------------------------------- | ------------------------------------------- | --------------------------------------------- |
+| Explain a pipeline/flow         | `references/rules/pipeline-flow.md`         | Arrow, Rectangle, Text, AnimationGroup        |
+| Show architecture layers        | `references/rules/architecture-layers.md`   | VGroup, Arrange, FadeIn with shift            |
+| Algorithm step-through          | `references/rules/algorithm-stepthrough.md` | Transform, ReplacementTransform, Indicate     |
+| Compare approaches              | `references/rules/comparison.md`            | Split screen VGroups, simultaneous animations |
+| Mathematical concept            | `references/rules/math-concept.md`          | MathTex, geometric shapes, Rotate, Scale      |
+| Agent/multi-system interaction  | `references/rules/agent-interaction.md`     | Arrows between entities, Create/FadeOut       |
+| Training/optimization loop      | `references/rules/training-loop.md`         | Loop with Transform, ValueTracker, plots      |
+| Timeline/history                | `references/templates/timeline_template.py` | NumberLine, sequential Indicate               |
+| Embed images or screenshots     | `references/rules/images.md`                | ImageMobject, SVGMobject                      |
+| Add subtitles or captions       | `references/rules/subtitles.md`             | SRT generation, ffmpeg subtitle burn          |
+| Multiple distinct chapters      | `references/rules/multi-scene.md`           | Multiple Scene classes, ffmpeg concat         |
+| Add audio or voiceover          | `references/rules/audio-overlay.md`         | ffmpeg, scripts/add_audio.py                  |
+| Transition between sections     | `references/rules/transitions.md`           | FadeOut all, shift off-screen                 |
+| Text reveal, callouts, emphasis | `references/rules/text-animation.md`        | ReplacementTransform, LaggedStart, Indicate   |
+| Positioning, spacing, layout    | `references/rules/layout.md`                | next_to, arrange, to_edge, move_to            |
 
 ## Step 2: Design the Manim scene
 
@@ -102,12 +102,12 @@ Determine the best animation pattern, then read the matching rule file before wr
 
 Check whether a parametric template covers the concept before writing a scene from scratch:
 
-| If the concept is...            | Start with template                                      |
-| ------------------------------- | -------------------------------------------------------- |
-| A linear pipeline (A→B→C→D)     | `references/templates/data_flow_template.py` — edit `STAGES` |
-| A two-option comparison         | `references/templates/comparison_template.py` — edit `LEFT_ITEMS`, `RIGHT_ITEMS` |
-| A chronological timeline        | `references/templates/timeline_template.py` — edit `EVENTS` |
-| Anything else                   | Write from scratch using the relevant rule file          |
+| If the concept is...        | Start with template                                                              |
+| --------------------------- | -------------------------------------------------------------------------------- |
+| A linear pipeline (A→B→C→D) | `references/templates/data_flow_template.py` — edit `STAGES`                     |
+| A two-option comparison     | `references/templates/comparison_template.py` — edit `LEFT_ITEMS`, `RIGHT_ITEMS` |
+| A chronological timeline    | `references/templates/timeline_template.py` — edit `EVENTS`                      |
+| Anything else               | Write from scratch using the relevant rule file                                  |
 
 When using a template: copy it to the working directory, edit the config constants at the top, do not restructure the class.
 
@@ -175,15 +175,15 @@ This renders at 480p/15fps — fast enough for previewing timing and layout. Pre
 
 Common refinement requests and how to handle them:
 
-| Request                    | Action                                                  |
-| -------------------------- | ------------------------------------------------------- |
-| "Slower/faster"            | Adjust `run_time=` params and `self.wait()` durations   |
-| "Change colors"            | Update color constants                                  |
-| "Add a step"               | Insert new animation block between sections             |
-| "Reorder"                  | Move code blocks around                                 |
-| "Different layout"         | Adjust `.shift()`, `.next_to()`, `.arrange()` calls     |
-| "Add labels/annotations"   | Add `Text` or `MathTex` objects with `.next_to()`       |
-| "Make it loop"             | Add matching intro/outro states                         |
+| Request                  | Action                                                |
+| ------------------------ | ----------------------------------------------------- |
+| "Slower/faster"          | Adjust `run_time=` params and `self.wait()` durations |
+| "Change colors"          | Update color constants                                |
+| "Add a step"             | Insert new animation block between sections           |
+| "Reorder"                | Move code blocks around                               |
+| "Different layout"       | Adjust `.shift()`, `.next_to()`, `.arrange()` calls   |
+| "Add labels/annotations" | Add `Text` or `MathTex` objects with `.next_to()`     |
+| "Make it loop"           | Add matching intro/outro states                       |
 
 ## Step 5: Final export
 
@@ -204,15 +204,16 @@ python3 scripts/render_video.py scene.py ConceptScene --quality high --format mp
 
 ### Format options
 
-| Format | Flag            | Use case                        |
-| ------ | --------------- | ------------------------------- |
-| `mp4`  | `--format mp4`  | Standard video delivery         |
-| `gif`  | `--format gif`  | Embeddable in docs, social      |
-| `webm` | `--format webm` | Web-optimized                   |
+| Format | Flag            | Use case                   |
+| ------ | --------------- | -------------------------- |
+| `mp4`  | `--format mp4`  | Standard video delivery    |
+| `gif`  | `--format gif`  | Embeddable in docs, social |
+| `webm` | `--format webm` | Web-optimized              |
 
 ### Delivering the output
 
 Present both:
+
 1. The `.py` scene file (for future editing)
 2. The rendered video file (final output)
 
@@ -239,16 +240,16 @@ For advanced multi-track mixing, read `references/rules/audio-overlay.md`.
 
 ## Error Handling
 
-| Error                          | Cause                                      | Resolution                                                |
-| ------------------------------ | ------------------------------------------ | --------------------------------------------------------- |
-| `ModuleNotFoundError: manim`   | Manim not installed                        | Run Step 0 setup commands                                 |
-| `pangocairo` build error       | Missing system dev headers                 | `apt-get install -y libpango1.0-dev`                      |
-| `FileNotFoundError: ffmpeg`    | ffmpeg not installed                       | `apt-get install -y ffmpeg`                               |
-| Scene class not found          | Class name mismatch                        | Verify class name matches CLI argument                    |
-| Overlapping objects            | Positions not calculated                   | Use `.next_to()`, `.arrange()`, explicit `.shift()` calls |
-| Text cut off                   | Text too large or positioned near edge     | Reduce `font_size` or adjust position within ±6,±3.5      |
-| Slow render                    | Too many objects or complex transformations | Reduce object count, simplify paths, use lower quality    |
-| `LaTeX Error`                  | LaTeX not installed (for MathTex)          | Use `Text` instead, or install `texlive-latex-base`       |
+| Error                        | Cause                                       | Resolution                                                |
+| ---------------------------- | ------------------------------------------- | --------------------------------------------------------- |
+| `ModuleNotFoundError: manim` | Manim not installed                         | Run Step 0 setup commands                                 |
+| `pangocairo` build error     | Missing system dev headers                  | `apt-get install -y libpango1.0-dev`                      |
+| `FileNotFoundError: ffmpeg`  | ffmpeg not installed                        | `apt-get install -y ffmpeg`                               |
+| Scene class not found        | Class name mismatch                         | Verify class name matches CLI argument                    |
+| Overlapping objects          | Positions not calculated                    | Use `.next_to()`, `.arrange()`, explicit `.shift()` calls |
+| Text cut off                 | Text too large or positioned near edge      | Reduce `font_size` or adjust position within ±6,±3.5      |
+| Slow render                  | Too many objects or complex transformations | Reduce object count, simplify paths, use lower quality    |
+| `LaTeX Error`                | LaTeX not installed (for MathTex)           | Use `Text` instead, or install `texlive-latex-base`       |
 
 ### LaTeX fallback
 

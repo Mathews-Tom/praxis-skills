@@ -23,12 +23,12 @@ urgency (security → license → maintenance → bloat).
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/license-compatibility.md` | License compatibility matrix, copyleft detection, commercial-safe licenses | Always |
-| `references/health-metrics.md` | Maintenance health indicators, scoring criteria, abandonment detection | Always |
-| `references/bloat-detection.md` | Identifying unused deps, duplicate functionality, heavy transitive trees | Bloat analysis requested |
-| `references/cve-sources.md` | CVE databases, advisory sources, vulnerability severity interpretation | Security audit requested |
+| File                                  | Contents                                                                   | Load When                |
+| ------------------------------------- | -------------------------------------------------------------------------- | ------------------------ |
+| `references/license-compatibility.md` | License compatibility matrix, copyleft detection, commercial-safe licenses | Always                   |
+| `references/health-metrics.md`        | Maintenance health indicators, scoring criteria, abandonment detection     | Always                   |
+| `references/bloat-detection.md`       | Identifying unused deps, duplicate functionality, heavy transitive trees   | Bloat analysis requested |
+| `references/cve-sources.md`           | CVE databases, advisory sources, vulnerability severity interpretation     | Security audit requested |
 
 ## Prerequisites
 
@@ -48,6 +48,7 @@ urgency (security → license → maintenance → bloat).
 4. **Development vs production** — Separate dev/test dependencies from production.
 
 Tools:
+
 - Python: `uv pip list`, `pip-audit`, `pipdeptree`
 - Node.js: `npm list --all`, `npm audit`
 - Rust: `cargo tree`, `cargo audit`
@@ -59,13 +60,13 @@ For each dependency:
 1. **Identify the license** — Check package metadata, LICENSE file, pyproject.toml.
 2. **Classify compatibility** — Against the project's own license:
 
-   | License | Commercial OK | Copyleft | Risk Level |
-   |---------|-------------|---------|------------|
-   | MIT, BSD, ISC, Apache 2.0 | Yes | No | Low |
-   | LGPL | With care | Weak | Medium |
-   | GPL-2.0, GPL-3.0 | No (unless GPL project) | Strong | High |
-   | AGPL | No (unless AGPL project) | Strong + network | Critical |
-   | Unknown | Cannot determine | Unknown | Critical |
+   | License                   | Commercial OK            | Copyleft         | Risk Level |
+   | ------------------------- | ------------------------ | ---------------- | ---------- |
+   | MIT, BSD, ISC, Apache 2.0 | Yes                      | No               | Low        |
+   | LGPL                      | With care                | Weak             | Medium     |
+   | GPL-2.0, GPL-3.0          | No (unless GPL project)  | Strong           | High       |
+   | AGPL                      | No (unless AGPL project) | Strong + network | Critical   |
+   | Unknown                   | Cannot determine         | Unknown          | Critical   |
 
 3. **Flag issues** — Copyleft licenses in proprietary projects, unknown licenses,
    license changes between versions.
@@ -74,13 +75,13 @@ For each dependency:
 
 For each dependency, evaluate maintenance signals:
 
-| Indicator | Healthy | Warning | Abandoned |
-|-----------|---------|---------|-----------|
-| Last release | < 6 months | 6-18 months | > 18 months |
-| Commits (90 days) | 10+ | 1-9 | 0 |
-| Open issues response | < 2 weeks | 2-8 weeks | > 8 weeks or no response |
-| Bus factor | 3+ maintainers | 2 | 1 |
-| CI status | Passing | Flaky | Failing or absent |
+| Indicator            | Healthy        | Warning     | Abandoned                |
+| -------------------- | -------------- | ----------- | ------------------------ |
+| Last release         | < 6 months     | 6-18 months | > 18 months              |
+| Commits (90 days)    | 10+            | 1-9         | 0                        |
+| Open issues response | < 2 weeks      | 2-8 weeks   | > 8 weeks or no response |
+| Bus factor           | 3+ maintainers | 2           | 1                        |
+| CI status            | Passing        | Flaky       | Failing or absent        |
 
 ### Phase 4: Check Security
 
@@ -91,12 +92,12 @@ For each dependency, evaluate maintenance signals:
 
 2. **Severity classification** — CVSS score interpretation:
 
-   | CVSS Score | Severity | Action |
-   |-----------|----------|--------|
-   | 9.0-10.0 | Critical | Upgrade immediately |
-   | 7.0-8.9 | High | Upgrade within days |
-   | 4.0-6.9 | Medium | Upgrade within weeks |
-   | 0.1-3.9 | Low | Upgrade at convenience |
+   | CVSS Score | Severity | Action                 |
+   | ---------- | -------- | ---------------------- |
+   | 9.0-10.0   | Critical | Upgrade immediately    |
+   | 7.0-8.9    | High     | Upgrade within days    |
+   | 4.0-6.9    | Medium   | Upgrade within weeks   |
+   | 0.1-3.9    | Low      | Upgrade at convenience |
 
 3. **Fix availability** — Is there a patched version? If not, what's the workaround?
 
@@ -115,7 +116,7 @@ Produce a prioritized report with action items.
 
 ## Output Format
 
-```
+```text
 ## Dependency Audit: {Project Name}
 
 ### Summary
@@ -186,16 +187,17 @@ Produce a prioritized report with action items.
 
 ## Error Handling
 
-| Problem | Resolution |
-|---------|------------|
-| No lock file available | Audit based on declared dependencies. Note that transitive analysis is incomplete without a lock file. |
-| License metadata missing | Check the package's repository for LICENSE file. Note packages where license cannot be determined. |
-| Package registry unavailable | Work from cached metadata and local lockfile data. |
-| Too many dependencies to audit manually | Prioritize: production deps first, then direct deps, then transitive deps with known issues. |
+| Problem                                 | Resolution                                                                                             |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| No lock file available                  | Audit based on declared dependencies. Note that transitive analysis is incomplete without a lock file. |
+| License metadata missing                | Check the package's repository for LICENSE file. Note packages where license cannot be determined.     |
+| Package registry unavailable            | Work from cached metadata and local lockfile data.                                                     |
+| Too many dependencies to audit manually | Prioritize: production deps first, then direct deps, then transitive deps with known issues.           |
 
 ## When NOT to Audit
 
 Push back if:
+
 - The project is a prototype that won't ship — defer audit until production decision
 - The user wants dependency updates, not audit — different task (dependabot, renovate)
 - The project has no dependencies (pure standard library) — nothing to audit

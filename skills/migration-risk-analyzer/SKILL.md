@@ -22,12 +22,12 @@ queries.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/lock-matrix.md` | Operation-to-lock-type mapping for PostgreSQL, MySQL | Always |
-| `references/safe-patterns.md` | Online DDL patterns, zero-downtime migration techniques | Risk mitigation needed |
-| `references/rollback-templates.md` | Rollback scripts for common DDL operations | Rollback strategy requested |
-| `references/validation-queries.md` | Pre/post migration validation SQL templates | Always |
+| File                               | Contents                                                | Load When                   |
+| ---------------------------------- | ------------------------------------------------------- | --------------------------- |
+| `references/lock-matrix.md`        | Operation-to-lock-type mapping for PostgreSQL, MySQL    | Always                      |
+| `references/safe-patterns.md`      | Online DDL patterns, zero-downtime migration techniques | Risk mitigation needed      |
+| `references/rollback-templates.md` | Rollback scripts for common DDL operations              | Rollback strategy requested |
+| `references/validation-queries.md` | Pre/post migration validation SQL templates             | Always                      |
 
 ## Prerequisites
 
@@ -51,14 +51,15 @@ Extract all operations from the migration script:
 
 For each operation, determine the lock type and impact:
 
-| Lock Level | Impact | Examples |
-|------------|--------|---------|
-| No lock | Zero impact | CREATE TABLE, CREATE INDEX CONCURRENTLY (PG) |
-| Share lock | Blocks writes, allows reads | CREATE INDEX (non-concurrent) |
-| Exclusive lock | Blocks all access | ALTER TABLE ADD COLUMN (MySQL < 8.0), DROP TABLE |
-| Row-level lock | Blocks affected rows only | UPDATE with WHERE clause |
+| Lock Level     | Impact                      | Examples                                         |
+| -------------- | --------------------------- | ------------------------------------------------ |
+| No lock        | Zero impact                 | CREATE TABLE, CREATE INDEX CONCURRENTLY (PG)     |
+| Share lock     | Blocks writes, allows reads | CREATE INDEX (non-concurrent)                    |
+| Exclusive lock | Blocks all access           | ALTER TABLE ADD COLUMN (MySQL < 8.0), DROP TABLE |
+| Row-level lock | Blocks affected rows only   | UPDATE with WHERE clause                         |
 
 Consider:
+
 - Table size (locks on 10-row tables are negligible; locks on 100M-row tables are critical)
 - Concurrent query patterns (OLTP with high write rates vs. OLAP with batch queries)
 - Lock timeout settings
@@ -67,27 +68,27 @@ Consider:
 
 Estimate based on operation type and table size:
 
-| Operation | Small Table (<100K) | Medium (100K-10M) | Large (>10M) |
-|-----------|--------------------|--------------------|---------------|
-| ADD COLUMN (nullable) | < 1s | < 1s | < 1s (PG) / minutes (MySQL) |
-| ADD COLUMN (with default) | < 1s | seconds | minutes (table rewrite) |
-| CREATE INDEX | < 1s | seconds | minutes-hours |
-| ADD NOT NULL | seconds | minutes | hours (full scan) |
-| Backfill UPDATE | seconds | minutes | hours |
+| Operation                 | Small Table (<100K) | Medium (100K-10M) | Large (>10M)                |
+| ------------------------- | ------------------- | ----------------- | --------------------------- |
+| ADD COLUMN (nullable)     | < 1s                | < 1s              | < 1s (PG) / minutes (MySQL) |
+| ADD COLUMN (with default) | < 1s                | seconds           | minutes (table rewrite)     |
+| CREATE INDEX              | < 1s                | seconds           | minutes-hours               |
+| ADD NOT NULL              | seconds             | minutes           | hours (full scan)           |
+| Backfill UPDATE           | seconds             | minutes           | hours                       |
 
 ### Phase 4: Design Rollback
 
 For each operation, determine reversibility:
 
-| Operation | Reversible | Rollback |
-|-----------|-----------|----------|
-| ADD COLUMN | Yes | DROP COLUMN |
-| DROP COLUMN | No | Data is lost |
-| ADD INDEX | Yes | DROP INDEX |
-| DROP TABLE | No | Data is lost |
-| RENAME COLUMN | Yes | RENAME back |
-| ALTER TYPE | Sometimes | May lose precision |
-| UPDATE data | Sometimes | Only if old values preserved |
+| Operation     | Reversible | Rollback                     |
+| ------------- | ---------- | ---------------------------- |
+| ADD COLUMN    | Yes        | DROP COLUMN                  |
+| DROP COLUMN   | No         | Data is lost                 |
+| ADD INDEX     | Yes        | DROP INDEX                   |
+| DROP TABLE    | No         | Data is lost                 |
+| RENAME COLUMN | Yes        | RENAME back                  |
+| ALTER TYPE    | Sometimes  | May lose precision           |
+| UPDATE data   | Sometimes  | Only if old values preserved |
 
 For irreversible operations, recommend backup strategies.
 
@@ -97,7 +98,7 @@ Produce a risk assessment with deployment recommendation.
 
 ## Output Format
 
-```
+````
 ## Migration Risk Analysis
 
 ### Summary
@@ -124,9 +125,10 @@ Produce a risk assessment with deployment recommendation.
 ```sql
 -- Rollback for operation 1: {description}
 {rollback SQL}
-```
+````
 
 #### Irreversible Operations
+
 - **{operation}** — IRREVERSIBLE. Mitigation:
   ```sql
   -- Backup before migration
@@ -134,6 +136,7 @@ Produce a risk assessment with deployment recommendation.
   ```
 
 ### Pre-Migration Checklist
+
 - [ ] Database backup completed
 - [ ] Rollback scripts tested in staging
 - [ ] Traffic reduction confirmed (if needed)
@@ -142,6 +145,7 @@ Produce a risk assessment with deployment recommendation.
 - [ ] Connection pool sized for lock wait
 
 ### Post-Migration Validation
+
 ```sql
 -- Verify structural changes
 {validation queries}
@@ -151,11 +155,13 @@ Produce a risk assessment with deployment recommendation.
 ```
 
 ### Deployment Recommendation
+
 **Strategy:** {Online | Low-Traffic Window | Maintenance Window}
 **Estimated downtime:** {time or "None with proper execution"}
 **Rollback time:** {time}
 **Risk mitigation:** {specific recommendations}
-```
+
+```text
 
 ## Calibration Rules
 
@@ -188,3 +194,4 @@ Push back if:
 - The migration is for a development/staging database — risk analysis is for production
 - The migration only creates new tables (no ALTER, no existing data) — low risk by definition
 - The user wants migration execution, not analysis — this skill assesses risk, it doesn't run migrations
+```
