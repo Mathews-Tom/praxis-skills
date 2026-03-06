@@ -1,0 +1,48 @@
+cases:
+  - id: review_buggy_diff
+    prompt: "Review this diff for issues before I merge."
+    fixtures: ["fixtures/buggy_diff.patch"]
+    rubric:
+      - "identifies plaintext password comparison as CRITICAL security issue (was bcrypt, now raw comparison)"
+      - "identifies bare except with pass as silent failure"
+      - "classifies the security regression as Critical severity"
+      - "classifies silent failure as Important or Critical"
+      - "includes file:line references for both findings"
+      - "recommends reverting to bcrypt comparison"
+    trigger_expected: true
+
+  - id: review_unstaged_changes
+    prompt: "Review my changes before I commit."
+    fixtures: []
+    rubric:
+      - "uses git diff to identify changed files"
+      - "applies code review dimension at minimum"
+      - "produces severity-ranked findings (Critical/Important/Suggestion)"
+      - "includes file:line references"
+      - "acknowledges strengths if any"
+    trigger_expected: true
+
+  - id: specific_dimension_request
+    prompt: "Check my code for silent failures and error handling issues."
+    fixtures: []
+    rubric:
+      - "activates error handling dimension specifically"
+      - "loads error-handling reference"
+      - "examines try/catch/except blocks"
+      - "classifies findings by CRITICAL/HIGH/MEDIUM"
+      - "does not run unrelated dimensions (test analysis, type design)"
+    trigger_expected: true
+
+  - id: architecture_review_request
+    prompt: "Review the overall architecture of our system for scalability."
+    fixtures: []
+    rubric:
+      - "does not activate pr-review workflow (architecture-reviewer territory)"
+    trigger_expected: false
+
+  - id: test_generation_request
+    prompt: "Write tests for this function I just changed."
+    fixtures: []
+    rubric:
+      - "does not activate pr-review workflow (test-harness territory)"
+    trigger_expected: false
