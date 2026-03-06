@@ -5,7 +5,7 @@ description: >
   with high accuracy. This skill no longer provides meaningful uplift. Retained for
   reference only.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
   status: deprecated
 ---
 

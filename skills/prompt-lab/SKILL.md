@@ -11,7 +11,7 @@ description: >
   Use this skill when designing, improving, or evaluating LLM prompts specifically.
   NOT for evaluating Claude Code skills or SKILL.md files — use skill-evaluator instead.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Prompt Lab

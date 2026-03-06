@@ -9,7 +9,7 @@ description: >
   "document the architecture", "decision record", "design decision", "technical decision".
   Use this skill when an architectural or technical decision needs to be documented.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # ADR Writer

@@ -10,7 +10,7 @@ description: >
   "release notes for", "changelog for", "summarize changes", "diff since tag".
   Use this skill when preparing a release and needing to summarize changes for users.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Changelog Composer

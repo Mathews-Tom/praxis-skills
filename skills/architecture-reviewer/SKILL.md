@@ -13,7 +13,7 @@ description: >
   improvements. For architecture diagrams, visuals, or topology drawings, use
   architecture-diagram instead.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Architecture Reviewer

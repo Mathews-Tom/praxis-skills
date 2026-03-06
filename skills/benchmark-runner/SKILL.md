@@ -10,7 +10,7 @@ description: >
   "evaluate algorithms", "performance comparison", "throughput test", "speed test".
   Use this skill when comparing two or more implementations, algorithms, or models.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Benchmark Runner

@@ -12,7 +12,7 @@ description: >
   scripts", "provenance audit", or any request to verify that manuscript
   content traces back to computational outputs.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Manuscript Provenance Audit

@@ -9,7 +9,7 @@ description: >
   known URL — use web-fetch for that. Tavily returns clean, AI-ready snippets optimized
   for search-first intent.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Tavily Search

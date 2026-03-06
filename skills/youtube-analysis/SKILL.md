@@ -13,7 +13,7 @@ description: >
   video key points, TL;DR of video, video takeaways, or pastes any URL
   containing youtube.com or youtu.be.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # YouTube Analysis

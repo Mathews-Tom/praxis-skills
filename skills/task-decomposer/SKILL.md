@@ -11,7 +11,7 @@ description: >
   NOT for effort estimates, PERT calculations, or confidence intervals — use
   estimate-calibrator instead.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Task Decomposer

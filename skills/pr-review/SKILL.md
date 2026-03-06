@@ -13,7 +13,7 @@ description: >
   this skill when reviewing code before commit or merge, checking PR quality,
   or when the user asks for feedback on recent modifications.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # PR Review

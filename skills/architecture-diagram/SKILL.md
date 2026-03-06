@@ -9,7 +9,7 @@ description: >
   components, containment hierarchy, and interconnections. For architecture reviews, audits,
   critiques, or design assessments, use architecture-reviewer instead.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Architecture Diagram Generator

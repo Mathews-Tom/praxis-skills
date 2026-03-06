@@ -9,7 +9,7 @@ description: >
   "SQL performance", "optimize SQL", "why is this query slow", "index strategy".
   Use this skill when given a SQL query that needs performance analysis or optimization.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # SQL Optimizer

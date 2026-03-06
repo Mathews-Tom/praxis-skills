@@ -13,7 +13,7 @@ description: >
   "query the GitHub API", "search repositories", "triage workflows",
   "automate GitHub operations". Also triggers when the user pastes a GitHub URL.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # GitHub
