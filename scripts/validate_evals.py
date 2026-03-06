@@ -13,6 +13,25 @@ SKILLS_DIR = REPO_ROOT / "skills"
 REQUIRED_CASE_FIELDS = {"id", "prompt", "rubric", "trigger_expected"}
 
 
+def is_deprecated(skill_dir: Path) -> bool:
+    """Check if a skill is deprecated by reading its SKILL.md frontmatter."""
+    skill_md = skill_dir / "SKILL.md"
+    if not skill_md.exists():
+        return False
+    try:
+        text = skill_md.read_text(encoding="utf-8")
+        if not text.startswith("---"):
+            return False
+        end = text.index("---", 3)
+        frontmatter = yaml.safe_load(text[3:end])
+        return (
+            isinstance(frontmatter, dict)
+            and frontmatter.get("metadata", {}).get("status") == "deprecated"
+        )
+    except (ValueError, yaml.YAMLError):
+        return False
+
+
 def validate_case(case: dict, skill_name: str, idx: int) -> list[str]:
     """Validate a single eval case and return errors."""
     errors: list[str] = []
@@ -45,6 +64,7 @@ def validate_skill_evals(skill_dir: Path) -> list[str]:
         return []
 
     skill_name = skill_dir.name
+    deprecated = is_deprecated(skill_dir)
     errors: list[str] = []
 
     try:
@@ -76,8 +96,12 @@ def validate_skill_evals(skill_dir: Path) -> list[str]:
         elif case.get("trigger_expected") is False:
             negative_count += 1
 
-    if positive_count == 0:
-        errors.append(f"{skill_name}: must have at least 1 positive case (trigger_expected: true)")
+    if deprecated:
+        if positive_count > 0:
+            errors.append(f"{skill_name}: deprecated skill must have 0 positive cases, found {positive_count}")
+    else:
+        if positive_count == 0:
+            errors.append(f"{skill_name}: must have at least 1 positive case (trigger_expected: true)")
 
     if negative_count < 2:
         errors.append(f"{skill_name}: must have at least 2 negative cases (trigger_expected: false), found {negative_count}")
