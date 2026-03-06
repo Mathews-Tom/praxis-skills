@@ -8,15 +8,15 @@ Definitions, formulas, and interpretation for RAG retrieval evaluation metrics.
 
 **What it measures:** Of the K retrieved documents, how many are relevant?
 
-```
+```text
 Precision@K = (Number of relevant documents in top K) / K
 ```
 
-| Score | Interpretation |
-|-------|----------------|
-| 1.0 | All K documents are relevant |
-| 0.5 | Half the documents are irrelevant (wasted context window) |
-| 0.2 | Most documents are noise |
+| Score | Interpretation                                            |
+| ----- | --------------------------------------------------------- |
+| 1.0   | All K documents are relevant                              |
+| 0.5   | Half the documents are irrelevant (wasted context window) |
+| 0.2   | Most documents are noise                                  |
 
 **Target:** >= 0.6 for most RAG applications.
 
@@ -26,15 +26,15 @@ Precision@K = (Number of relevant documents in top K) / K
 
 **What it measures:** Of all relevant documents in the corpus, how many were retrieved?
 
-```
+```text
 Recall@K = (Number of relevant documents in top K) / (Total relevant documents in corpus)
 ```
 
-| Score | Interpretation |
-|-------|----------------|
-| 1.0 | All relevant information retrieved |
-| 0.5 | Half the relevant information is missing |
-| 0.2 | Most relevant information not retrieved |
+| Score | Interpretation                           |
+| ----- | ---------------------------------------- |
+| 1.0   | All relevant information retrieved       |
+| 0.5   | Half the relevant information is missing |
+| 0.2   | Most relevant information not retrieved  |
 
 **Target:** >= 0.8 for knowledge-intensive applications.
 
@@ -47,16 +47,16 @@ Find the K that balances both.
 
 **What it measures:** How high is the first relevant document ranked?
 
-```
+```text
 MRR = (1 / N) × Σ (1 / rank_i)
 ```
 
 Where `rank_i` is the position of the first relevant document for query i.
 
-| MRR | Interpretation |
-|-----|----------------|
-| 1.0 | First result is always relevant |
-| 0.5 | First relevant result is typically at position 2 |
+| MRR  | Interpretation                                   |
+| ---- | ------------------------------------------------ |
+| 1.0  | First result is always relevant                  |
+| 0.5  | First relevant result is typically at position 2 |
 | 0.33 | First relevant result is typically at position 3 |
 
 **Target:** >= 0.7 for user-facing applications.
@@ -69,7 +69,7 @@ Where `rank_i` is the position of the first relevant document for query i.
 
 Useful when relevance is graded (0-3) rather than binary (relevant/not).
 
-```
+```text
 DCG@K = Σ (relevance_i / log2(i + 1))
 NDCG@K = DCG@K / IDCG@K
 ```
@@ -82,7 +82,7 @@ Where IDCG is the ideal (perfect ranking) DCG.
 
 **What it measures:** Does at least one relevant document appear in the top K?
 
-```
+```text
 Hit@K = 1 if any relevant document in top K, else 0
 Average Hit@K = (queries with hit) / (total queries)
 ```
@@ -99,19 +99,19 @@ Simpler than MRR. Useful as a baseline metric.
 
 Each document is either relevant (1) or not (0).
 
-```
+```text
 Relevant: Document contains information that helps answer the query
 Not relevant: Document does not help answer the query
 ```
 
 ### Graded Relevance
 
-| Score | Label | Definition |
-|-------|-------|-----------|
-| 3 | Highly relevant | Directly answers the query |
-| 2 | Relevant | Contains supporting information |
-| 1 | Marginally relevant | Tangentially related |
-| 0 | Not relevant | No useful information for this query |
+| Score | Label               | Definition                           |
+| ----- | ------------------- | ------------------------------------ |
+| 3     | Highly relevant     | Directly answers the query           |
+| 2     | Relevant            | Contains supporting information      |
+| 1     | Marginally relevant | Tangentially related                 |
+| 0     | Not relevant        | No useful information for this query |
 
 ---
 

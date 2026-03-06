@@ -9,7 +9,7 @@ anomaly detection, correlation, and structured filtering.
 
 ### Standard Log Format
 
-```
+```text
 2026-02-25 14:30:01.123 [ERROR] auth.handler:45 - Failed to validate token: expired
 │                        │       │              │   └─ Message
 │                        │       │              └─ Line number
@@ -20,14 +20,14 @@ anomaly detection, correlation, and structured filtering.
 
 ### Key Fields for Debugging
 
-| Field | What It Tells You | Red Flags |
-|-------|-------------------|-----------|
-| Timestamp | When the event occurred | Gaps, clustering, wrong timezone |
-| Level | Severity (DEBUG, INFO, WARN, ERROR, CRITICAL) | ERROR/CRITICAL entries |
-| Module | Where in the code | Unexpected modules in error path |
-| Message | What happened | Exception text, unexpected values |
-| Request ID | Which request failed | Correlate across services |
-| User/Session | Who was affected | Single user vs. all users |
+| Field        | What It Tells You                             | Red Flags                         |
+| ------------ | --------------------------------------------- | --------------------------------- |
+| Timestamp    | When the event occurred                       | Gaps, clustering, wrong timezone  |
+| Level        | Severity (DEBUG, INFO, WARN, ERROR, CRITICAL) | ERROR/CRITICAL entries            |
+| Module       | Where in the code                             | Unexpected modules in error path  |
+| Message      | What happened                                 | Exception text, unexpected values |
+| Request ID   | Which request failed                          | Correlate across services         |
+| User/Session | Who was affected                              | Single user vs. all users         |
 
 ---
 
@@ -62,12 +62,12 @@ awk '/2026-02-25 14:28/,/2026-02-25 14:33/' app.log
 
 ### Timestamp Anomalies
 
-| Anomaly | Possible Cause |
-|---------|----------------|
-| Out-of-order timestamps | Multi-threaded logging, clock skew |
-| Large gap followed by burst | Process was blocked, then recovered |
+| Anomaly                      | Possible Cause                                       |
+| ---------------------------- | ---------------------------------------------------- |
+| Out-of-order timestamps      | Multi-threaded logging, clock skew                   |
+| Large gap followed by burst  | Process was blocked, then recovered                  |
 | Microsecond-level clustering | Single request cascading through multiple components |
-| Regular intervals (30s, 60s) | Retry mechanism, health check, cron |
+| Regular intervals (30s, 60s) | Retry mechanism, health check, cron                  |
 
 ---
 
@@ -108,6 +108,7 @@ grep 'order_id=12345' app.log | grep -E '(state|status)'
 ```
 
 Look for:
+
 - Missing transitions (jumped from state A to state C, skipping B)
 - Repeated transitions (state oscillation)
 - Terminal state reached prematurely
@@ -133,14 +134,14 @@ grep 'request_id=abc123' service_a.log service_b.log service_c.log
 
 Check if the error coincides with:
 
-| External Event | How to Check |
-|----------------|--------------|
-| Deployment | `git log --oneline --since="2026-02-25 14:00"`, CI/CD logs |
-| Config change | Config management audit log |
-| Load spike | Metrics dashboard, request rate graphs |
-| Dependency outage | Status pages, external service logs |
-| Certificate expiry | `openssl s_client -connect host:443` |
-| DNS change | `dig` results, TTL expiry |
+| External Event     | How to Check                                               |
+| ------------------ | ---------------------------------------------------------- |
+| Deployment         | `git log --oneline --since="2026-02-25 14:00"`, CI/CD logs |
+| Config change      | Config management audit log                                |
+| Load spike         | Metrics dashboard, request rate graphs                     |
+| Dependency outage  | Status pages, external service logs                        |
+| Certificate expiry | `openssl s_client -connect host:443`                       |
+| DNS change         | `dig` results, TTL expiry                                  |
 
 ---
 
@@ -180,13 +181,13 @@ grep 'ERROR' app.log | grep -oP 'error_code=\K[^ ]+' | sort | uniq -c | sort -rn
 
 Logs have blind spots. Be aware of what they cannot show:
 
-| Blind Spot | Alternative |
-|------------|-------------|
-| What DIDN'T happen (missing log = no evidence) | Add instrumentation |
-| Performance timing between log entries | Add duration metrics |
-| Memory state at time of error | Add memory profiling or dumps |
-| Thread interleaving | Add thread ID to log format |
-| Values of variables not logged | Add targeted debug logging |
-| Events in third-party code | Enable library debug logging |
+| Blind Spot                                     | Alternative                   |
+| ---------------------------------------------- | ----------------------------- |
+| What DIDN'T happen (missing log = no evidence) | Add instrumentation           |
+| Performance timing between log entries         | Add duration metrics          |
+| Memory state at time of error                  | Add memory profiling or dumps |
+| Thread interleaving                            | Add thread ID to log format   |
+| Values of variables not logged                 | Add targeted debug logging    |
+| Events in third-party code                     | Enable library debug logging  |
 
 When logs are insufficient, add instrumentation (see `instrumentation-points.md`).

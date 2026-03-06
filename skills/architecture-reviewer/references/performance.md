@@ -130,7 +130,7 @@ under expected and peak conditions.
 
 For each critical user flow, trace the request path:
 
-```
+```text
 User Request
   → CDN / Edge (static content, edge rules)
     → Load Balancer (TLS termination, routing)

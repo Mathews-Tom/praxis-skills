@@ -8,6 +8,7 @@ usefulness. Well-designed types are the foundation of maintainable, bug-resistan
 ### 1. Identify Invariants
 
 Examine the type for all implicit and explicit invariants:
+
 - Data consistency requirements (field A implies field B)
 - Valid state transitions (status can only go DRAFT → PUBLISHED → ARCHIVED)
 - Relationship constraints between fields (end_date > start_date)
@@ -63,7 +64,7 @@ Examine the type for all implicit and explicit invariants:
 
 ## Output Format
 
-```
+```text
 ## Type: UserAccount
 
 ### Invariants Identified

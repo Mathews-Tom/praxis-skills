@@ -14,7 +14,7 @@ npm install @remotion/captions
 
 SRT format:
 
-```
+```text
 1
 00:00:01,000 --> 00:00:03,500
 Hello, welcome to this video.
@@ -27,7 +27,7 @@ Today we'll learn about Remotion.
 Parse SRT into caption objects:
 
 ```tsx
-import { parseSrt } from '@remotion/captions';
+import { parseSrt } from "@remotion/captions";
 
 const srtContent = `1
 00:00:01,000 --> 00:00:03,500
@@ -46,9 +46,9 @@ const captions = parseSrt({ input: srtContent });
 Convert milliseconds to frames using fps, then check if current frame is within each caption's range:
 
 ```tsx
-import React from 'react';
-import { parseSrt } from '@remotion/captions';
-import { useCurrentFrame, useVideoConfig } from 'remotion';
+import React from "react";
+import { parseSrt } from "@remotion/captions";
+import { useCurrentFrame, useVideoConfig } from "remotion";
 
 const SRT_CONTENT = `1
 00:00:00,000 --> 00:00:02,500
@@ -66,32 +66,36 @@ export const Subtitles: React.FC = () => {
   const currentMs = (frame / fps) * 1000;
 
   const activeCaption = captions.find(
-    (c) => currentMs >= c.startMs && currentMs <= c.endMs
+    (c) => currentMs >= c.startMs && currentMs <= c.endMs,
   );
 
   if (!activeCaption) return null;
 
   return (
-    <div style={{
-      position: 'absolute',
-      bottom: 80,
-      left: 0,
-      right: 0,
-      display: 'flex',
-      justifyContent: 'center',
-      padding: '0 120px',
-    }}>
-      <div style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        color: '#ffffff',
-        fontSize: 36,
-        fontWeight: 500,
-        padding: '12px 24px',
-        borderRadius: 8,
-        textAlign: 'center',
-        lineHeight: 1.4,
-        backdropFilter: 'blur(4px)',
-      }}>
+    <div
+      style={{
+        position: "absolute",
+        bottom: 80,
+        left: 0,
+        right: 0,
+        display: "flex",
+        justifyContent: "center",
+        padding: "0 120px",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.75)",
+          color: "#ffffff",
+          fontSize: 36,
+          fontWeight: 500,
+          padding: "12px 24px",
+          borderRadius: 8,
+          textAlign: "center",
+          lineHeight: 1.4,
+          backdropFilter: "blur(4px)",
+        }}
+      >
         {activeCaption.text}
       </div>
     </div>
@@ -120,17 +124,19 @@ export const KaraokeSubtitle: React.FC<KaraokeProps> = ({ words }) => {
   const currentMs = (frame / fps) * 1000;
 
   return (
-    <div style={{
-      position: 'absolute',
-      bottom: 80,
-      left: 0,
-      right: 0,
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      gap: 8,
-      padding: '0 120px',
-    }}>
+    <div
+      style={{
+        position: "absolute",
+        bottom: 80,
+        left: 0,
+        right: 0,
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: 8,
+        padding: "0 120px",
+      }}
+    >
       {words.map((w, i) => {
         const isActive = currentMs >= w.startMs && currentMs <= w.endMs;
         const isPast = currentMs > w.endMs;
@@ -141,9 +147,15 @@ export const KaraokeSubtitle: React.FC<KaraokeProps> = ({ words }) => {
             style={{
               fontSize: 36,
               fontWeight: 600,
-              color: isActive ? '#fbbf24' : isPast ? 'rgba(255,255,255,0.5)' : '#ffffff',
-              transition: 'none', // no CSS transitions in Remotion
-              textShadow: isActive ? '0 0 20px rgba(251, 191, 36, 0.5)' : 'none',
+              color: isActive
+                ? "#fbbf24"
+                : isPast
+                  ? "rgba(255,255,255,0.5)"
+                  : "#ffffff",
+              transition: "none", // no CSS transitions in Remotion
+              textShadow: isActive
+                ? "0 0 20px rgba(251, 191, 36, 0.5)"
+                : "none",
             }}
           >
             {w.word}
@@ -160,7 +172,7 @@ export const KaraokeSubtitle: React.FC<KaraokeProps> = ({ words }) => {
 Split SRT captions into per-word timing by distributing time evenly:
 
 ```tsx
-import { parseSrt } from '@remotion/captions';
+import { parseSrt } from "@remotion/captions";
 
 type WordTiming = { word: string; startMs: number; endMs: number };
 
@@ -169,7 +181,7 @@ function srtToWordTimings(srtContent: string): WordTiming[] {
   const wordTimings: WordTiming[] = [];
 
   for (const caption of captions) {
-    const words = caption.text.split(' ').filter(Boolean);
+    const words = caption.text.split(" ").filter(Boolean);
     const durationPerWord = (caption.endMs - caption.startMs) / words.length;
 
     words.forEach((word, i) => {
@@ -190,16 +202,21 @@ function srtToWordTimings(srtContent: string): WordTiming[] {
 **Lower-third style:**
 
 ```tsx
-<div style={{
-  position: 'absolute', bottom: 60, left: 60, right: 60,
-  backgroundColor: '#18181b',
-  borderLeft: '4px solid #6366f1',
-  padding: '16px 24px',
-  borderRadius: '0 8px 8px 0',
-  color: '#f4f4f5',
-  fontSize: 32,
-  fontWeight: 500,
-}}>
+<div
+  style={{
+    position: "absolute",
+    bottom: 60,
+    left: 60,
+    right: 60,
+    backgroundColor: "#18181b",
+    borderLeft: "4px solid #6366f1",
+    padding: "16px 24px",
+    borderRadius: "0 8px 8px 0",
+    color: "#f4f4f5",
+    fontSize: 32,
+    fontWeight: 500,
+  }}
+>
   {activeCaption?.text}
 </div>
 ```
@@ -207,15 +224,20 @@ function srtToWordTimings(srtContent: string): WordTiming[] {
 **Centered, no background (white text with shadow):**
 
 ```tsx
-<div style={{
-  position: 'absolute', bottom: 80, left: 0, right: 0,
-  textAlign: 'center',
-  color: '#ffffff',
-  fontSize: 40,
-  fontWeight: 700,
-  textShadow: '0 2px 8px rgba(0,0,0,0.8), 0 0 24px rgba(0,0,0,0.5)',
-  padding: '0 100px',
-}}>
+<div
+  style={{
+    position: "absolute",
+    bottom: 80,
+    left: 0,
+    right: 0,
+    textAlign: "center",
+    color: "#ffffff",
+    fontSize: 40,
+    fontWeight: 700,
+    textShadow: "0 2px 8px rgba(0,0,0,0.8), 0 0 24px rgba(0,0,0,0.5)",
+    padding: "0 100px",
+  }}
+>
   {activeCaption?.text}
 </div>
 ```
@@ -223,9 +245,17 @@ function srtToWordTimings(srtContent: string): WordTiming[] {
 ## Complete Working Example
 
 ```tsx
-import React from 'react';
-import { parseSrt } from '@remotion/captions';
-import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import React from "react";
+import { parseSrt } from "@remotion/captions";
+import {
+  AbsoluteFill,
+  Audio,
+  Sequence,
+  interpolate,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
 
 const SRT = `1
 00:00:00,500 --> 00:00:03,000
@@ -250,25 +280,35 @@ const CaptionOverlay: React.FC = () => {
   if (!active) return null;
 
   const captionFrame = frame - Math.floor((active.startMs / 1000) * fps);
-  const opacity = interpolate(captionFrame, [0, 8], [0, 1], { extrapolateRight: 'clamp' });
+  const opacity = interpolate(captionFrame, [0, 8], [0, 1], {
+    extrapolateRight: "clamp",
+  });
 
   return (
-    <div style={{
-      position: 'absolute', bottom: 72, left: 0, right: 0,
-      display: 'flex', justifyContent: 'center',
-      opacity,
-    }}>
-      <div style={{
-        backgroundColor: 'rgba(9,9,11,0.82)',
-        color: '#fafafa',
-        fontSize: 34,
-        fontWeight: 500,
-        padding: '10px 20px',
-        borderRadius: 6,
-        lineHeight: 1.5,
-        maxWidth: 900,
-        textAlign: 'center',
-      }}>
+    <div
+      style={{
+        position: "absolute",
+        bottom: 72,
+        left: 0,
+        right: 0,
+        display: "flex",
+        justifyContent: "center",
+        opacity,
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "rgba(9,9,11,0.82)",
+          color: "#fafafa",
+          fontSize: 34,
+          fontWeight: 500,
+          padding: "10px 20px",
+          borderRadius: 6,
+          lineHeight: 1.5,
+          maxWidth: 900,
+          textAlign: "center",
+        }}
+      >
         {active.text}
       </div>
     </div>
@@ -279,13 +319,15 @@ type CaptionedVideoProps = {
   voiceoverFile: string;
 };
 
-export const CaptionedVideo: React.FC<CaptionedVideoProps> = ({ voiceoverFile }) => {
+export const CaptionedVideo: React.FC<CaptionedVideoProps> = ({
+  voiceoverFile,
+}) => {
   return (
-    <AbsoluteFill style={{ backgroundColor: '#09090b' }}>
+    <AbsoluteFill style={{ backgroundColor: "#09090b" }}>
       <Audio src={staticFile(voiceoverFile)} volume={1} />
       {/* Visual content here */}
-      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <p style={{ color: '#71717a', fontSize: 40 }}>Video content</p>
+      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
+        <p style={{ color: "#71717a", fontSize: 40 }}>Video content</p>
       </AbsoluteFill>
       <CaptionOverlay />
     </AbsoluteFill>

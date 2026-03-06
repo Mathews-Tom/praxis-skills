@@ -6,7 +6,7 @@ Rules for ADR status transitions, supersession, and deprecation.
 
 ## Status State Machine
 
-```
+```text
 Proposed → Accepted → Deprecated
                    → Superseded by ADR-XXX
 
@@ -15,12 +15,12 @@ Proposed → Rejected (rare — most rejected proposals are just not written)
 
 ### Transition Rules
 
-| From | To | Trigger | Action |
-|------|----|---------|--------|
-| Proposed | Accepted | Team agrees | Update status, set acceptance date |
-| Proposed | Rejected | Team disagrees | Add rejection reason, or simply delete the ADR |
-| Accepted | Deprecated | Better approach exists but no formal replacement | Add deprecation note |
-| Accepted | Superseded by ADR-XXX | New ADR explicitly replaces this decision | Update status, link to new ADR |
+| From     | To                    | Trigger                                          | Action                                         |
+| -------- | --------------------- | ------------------------------------------------ | ---------------------------------------------- |
+| Proposed | Accepted              | Team agrees                                      | Update status, set acceptance date             |
+| Proposed | Rejected              | Team disagrees                                   | Add rejection reason, or simply delete the ADR |
+| Accepted | Deprecated            | Better approach exists but no formal replacement | Add deprecation note                           |
+| Accepted | Superseded by ADR-XXX | New ADR explicitly replaces this decision        | Update status, link to new ADR                 |
 
 ### Immutability Rule
 
@@ -40,6 +40,7 @@ This preserves the historical record. Editing old ADRs destroys context.
 ### When to Supersede
 
 Supersede an ADR when:
+
 - The original decision is being reversed
 - The technology is being replaced
 - The constraints that drove the original decision have fundamentally changed
@@ -47,6 +48,7 @@ Supersede an ADR when:
 ### How to Supersede
 
 **In the new ADR:**
+
 ```markdown
 **Supersedes:** ADR-003
 
@@ -58,6 +60,7 @@ We need to revisit the database choice for the orders table.
 ```
 
 **In the original ADR:**
+
 ```markdown
 **Status:** Superseded by ADR-007
 ```
@@ -68,7 +71,7 @@ Only the status line is updated. The rest of the original ADR remains unchanged.
 
 When an ADR supersedes another that itself superseded an earlier one:
 
-```
+```text
 ADR-001: Use MySQL        ← Superseded by ADR-003
 ADR-003: Use PostgreSQL   ← Superseded by ADR-007
 ADR-007: Use CockroachDB  ← Current (Accepted)
@@ -84,6 +87,7 @@ provides the full evolution of the decision.
 ### When to Deprecate
 
 Deprecate an ADR when:
+
 - The decision is still technically valid but no longer recommended
 - A better approach exists but no one has formally decided to switch
 - The context has changed enough that the decision should be revisited
@@ -105,12 +109,12 @@ Deprecate an ADR when:
 
 ADRs should be reviewed periodically:
 
-| Review Trigger | Action |
-|----------------|--------|
-| Annual architecture review | Check if accepted ADRs are still valid |
-| Major technology change | Check which ADRs are affected |
-| New team member onboarding | Use ADRs as architecture documentation |
-| Post-incident review | Check if any ADR's consequences materialized |
+| Review Trigger             | Action                                       |
+| -------------------------- | -------------------------------------------- |
+| Annual architecture review | Check if accepted ADRs are still valid       |
+| Major technology change    | Check which ADRs are affected                |
+| New team member onboarding | Use ADRs as architecture documentation       |
+| Post-incident review       | Check if any ADR's consequences materialized |
 
 ### Stale ADR Indicators
 

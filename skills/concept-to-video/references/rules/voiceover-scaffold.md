@@ -29,7 +29,7 @@ self.wait(2)                          # end        → "Binary search finds the 
 
 Use this structure when writing narration:
 
-```
+```text
 [0:00] <Opening — state the concept>
 [0:05] <Context — why this matters>
 [0:15] <Step 1 — narrate first animation beat>

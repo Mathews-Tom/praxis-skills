@@ -9,12 +9,12 @@ built-in utilities. Load this reference for every test generation task.
 
 Fixtures control setup and teardown. Scope determines how often the fixture runs.
 
-| Scope | Runs | Typical Use |
-|-------|------|-------------|
-| `function` | Once per test function (default) | Fresh state per test |
-| `class` | Once per test class | Shared DB connection across class |
-| `module` | Once per test file | Loaded config, parsed data |
-| `session` | Once per entire test run | Docker container, server process |
+| Scope      | Runs                             | Typical Use                       |
+| ---------- | -------------------------------- | --------------------------------- |
+| `function` | Once per test function (default) | Fresh state per test              |
+| `class`    | Once per test class              | Shared DB connection across class |
+| `module`   | Once per test file               | Loaded config, parsed data        |
+| `session`  | Once per entire test run         | Docker container, server process  |
 
 ```python
 @pytest.fixture(scope="module")
@@ -86,14 +86,14 @@ def db_engine(request):
 
 Built-in and custom markers for test classification.
 
-| Marker | Purpose | Usage |
-|--------|---------|-------|
-| `@pytest.mark.skip(reason="...")` | Skip unconditionally | Broken test, known issue |
-| `@pytest.mark.skipif(condition, reason="...")` | Skip on condition | OS-specific, version-specific |
-| `@pytest.mark.xfail(reason="...")` | Expected failure | Known bug, pending fix |
-| `@pytest.mark.parametrize(...)` | Multi-input test | See above |
-| `@pytest.mark.asyncio` | Async test (pytest-asyncio) | Coroutine tests |
-| `@pytest.mark.slow` | Custom: slow tests | Filter with `-m "not slow"` |
+| Marker                                         | Purpose                     | Usage                         |
+| ---------------------------------------------- | --------------------------- | ----------------------------- |
+| `@pytest.mark.skip(reason="...")`              | Skip unconditionally        | Broken test, known issue      |
+| `@pytest.mark.skipif(condition, reason="...")` | Skip on condition           | OS-specific, version-specific |
+| `@pytest.mark.xfail(reason="...")`             | Expected failure            | Known bug, pending fix        |
+| `@pytest.mark.parametrize(...)`                | Multi-input test            | See above                     |
+| `@pytest.mark.asyncio`                         | Async test (pytest-asyncio) | Coroutine tests               |
+| `@pytest.mark.slow`                            | Custom: slow tests          | Filter with `-m "not slow"`   |
 
 ### Registering Custom Markers
 
@@ -115,7 +115,7 @@ Shared fixtures and hooks live in `conftest.py`. Pytest discovers these automati
 
 ### Layout Pattern
 
-```
+```text
 tests/
 ├── conftest.py          # Session and module-level fixtures
 ├── unit/

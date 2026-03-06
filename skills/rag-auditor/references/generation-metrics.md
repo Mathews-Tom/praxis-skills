@@ -12,27 +12,28 @@ retrieved context?
 
 ### Scoring
 
-| Score | Meaning |
-|-------|---------|
-| 1.0 | Every claim is traceable to the retrieved context |
-| 0.8 | Most claims grounded, minor unsupported details |
-| 0.5 | Significant mixing of grounded and ungrounded claims |
-| 0.2 | Mostly ungrounded — model relied on parametric knowledge |
+| Score | Meaning                                                  |
+| ----- | -------------------------------------------------------- |
+| 1.0   | Every claim is traceable to the retrieved context        |
+| 0.8   | Most claims grounded, minor unsupported details          |
+| 0.5   | Significant mixing of grounded and ungrounded claims     |
+| 0.2   | Mostly ungrounded — model relied on parametric knowledge |
 
 ### Evaluation Method
 
 For each claim in the response:
+
 1. Can it be directly found in the retrieved context? → Grounded
 2. Can it be reasonably inferred from context? → Partially grounded
 3. Is it not in the context at all? → Ungrounded (potential hallucination)
 
-```
+```text
 Groundedness = (grounded claims + 0.5 × partially grounded) / total claims
 ```
 
 ### LLM-as-Judge Template
 
-```
+```text
 Given the following context and response, evaluate whether each claim in the
 response is supported by the context.
 
@@ -58,12 +59,12 @@ Output as JSON: {"claims": [{"text": "...", "status": "SUPPORTED/PARTIAL/UNSUPPO
 
 ### Scoring
 
-| Score | Meaning |
-|-------|---------|
-| 1.0 | All relevant information from context is used |
-| 0.7 | Most relevant information used, minor omissions |
-| 0.5 | Significant relevant information missed |
-| 0.2 | Response barely uses the provided context |
+| Score | Meaning                                         |
+| ----- | ----------------------------------------------- |
+| 1.0   | All relevant information from context is used   |
+| 0.7   | Most relevant information used, minor omissions |
+| 0.5   | Significant relevant information missed         |
+| 0.2   | Response barely uses the provided context       |
 
 ### Evaluation Method
 
@@ -78,27 +79,27 @@ Output as JSON: {"claims": [{"text": "...", "status": "SUPPORTED/PARTIAL/UNSUPPO
 **What it measures:** Fraction of claims in the response that are not supported
 by any source.
 
-```
+```text
 Hallucination Rate = unsupported claims / total claims
 ```
 
 ### Types of Hallucination
 
-| Type | Description | Example |
-|------|-------------|---------|
-| Factual fabrication | Inventing facts not in context | "The company was founded in 1998" (not in context) |
-| Numerical fabrication | Inventing statistics | "95% of users prefer X" (no data in context) |
-| Source fabrication | Citing non-existent sources | "According to Smith et al." (no such reference) |
-| Extrapolation | Extending beyond context | Context says "revenue grew" → "revenue doubled" |
+| Type                  | Description                    | Example                                            |
+| --------------------- | ------------------------------ | -------------------------------------------------- |
+| Factual fabrication   | Inventing facts not in context | "The company was founded in 1998" (not in context) |
+| Numerical fabrication | Inventing statistics           | "95% of users prefer X" (no data in context)       |
+| Source fabrication    | Citing non-existent sources    | "According to Smith et al." (no such reference)    |
+| Extrapolation         | Extending beyond context       | Context says "revenue grew" → "revenue doubled"    |
 
 ### Target Hallucination Rates
 
-| Application | Target |
-|-------------|--------|
-| Medical/legal | < 1% |
-| Financial | < 2% |
-| Customer support | < 5% |
-| General knowledge | < 10% |
+| Application       | Target |
+| ----------------- | ------ |
+| Medical/legal     | < 1%   |
+| Financial         | < 2%   |
+| Customer support  | < 5%   |
+| General knowledge | < 10%  |
 
 ---
 
@@ -111,14 +112,14 @@ correctly say "I don't know"?
 
 Test with queries whose answers are NOT in the corpus:
 
-| Model Behavior | Correct? |
-|---------------|----------|
-| "I don't have information about X" | Yes (correct abstention) |
-| Provides an answer from context | Yes (if answer was actually there — test design error) |
-| Makes up an answer | No (false confidence — hallucination) |
-| Refuses to answer when context IS sufficient | No (over-abstention) |
+| Model Behavior                               | Correct?                                               |
+| -------------------------------------------- | ------------------------------------------------------ |
+| "I don't have information about X"           | Yes (correct abstention)                               |
+| Provides an answer from context              | Yes (if answer was actually there — test design error) |
+| Makes up an answer                           | No (false confidence — hallucination)                  |
+| Refuses to answer when context IS sufficient | No (over-abstention)                                   |
 
-```
+```text
 Abstention Accuracy = correct abstentions / (unanswerable queries)
 Over-Abstention Rate = false abstentions / (answerable queries)
 ```
@@ -129,18 +130,18 @@ Over-Abstention Rate = false abstentions / (answerable queries)
 
 ### Answer Correctness (for known-answer queries)
 
-```
+```text
 Correctness = correct answers / total queries
 ```
 
 Combine with component metrics to diagnose WHERE failures occur:
 
-| Retrieval | Generation | Diagnosis |
-|-----------|-----------|-----------|
-| Good chunks | Wrong answer | Generation failure |
-| Bad chunks | Wrong answer | Retrieval failure (fix retrieval first) |
-| Good chunks | Right answer | Working correctly |
-| Bad chunks | Right answer | Lucky — model used parametric knowledge |
+| Retrieval   | Generation   | Diagnosis                               |
+| ----------- | ------------ | --------------------------------------- |
+| Good chunks | Wrong answer | Generation failure                      |
+| Bad chunks  | Wrong answer | Retrieval failure (fix retrieval first) |
+| Good chunks | Right answer | Working correctly                       |
+| Bad chunks  | Right answer | Lucky — model used parametric knowledge |
 
 ### F1 Token Overlap
 

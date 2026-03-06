@@ -7,30 +7,30 @@ and POSIX classes.
 
 ## Basic Character Classes
 
-| Syntax | Matches | Example |
-|--------|---------|---------|
-| `[abc]` | a, b, or c | `[aeiou]` matches vowels |
-| `[^abc]` | NOT a, b, or c | `[^0-9]` matches non-digits |
-| `[a-z]` | Lowercase letter | Range within brackets |
-| `[A-Z]` | Uppercase letter | Range within brackets |
-| `[0-9]` | Digit | Range within brackets |
-| `[a-zA-Z]` | Any letter | Combined ranges |
-| `[a-zA-Z0-9]` | Alphanumeric | Combined ranges |
-| `[-]` | Literal hyphen | Place at start or end: `[-a-z]` |
+| Syntax        | Matches          | Example                         |
+| ------------- | ---------------- | ------------------------------- |
+| `[abc]`       | a, b, or c       | `[aeiou]` matches vowels        |
+| `[^abc]`      | NOT a, b, or c   | `[^0-9]` matches non-digits     |
+| `[a-z]`       | Lowercase letter | Range within brackets           |
+| `[A-Z]`       | Uppercase letter | Range within brackets           |
+| `[0-9]`       | Digit            | Range within brackets           |
+| `[a-zA-Z]`    | Any letter       | Combined ranges                 |
+| `[a-zA-Z0-9]` | Alphanumeric     | Combined ranges                 |
+| `[-]`         | Literal hyphen   | Place at start or end: `[-a-z]` |
 
 ---
 
 ## Shorthand Classes
 
-| Shorthand | Equivalent | Matches |
-|-----------|-----------|---------|
-| `\d` | `[0-9]` | Digit |
-| `\D` | `[^0-9]` | Non-digit |
-| `\w` | `[a-zA-Z0-9_]` | Word character (includes underscore) |
-| `\W` | `[^a-zA-Z0-9_]` | Non-word character |
-| `\s` | `[ \t\n\r\f\v]` | Whitespace |
-| `\S` | `[^ \t\n\r\f\v]` | Non-whitespace |
-| `.` | `[^\n]` (default) | Any character except newline |
+| Shorthand | Equivalent        | Matches                              |
+| --------- | ----------------- | ------------------------------------ |
+| `\d`      | `[0-9]`           | Digit                                |
+| `\D`      | `[^0-9]`          | Non-digit                            |
+| `\w`      | `[a-zA-Z0-9_]`    | Word character (includes underscore) |
+| `\W`      | `[^a-zA-Z0-9_]`   | Non-word character                   |
+| `\s`      | `[ \t\n\r\f\v]`   | Whitespace                           |
+| `\S`      | `[^ \t\n\r\f\v]`  | Non-whitespace                       |
+| `.`       | `[^\n]` (default) | Any character except newline         |
 
 ### Important: `\w` Includes Underscore
 
@@ -40,6 +40,7 @@ underscore, use `[a-zA-Z0-9]` or `[^\W_]`.
 ### Important: `.` Does NOT Match Newline
 
 By default, `.` matches any character except `\n`. To match newlines too:
+
 - Python: `re.DOTALL` flag or `(?s)` inline
 - JavaScript: `s` flag (`/./s`)
 
@@ -47,15 +48,15 @@ By default, `.` matches any character except `\n`. To match newlines too:
 
 ## Unicode Categories (Python, PCRE)
 
-| Category | Syntax | Matches |
-|----------|--------|---------|
-| Letter | `\p{L}` | Any Unicode letter |
-| Uppercase letter | `\p{Lu}` | Uppercase letters |
-| Lowercase letter | `\p{Ll}` | Lowercase letters |
-| Digit | `\p{Nd}` | Numeric digits |
-| Punctuation | `\p{P}` | Punctuation characters |
-| Symbol | `\p{S}` | Symbols |
-| Whitespace | `\p{Z}` | Separators/whitespace |
+| Category         | Syntax   | Matches                |
+| ---------------- | -------- | ---------------------- |
+| Letter           | `\p{L}`  | Any Unicode letter     |
+| Uppercase letter | `\p{Lu}` | Uppercase letters      |
+| Lowercase letter | `\p{Ll}` | Lowercase letters      |
+| Digit            | `\p{Nd}` | Numeric digits         |
+| Punctuation      | `\p{P}`  | Punctuation characters |
+| Symbol           | `\p{S}`  | Symbols                |
+| Whitespace       | `\p{Z}`  | Separators/whitespace  |
 
 **Python support:** Requires `regex` module (not `re`) for `\p{...}` syntax. The
 built-in `re` module supports Unicode matching with `re.UNICODE` flag but not
@@ -70,22 +71,23 @@ category syntax.
 These characters have special meaning in regex and must be escaped with `\` to
 match literally:
 
-```
+```text
 . ^ $ * + ? { } [ ] \ | ( )
 ```
 
-| To Match | Use |
-|----------|-----|
-| `.` | `\.` |
-| `*` | `\*` |
-| `(` | `\(` |
-| `[` | `\[` |
-| `\` | `\\` |
-| `$` | `\$` |
+| To Match | Use  |
+| -------- | ---- |
+| `.`      | `\.` |
+| `*`      | `\*` |
+| `(`      | `\(` |
+| `[`      | `\[` |
+| `\`      | `\\` |
+| `$`      | `\$` |
 
 ### Inside Character Classes
 
 Inside `[...]`, most special characters are literal. Only these need escaping:
+
 - `]` → `\]`
 - `\` → `\\`
 - `^` → `\^` (only at the start)
@@ -95,15 +97,15 @@ Inside `[...]`, most special characters are literal. Only these need escaping:
 
 ## Anchors
 
-| Anchor | Matches | Notes |
-|--------|---------|-------|
-| `^` | Start of string (or line with MULTILINE) | |
-| `$` | End of string (or line with MULTILINE) | |
-| `\b` | Word boundary | Between `\w` and `\W` |
-| `\B` | Non-word boundary | |
-| `\A` | Start of string (always, ignores MULTILINE) | Python, PCRE |
-| `\Z` | End of string (always) | Python |
-| `\z` | End of string (always) | PCRE, Java |
+| Anchor | Matches                                     | Notes                 |
+| ------ | ------------------------------------------- | --------------------- |
+| `^`    | Start of string (or line with MULTILINE)    |                       |
+| `$`    | End of string (or line with MULTILINE)      |                       |
+| `\b`   | Word boundary                               | Between `\w` and `\W` |
+| `\B`   | Non-word boundary                           |                       |
+| `\A`   | Start of string (always, ignores MULTILINE) | Python, PCRE          |
+| `\Z`   | End of string (always)                      | Python                |
+| `\z`   | End of string (always)                      | PCRE, Java            |
 
 ### Word Boundary Examples
 
@@ -119,11 +121,11 @@ Inside `[...]`, most special characters are literal. Only these need escaping:
 
 ## Lookaround (Zero-Width Assertions)
 
-| Syntax | Name | Matches |
-|--------|------|---------|
-| `(?=...)` | Positive lookahead | Followed by pattern |
-| `(?!...)` | Negative lookahead | NOT followed by pattern |
-| `(?<=...)` | Positive lookbehind | Preceded by pattern |
+| Syntax     | Name                | Matches                 |
+| ---------- | ------------------- | ----------------------- |
+| `(?=...)`  | Positive lookahead  | Followed by pattern     |
+| `(?!...)`  | Negative lookahead  | NOT followed by pattern |
+| `(?<=...)` | Positive lookbehind | Preceded by pattern     |
 | `(?<!...)` | Negative lookbehind | NOT preceded by pattern |
 
 ```regex

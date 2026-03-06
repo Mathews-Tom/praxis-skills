@@ -141,7 +141,7 @@ Evaluate which patterns are present and whether they're appropriate:
 
 For each component in the critical path, evaluate:
 
-```
+```text
 Component → Throughput Limit → What Happens at Limit → Mitigation
 ```
 

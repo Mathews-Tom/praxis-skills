@@ -9,7 +9,7 @@ parseable responses.
 
 ### Length Constraints
 
-```
+```text
 Respond in exactly 3 bullet points.
 Maximum 100 words.
 One sentence only.
@@ -18,7 +18,7 @@ Between 2 and 5 paragraphs.
 
 ### Format Constraints
 
-```
+```text
 Respond in valid JSON matching this schema:
 {"category": "string", "confidence": "number 0-1", "reasoning": "string"}
 
@@ -29,7 +29,7 @@ Respond as a numbered list. Each item must start with an action verb.
 
 ### Content Constraints
 
-```
+```text
 ONLY use information from the provided context. Do not add external knowledge.
 If the answer is not in the context, respond with "Not found in context."
 Do not include opinions or recommendations. State facts only.
@@ -99,7 +99,7 @@ response = client.beta.chat.completions.parse(
 Models have recency bias — instructions at the end of the prompt are followed more
 reliably than those at the beginning.
 
-```
+```text
 {Context / input data}
 
 {Main instruction}
@@ -111,7 +111,7 @@ reliably than those at the beginning.
 
 For critical constraints, state them twice:
 
-```
+```text
 Important: Respond ONLY in valid JSON.
 
 {Task instruction}
@@ -125,13 +125,13 @@ Remember: Your response must be valid JSON. No text outside the JSON object.
 
 ## Common Constraint Failures
 
-| Constraint | Failure Mode | Fix |
-|-----------|-------------|-----|
-| "Respond in JSON" | Model wraps JSON in markdown code blocks | "Respond with raw JSON only. No markdown, no code blocks." |
-| "Maximum 3 sentences" | Model writes 3 long sentences | "Maximum 3 sentences, each under 30 words" |
-| "Only use provided context" | Model adds common knowledge | "If you add ANY information not in the context, mark it as [inferred]" |
-| "No opinions" | Model hedges with "some might say" | "State each point as a factual observation" |
-| "Use this template" | Model modifies the template structure | Provide the template with clear markers: `{FILL THIS}` |
+| Constraint                  | Failure Mode                             | Fix                                                                    |
+| --------------------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
+| "Respond in JSON"           | Model wraps JSON in markdown code blocks | "Respond with raw JSON only. No markdown, no code blocks."             |
+| "Maximum 3 sentences"       | Model writes 3 long sentences            | "Maximum 3 sentences, each under 30 words"                             |
+| "Only use provided context" | Model adds common knowledge              | "If you add ANY information not in the context, mark it as [inferred]" |
+| "No opinions"               | Model hedges with "some might say"       | "State each point as a factual observation"                            |
+| "Use this template"         | Model modifies the template structure    | Provide the template with clear markers: `{FILL THIS}`                 |
 
 ---
 
@@ -155,6 +155,7 @@ def validate_output(text: str, expected_keys: list[str]) -> bool:
 ### Retry Strategy
 
 If validation fails:
+
 1. Parse the error
 2. Include the error in a follow-up prompt
 3. Ask the model to fix its output

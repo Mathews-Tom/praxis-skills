@@ -126,7 +126,7 @@
 
 **Pipeline coverage:**
 
-```
+```text
 [Raw Data] → [Processing] → [Analysis] → [Results] → [Artifacts] → [PDF]
     ✓            ✓              ✓            ✓           ✗            ✗
 ```

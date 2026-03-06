@@ -12,12 +12,12 @@ change non-linearly with input size.
 
 ### Standard Scale Tiers
 
-| Tier | Purpose | Typical Size | Reveals |
-|------|---------|-------------|---------|
-| Tiny | Overhead measurement | 1-10 items | Startup cost, minimum latency |
-| Small | Typical light load | 100-1K items | Normal operation performance |
-| Medium | Typical heavy load | 10K-100K items | Scaling behavior |
-| Large | Stress test | 1M+ items | Algorithmic complexity, memory limits |
+| Tier   | Purpose              | Typical Size   | Reveals                               |
+| ------ | -------------------- | -------------- | ------------------------------------- |
+| Tiny   | Overhead measurement | 1-10 items     | Startup cost, minimum latency         |
+| Small  | Typical light load   | 100-1K items   | Normal operation performance          |
+| Medium | Typical heavy load   | 10K-100K items | Scaling behavior                      |
+| Large  | Stress test          | 1M+ items      | Algorithmic complexity, memory limits |
 
 ### Choosing Scales
 
@@ -35,25 +35,25 @@ change non-linearly with input size.
 
 Use inputs that resemble production workloads:
 
-| If Testing | Use | Not |
-|-----------|-----|-----|
-| Text processing | Real documents, varied lengths | Single repeated word |
-| JSON parsing | Real API responses, nested objects | Flat `{"key": "value"}` |
-| Database queries | Realistic table sizes and distributions | Empty tables |
-| ML inference | Real-world samples from test set | Random noise |
-| Image processing | Varied sizes, formats, content | Single test image |
+| If Testing       | Use                                     | Not                     |
+| ---------------- | --------------------------------------- | ----------------------- |
+| Text processing  | Real documents, varied lengths          | Single repeated word    |
+| JSON parsing     | Real API responses, nested objects      | Flat `{"key": "value"}` |
+| Database queries | Realistic table sizes and distributions | Empty tables            |
+| ML inference     | Real-world samples from test set        | Random noise            |
+| Image processing | Varied sizes, formats, content          | Single test image       |
 
 ### Worst-Case Inputs
 
 Include inputs designed to expose weaknesses:
 
-| Category | Example |
-|----------|---------|
+| Category     | Example                                             |
+| ------------ | --------------------------------------------------- |
 | Pathological | Sorted input for quicksort, all-hash-collision keys |
-| Adversarial | Deeply nested JSON, regex backtracking patterns |
-| Empty | Zero-length input, null, missing fields |
-| Maximum | Largest possible input, max integer, longest string |
-| Unicode | Multi-byte characters, emoji, RTL text |
+| Adversarial  | Deeply nested JSON, regex backtracking patterns     |
+| Empty        | Zero-length input, null, missing fields             |
+| Maximum      | Largest possible input, max integer, longest string |
+| Unicode      | Multi-byte characters, emoji, RTL text              |
 
 ---
 
@@ -62,6 +62,7 @@ Include inputs designed to expose weaknesses:
 ### Why Warmup Matters
 
 First-run measurements include:
+
 - JIT compilation (JVM, V8)
 - Cache population (CPU cache, application cache)
 - Connection establishment (database, HTTP)
@@ -91,13 +92,13 @@ for _ in range(MEASUREMENT_ITERATIONS):
 
 ### How Many Warmup Iterations
 
-| Environment | Recommended Warmup |
-|-------------|-------------------|
-| Python (CPython) | 3-5 iterations |
-| JVM (Java, Kotlin) | 50-100 iterations (JIT) |
-| JavaScript (V8) | 10-20 iterations |
-| Compiled (Rust, Go, C) | 1-3 iterations (cache only) |
-| Database queries | 5-10 iterations (query plan cache) |
+| Environment            | Recommended Warmup                 |
+| ---------------------- | ---------------------------------- |
+| Python (CPython)       | 3-5 iterations                     |
+| JVM (Java, Kotlin)     | 50-100 iterations (JIT)            |
+| JavaScript (V8)        | 10-20 iterations                   |
+| Compiled (Rust, Go, C) | 1-3 iterations (cache only)        |
+| Database queries       | 5-10 iterations (query plan cache) |
 
 ---
 
@@ -105,7 +106,7 @@ for _ in range(MEASUREMENT_ITERATIONS):
 
 ### Minimum Iterations
 
-```
+```text
 Minimum = 30 (for basic statistical confidence)
 Recommended = 100+ (for percentile accuracy)
 For P99 accuracy = 1000+ (need 10x the percentile denominator)
@@ -124,6 +125,7 @@ For P99 accuracy = 1000+ (need 10x the percentile denominator)
 ### Process Isolation
 
 Run each candidate in a separate process to prevent:
+
 - Shared memory pollution
 - GC interference
 - Thread contention
@@ -153,6 +155,7 @@ for i in range(iterations):
 ### System Isolation
 
 For rigorous benchmarks:
+
 - Close unnecessary applications
 - Disable CPU frequency scaling: `sudo cpupower frequency-set --governor performance`
 - Pin processes to specific CPU cores: `taskset -c 0 python benchmark.py`

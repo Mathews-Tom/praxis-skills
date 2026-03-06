@@ -10,7 +10,7 @@ Strategies for breaking features into implementable tasks at the right granulari
 
 Break by architectural layer:
 
-```
+```text
 Feature: User search
 ├── Data layer: Add search index, write query function
 ├── Logic layer: Search ranking, filtering, pagination
@@ -24,7 +24,7 @@ Feature: User search
 
 Break by user-visible capability, implementing thin vertical slices:
 
-```
+```text
 Feature: User search
 ├── Slice 1: Basic exact-match search (all layers, minimal)
 ├── Slice 2: Add fuzzy matching
@@ -38,7 +38,7 @@ Feature: User search
 
 Break by independent system components:
 
-```
+```text
 Feature: Notification system
 ├── Component: Email provider integration
 ├── Component: SMS provider integration
@@ -53,7 +53,7 @@ Feature: Notification system
 
 Follow the data through the system:
 
-```
+```text
 Feature: CSV import
 ├── Step 1: File upload and validation
 ├── Step 2: CSV parsing and schema detection
@@ -72,6 +72,7 @@ Feature: CSV import
 ### Right-Sized Tasks
 
 Each task should be:
+
 - **Completable in 1-3 days** (not weeks, not hours)
 - **Independently testable** (can verify it works alone)
 - **Single PR** (one review, one merge)
@@ -79,16 +80,17 @@ Each task should be:
 
 ### Size Indicators
 
-| Size | Description | Task Count |
-|------|-------------|------------|
-| S (Small) | < 4 hours, straightforward | Combined with other S tasks |
-| M (Medium) | 4-16 hours, some decisions | Ideal task size |
-| L (Large) | 16-40 hours, complex | Break down further |
-| XL (Extra Large) | > 40 hours | Must break down further |
+| Size             | Description                | Task Count                  |
+| ---------------- | -------------------------- | --------------------------- |
+| S (Small)        | < 4 hours, straightforward | Combined with other S tasks |
+| M (Medium)       | 4-16 hours, some decisions | Ideal task size             |
+| L (Large)        | 16-40 hours, complex       | Break down further          |
+| XL (Extra Large) | > 40 hours                 | Must break down further     |
 
 ### When to Break Down Further
 
 A task needs decomposition if:
+
 - It touches more than 3 files
 - It requires more than one design decision
 - You can't explain it in one sentence
@@ -98,6 +100,7 @@ A task needs decomposition if:
 ### When to Merge
 
 Tasks should be merged if:
+
 - Both take < 2 hours
 - They modify the same file(s)
 - One is meaningless without the other
@@ -109,22 +112,24 @@ Tasks should be merged if:
 
 ### Standard 4-Phase Model
 
-| Phase | Purpose | Characteristics |
-|-------|---------|----------------|
-| Foundation | Data models, schemas, interfaces | No business logic, defines contracts |
-| Core | Business logic, algorithms | Implements the actual feature |
-| Integration | Connecting pieces, endpoints | Wiring, API routes, event handlers |
-| Polish | Edge cases, UX, error handling | Validation, error messages, loading states |
+| Phase       | Purpose                          | Characteristics                            |
+| ----------- | -------------------------------- | ------------------------------------------ |
+| Foundation  | Data models, schemas, interfaces | No business logic, defines contracts       |
+| Core        | Business logic, algorithms       | Implements the actual feature              |
+| Integration | Connecting pieces, endpoints     | Wiring, API routes, event handlers         |
+| Polish      | Edge cases, UX, error handling   | Validation, error messages, loading states |
 
 ### When to Collapse Phases
 
 For small features (< 5 tasks), 2 phases are sufficient:
+
 1. **Build** — All implementation
 2. **Polish** — Edge cases, error handling, tests
 
 ### When to Expand Phases
 
 For large features (> 15 tasks), add phases:
+
 1. **Research / Spike** — Investigate unknowns
 2. **Foundation** — Data layer
 3. **Core** — Business logic
@@ -152,6 +157,7 @@ For large features (> 15 tasks), add phases:
 ### No Dependency (Parallel)
 
 Tasks with no shared state, files, or contracts can be done simultaneously:
+
 - Two independent API endpoints
 - Backend and frontend working against a defined contract
 - Documentation and implementation (if spec is stable)

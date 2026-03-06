@@ -8,10 +8,10 @@ PERT formula, three-point estimation, and aggregation techniques.
 
 ### The Three Scenarios
 
-| Scenario | Definition | Probability |
-|----------|-----------|-------------|
-| Optimistic (O) | Best realistic case — minimal friction | ~10th percentile |
-| Most Likely (M) | Normal friction, typical obstacles | ~50th percentile |
+| Scenario        | Definition                                 | Probability      |
+| --------------- | ------------------------------------------ | ---------------- |
+| Optimistic (O)  | Best realistic case — minimal friction     | ~10th percentile |
+| Most Likely (M) | Normal friction, typical obstacles         | ~50th percentile |
 | Pessimistic (P) | Significant problems, but not catastrophic | ~90th percentile |
 
 ### Key Rules
@@ -27,7 +27,7 @@ PERT formula, three-point estimation, and aggregation techniques.
 
 PERT (Program Evaluation and Review Technique) weights the most likely estimate:
 
-```
+```text
 Expected = (O + 4M + P) / 6
 Standard Deviation = (P - O) / 6
 Variance = ((P - O) / 6)²
@@ -35,7 +35,7 @@ Variance = ((P - O) / 6)²
 
 ### Example
 
-```
+```text
 Task: Implement user search
 O = 2 days
 M = 4 days
@@ -47,13 +47,14 @@ Std Dev = (10 - 2) / 6 = 1.33 days
 
 ### Confidence Intervals
 
-| Confidence | Range |
-|-----------|-------|
-| 68% | Expected ± 1 std dev |
-| 95% | Expected ± 2 std dev |
-| 99.7% | Expected ± 3 std dev |
+| Confidence | Range                |
+| ---------- | -------------------- |
+| 68%        | Expected ± 1 std dev |
+| 95%        | Expected ± 2 std dev |
+| 99.7%      | Expected ± 3 std dev |
 
 For the example:
+
 - 68% confident: 3.3 to 6.0 days
 - 95% confident: 2.0 to 7.3 days
 
@@ -65,7 +66,7 @@ For the example:
 
 For multiple tasks, the total expected duration:
 
-```
+```text
 Total Expected = Σ Expected_i
 ```
 
@@ -73,18 +74,18 @@ Total Expected = Σ Expected_i
 
 Standard deviations do NOT sum linearly. Use root sum of squares:
 
-```
+```text
 Total Std Dev = √(Σ Variance_i) = √(Σ ((P_i - O_i) / 6)²)
 ```
 
 ### Example: 3-Task Project
 
-| Task | O | M | P | Expected | Std Dev | Variance |
-|------|---|---|---|----------|---------|----------|
-| Task 1 | 1 | 2 | 5 | 2.3 | 0.67 | 0.44 |
-| Task 2 | 2 | 4 | 10 | 4.7 | 1.33 | 1.78 |
-| Task 3 | 1 | 3 | 7 | 3.3 | 1.00 | 1.00 |
-| **Total** | | | | **10.3** | **1.80** | **3.22** |
+| Task      | O   | M   | P   | Expected | Std Dev  | Variance |
+| --------- | --- | --- | --- | -------- | -------- | -------- |
+| Task 1    | 1   | 2   | 5   | 2.3      | 0.67     | 0.44     |
+| Task 2    | 2   | 4   | 10  | 4.7      | 1.33     | 1.78     |
+| Task 3    | 1   | 3   | 7   | 3.3      | 1.00     | 1.00     |
+| **Total** |     |     |     | **10.3** | **1.80** | **3.22** |
 
 Total Std Dev = √3.22 = 1.80 days
 
@@ -96,7 +97,7 @@ Total Std Dev = √3.22 = 1.80 days
 
 When full PERT is overkill:
 
-```
+```text
 Quick Estimate = M + Buffer
 
 Buffer:
@@ -111,19 +112,19 @@ Buffer:
 
 ### Sequential Tasks
 
-```
+```text
 Duration = Σ Expected_i
 ```
 
 ### Parallel Tasks
 
-```
+```text
 Duration = max(Expected_i)  for tasks running simultaneously
 ```
 
 ### Mixed (Critical Path)
 
-```
+```text
 Total = Σ (max of each parallel group on the critical path)
 ```
 
@@ -131,11 +132,11 @@ Total = Σ (max of each parallel group on the critical path)
 
 ## Common Estimation Pitfalls
 
-| Pitfall | Problem | Fix |
-|---------|---------|-----|
-| Single-point estimate | No uncertainty communicated | Always give ranges |
+| Pitfall                    | Problem                                               | Fix                                                 |
+| -------------------------- | ----------------------------------------------------- | --------------------------------------------------- |
+| Single-point estimate      | No uncertainty communicated                           | Always give ranges                                  |
 | Calendar time vs work time | 5 days of work ≠ 1 week (meetings, context switching) | Specify: "5 working days at 6 productive hours/day" |
-| Forgetting testing time | Implementation estimate doesn't include tests | Add 20-40% for tests |
-| Forgetting review time | Code review adds calendar time | Add 1-2 days per task for review cycle |
-| Ignoring dependencies | Total = sum of individual estimates | Must account for blocking dependencies |
-| Scope creep | Original estimate for original scope | Re-estimate when scope changes |
+| Forgetting testing time    | Implementation estimate doesn't include tests         | Add 20-40% for tests                                |
+| Forgetting review time     | Code review adds calendar time                        | Add 1-2 days per task for review cycle              |
+| Ignoring dependencies      | Total = sum of individual estimates                   | Must account for blocking dependencies              |
+| Scope creep                | Original estimate for original scope                  | Re-estimate when scope changes                      |

@@ -36,7 +36,7 @@ The skill auto-triggers when Claude sees requests like "convert this markdown to
 
 ## Rendering Pipeline
 
-```
+```text
 Markdown → [mmdc: Mermaid→SVG] → [pandoc: MD→HTML] → [KaTeX: LaTeX→HTML] → [Playwright: HTML→PDF]
 ```
 

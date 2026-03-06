@@ -6,7 +6,7 @@ Utility patterns for arranging objects spatially. Use these to place elements co
 
 Manim's default canvas is 14.2 × 8 units (16:9 aspect ratio). The origin `ORIGIN` is the center.
 
-```
+```text
                     UP (0, 3.5, 0)
                          |
 (-7, 0, 0) LEFT -------- + -------- RIGHT (7, 0, 0)
@@ -72,13 +72,13 @@ class LayoutExample(Scene):
 
 ## Common layout patterns
 
-| Layout | Method | Use for |
-| ------ | ------- | ------- |
-| Horizontal row | `arrange(RIGHT, buff=0.5)` | Pipeline stages, options |
-| Vertical stack | `arrange(DOWN, buff=0.3)` | Lists, layers, timeline |
-| Grid | `arrange_in_grid(rows=R, cols=C, buff=0.3)` | Microservices, matrix |
-| Radial | Manual trig: `radius * [cos(angle), sin(angle), 0]` | Cycles, star topology |
-| Tree | Manual `.move_to()` per node | Hierarchies, ASTs |
+| Layout         | Method                                              | Use for                  |
+| -------------- | --------------------------------------------------- | ------------------------ |
+| Horizontal row | `arrange(RIGHT, buff=0.5)`                          | Pipeline stages, options |
+| Vertical stack | `arrange(DOWN, buff=0.3)`                           | Lists, layers, timeline  |
+| Grid           | `arrange_in_grid(rows=R, cols=C, buff=0.3)`         | Microservices, matrix    |
+| Radial         | Manual trig: `radius * [cos(angle), sin(angle), 0]` | Cycles, star topology    |
+| Tree           | Manual `.move_to()` per node                        | Hierarchies, ASTs        |
 
 ## Spacing guidelines
 

@@ -19,6 +19,7 @@ Zero tolerance for silent failures. Every error must be surfaced, logged, and ac
 ### 1. Locate All Error Handling Code
 
 Systematically find:
+
 - try-catch/try-except blocks
 - Error callbacks and event handlers
 - Conditional branches handling error states
@@ -29,30 +30,35 @@ Systematically find:
 ### 2. Scrutinize Each Handler
 
 **Logging quality:**
+
 - Appropriate severity level (error vs warning vs info)
 - Sufficient context (operation, relevant IDs, state)
 - Error tracking IDs for monitoring systems
 - Debuggable 6 months from now by someone without context
 
 **User feedback:**
+
 - Clear, actionable message about what went wrong
 - Explains what the user can do to fix or work around it
 - Specific enough to be useful, not generic
 - Technical details appropriate to the user's context
 
 **Catch block specificity:**
+
 - Catches only expected error types
 - Cannot accidentally suppress unrelated errors
 - List every unexpected error type that could be hidden
 - Should it be multiple catch blocks for different types?
 
 **Fallback behavior:**
+
 - Is fallback explicitly requested or documented?
 - Does it mask the underlying problem?
 - Would the user be confused about why they see fallback behavior?
 - Is it a fallback to a mock/stub outside test code?
 
 **Error propagation:**
+
 - Should this error bubble up to a higher-level handler?
 - Is the error being swallowed when it should propagate?
 - Does catching prevent proper cleanup or resource management?
@@ -60,6 +66,7 @@ Systematically find:
 ### 3. Check for Hidden Failure Patterns
 
 Anti-patterns (always flag):
+
 - Empty catch blocks
 - Catch blocks that only log and continue
 - Returning null/undefined/default on error without logging
@@ -71,17 +78,17 @@ Anti-patterns (always flag):
 
 ## Severity Classification
 
-| Severity | Criteria |
-|---|---|
-| CRITICAL | Silent failure, broad catch hiding errors, empty catch block |
-| HIGH | Poor error message, unjustified fallback, swallowed exception |
-| MEDIUM | Missing context in logs, could be more specific |
+| Severity | Criteria                                                      |
+| -------- | ------------------------------------------------------------- |
+| CRITICAL | Silent failure, broad catch hiding errors, empty catch block  |
+| HIGH     | Poor error message, unjustified fallback, swallowed exception |
+| MEDIUM   | Missing context in logs, could be more specific               |
 
 ## Output Format
 
 For each issue:
 
-```
+```text
 **[CRITICAL]** `src/api/client.py:87`
 Empty except block swallows ConnectionError, TimeoutError, and any
 unexpected exception from the HTTP client.

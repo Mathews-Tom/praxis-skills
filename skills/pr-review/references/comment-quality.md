@@ -9,6 +9,7 @@ months later without original context.
 ### 1. Factual Accuracy
 
 Cross-reference every claim against the actual code:
+
 - Function signatures match documented parameters and return types
 - Described behavior aligns with actual code logic
 - Referenced types, functions, and variables exist and are used correctly
@@ -18,6 +19,7 @@ Cross-reference every claim against the actual code:
 ### 2. Completeness
 
 Evaluate whether comments provide sufficient context:
+
 - Critical assumptions or preconditions documented
 - Non-obvious side effects mentioned
 - Important error conditions described
@@ -27,6 +29,7 @@ Evaluate whether comments provide sufficient context:
 ### 3. Long-term Value
 
 Consider the comment's utility over the codebase's lifetime:
+
 - Flag comments that merely restate obvious code
 - "Why" comments are more valuable than "what" comments
 - Comments likely to become outdated with code changes should be reconsidered
@@ -36,6 +39,7 @@ Consider the comment's utility over the codebase's lifetime:
 ### 4. Misleading Elements
 
 Search for ways comments could be misinterpreted:
+
 - Ambiguous language with multiple meanings
 - Outdated references to refactored code
 - Assumptions that may no longer hold true
@@ -44,7 +48,7 @@ Search for ways comments could be misinterpreted:
 
 ## Output Format
 
-```
+```text
 ## Comment Analysis
 
 ### Summary

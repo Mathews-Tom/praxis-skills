@@ -8,6 +8,7 @@ for benchmark results.
 ## Why Statistics Matter in Benchmarks
 
 A single measurement tells nothing. Performance varies due to:
+
 - CPU scheduling, context switches
 - Cache state (hot vs cold)
 - Background processes
@@ -22,16 +23,17 @@ Without statistical analysis, you cannot distinguish real differences from noise
 
 ### Minimum Samples
 
-| Confidence Level | Minimum Samples |
-|-----------------|-----------------|
-| Basic comparison | 30 |
-| Percentile reporting (P95) | 100 |
-| Percentile reporting (P99) | 1,000 |
-| Publication-quality | 1,000+ |
+| Confidence Level           | Minimum Samples |
+| -------------------------- | --------------- |
+| Basic comparison           | 30              |
+| Percentile reporting (P95) | 100             |
+| Percentile reporting (P99) | 1,000           |
+| Publication-quality        | 1,000+          |
 
 ### Rule of Thumb
 
 For percentile P_k, collect at least `100 / (100 - k)` × 10 samples:
+
 - P50 → 20 samples minimum
 - P95 → 200 samples minimum
 - P99 → 1,000 samples minimum
@@ -53,16 +55,16 @@ print(f"{mean:.2f} ± {stdev:.2f} ms")
 
 ### Coefficient of Variation (CV)
 
-```
+```text
 CV = stdev / mean × 100%
 ```
 
-| CV | Interpretation |
-|----|----------------|
-| < 5% | Low variance — results are stable |
-| 5-15% | Moderate variance — acceptable for most comparisons |
-| 15-30% | High variance — increase iterations or improve isolation |
-| > 30% | Very high variance — results are unreliable, fix the measurement setup |
+| CV     | Interpretation                                                         |
+| ------ | ---------------------------------------------------------------------- |
+| < 5%   | Low variance — results are stable                                      |
+| 5-15%  | Moderate variance — acceptable for most comparisons                    |
+| 15-30% | High variance — increase iterations or improve isolation               |
+| > 30%  | Very high variance — results are unreliable, fix the measurement setup |
 
 ### Inter-Quartile Range (IQR)
 
@@ -118,12 +120,12 @@ effect = (mean_b - mean_a) / mean_a * 100
 print(f"B is {effect:.1f}% {'slower' if effect > 0 else 'faster'} than A")
 ```
 
-| Effect Size | Interpretation |
-|-------------|----------------|
-| < 1% | Negligible — practically identical |
-| 1-5% | Small — may matter at scale |
-| 5-20% | Medium — meaningful difference |
-| > 20% | Large — clear winner |
+| Effect Size | Interpretation                     |
+| ----------- | ---------------------------------- |
+| < 1%        | Negligible — practically identical |
+| 1-5%        | Small — may matter at scale        |
+| 5-20%       | Medium — meaningful difference     |
+| > 20%       | Large — clear winner               |
 
 ---
 
@@ -146,12 +148,12 @@ print(f"Found {len(outliers)} outliers out of {len(times)} measurements")
 
 ### What to Do with Outliers
 
-| Approach | When to Use |
-|----------|-------------|
-| Keep all data | Default — outliers represent real-world behavior |
-| Report with and without | When outliers significantly affect mean |
-| Remove and document | Only if outliers have a known, irrelevant cause (e.g., GC pause during unrelated operation) |
-| Use robust statistics | Report median + IQR instead of mean + stdev |
+| Approach                | When to Use                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------- |
+| Keep all data           | Default — outliers represent real-world behavior                                            |
+| Report with and without | When outliers significantly affect mean                                                     |
+| Remove and document     | Only if outliers have a known, irrelevant cause (e.g., GC pause during unrelated operation) |
+| Use robust statistics   | Report median + IQR instead of mean + stdev                                                 |
 
 **Never silently remove outliers.** Always report what was removed and why.
 
@@ -162,11 +164,11 @@ print(f"Found {len(outliers)} outliers out of {len(times)} measurements")
 ### Compact Table Format
 
 ```markdown
-| Candidate | P50 | P95 | P99 | Mean ± StdDev | N |
-|-----------|-----|-----|-----|---------------|---|
-| A | 12ms | 18ms | 25ms | 13.2 ± 3.1ms | 1000 |
-| B | 15ms | 22ms | 35ms | 16.8 ± 5.2ms | 1000 |
-| Difference | -20% | -18% | -29% | p < 0.001 | |
+| Candidate  | P50  | P95  | P99  | Mean ± StdDev | N    |
+| ---------- | ---- | ---- | ---- | ------------- | ---- |
+| A          | 12ms | 18ms | 25ms | 13.2 ± 3.1ms  | 1000 |
+| B          | 15ms | 22ms | 35ms | 16.8 ± 5.2ms  | 1000 |
+| Difference | -20% | -18% | -29% | p < 0.001     |      |
 ```
 
 ### Interpretation Template

@@ -7,7 +7,7 @@ users. Query cost depends on the number of nodes requested.
 
 **Cost formula:**
 
-```
+```text
 cost = nodes_requested × (1 + child_nodes_requested)
 ```
 

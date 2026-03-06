@@ -90,18 +90,21 @@ ALTER TABLE users ADD INDEX idx_email (email), ALGORITHM=INPLACE, LOCK=NONE;
 For operations MySQL doesn't support online:
 
 **pt-online-schema-change (Percona Toolkit):**
+
 ```bash
 pt-online-schema-change --alter "MODIFY COLUMN name VARCHAR(500)" \
   --host=localhost --user=root D=mydb,t=users --execute
 ```
 
 Process:
+
 1. Creates shadow table with new schema
 2. Copies data in chunks
 3. Captures changes via triggers
 4. Swaps tables atomically
 
 **gh-ost (GitHub):**
+
 ```bash
 gh-ost --alter="ADD COLUMN new_col INT" \
   --database=mydb --table=users \
@@ -109,6 +112,7 @@ gh-ost --alter="ADD COLUMN new_col INT" \
 ```
 
 Process:
+
 1. Creates ghost table with new schema
 2. Copies data in chunks
 3. Captures changes via binlog (no triggers)
@@ -122,7 +126,7 @@ Process:
 
 For column renames or type changes without downtime:
 
-```
+```text
 Phase 1: EXPAND — Add new column, dual-write
 Phase 2: MIGRATE — Backfill old data to new column
 Phase 3: SWITCH — Application reads from new column

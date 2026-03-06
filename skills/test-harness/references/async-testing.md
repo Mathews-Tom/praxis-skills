@@ -22,10 +22,10 @@ Configure in `pyproject.toml`:
 asyncio_mode = "auto"  # or "strict"
 ```
 
-| Mode | Behavior | When to Use |
-|------|----------|-------------|
-| `auto` | All `async def test_*` functions are treated as async tests automatically | Most projects — reduces boilerplate |
-| `strict` | Only tests decorated with `@pytest.mark.asyncio` are async | Mixed sync/async codebases needing explicit control |
+| Mode     | Behavior                                                                  | When to Use                                         |
+| -------- | ------------------------------------------------------------------------- | --------------------------------------------------- |
+| `auto`   | All `async def test_*` functions are treated as async tests automatically | Most projects — reduces boilerplate                 |
+| `strict` | Only tests decorated with `@pytest.mark.asyncio` are async                | Mixed sync/async codebases needing explicit control |
 
 In `strict` mode, every async test needs the marker:
 
@@ -198,7 +198,7 @@ def event_loop():
 
 ### Common Pitfall: Loop Already Running
 
-```
+```text
 RuntimeError: This event loop is already running
 ```
 

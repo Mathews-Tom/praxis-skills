@@ -40,11 +40,13 @@ Use "We will..." phrasing.}
 ## Alternatives Considered
 
 ### {Alternative 1: Concrete Name}
+
 - **Pros:** {Specific, measurable benefits}
 - **Cons:** {Specific, measurable drawbacks}
 - **Rejected because:** {Concrete reason tied to context — not "not suitable"}
 
 ### {Alternative 2: Concrete Name}
+
 - **Pros:** {Specific, measurable benefits}
 - **Cons:** {Specific, measurable drawbacks}
 - **Rejected because:** {Concrete reason tied to context}
@@ -55,14 +57,17 @@ whether an ADR is needed — decisions without alternatives are constraints.}
 ## Consequences
 
 ### Positive
+
 - {Concrete benefit that follows from this decision}
 - {Another concrete benefit}
 
 ### Negative
+
 - {Concrete tradeoff accepted — be honest}
 - {Technical debt incurred, with plan to address if applicable}
 
 ### Neutral
+
 - {Side effect that is neither positive nor negative}
 - {Change in workflow or process}
 
@@ -78,22 +83,22 @@ whether an ADR is needed — decisions without alternatives are constraints.}
 
 ### Title
 
-| Good | Bad |
-|------|-----|
-| "Use PostgreSQL for Order Management" | "Database Decision" |
-| "Adopt gRPC for Service Communication" | "ADR about APIs" |
-| "Replace Celery with Temporal for Workflows" | "New Architecture" |
+| Good                                         | Bad                 |
+| -------------------------------------------- | ------------------- |
+| "Use PostgreSQL for Order Management"        | "Database Decision" |
+| "Adopt gRPC for Service Communication"       | "ADR about APIs"    |
+| "Replace Celery with Temporal for Workflows" | "New Architecture"  |
 
 The title should be specific enough that you can understand the decision from it alone.
 
 ### Status Values
 
-| Status | Meaning | When to Use |
-|--------|---------|-------------|
-| Proposed | Under discussion, not yet agreed | New ADR, pending team review |
-| Accepted | Team has agreed, this is the active decision | After review and approval |
-| Deprecated | Still valid but no longer the preferred approach | Newer alternatives exist |
-| Superseded by ADR-XXX | Replaced by a newer decision | New ADR explicitly replaces this |
+| Status                | Meaning                                          | When to Use                      |
+| --------------------- | ------------------------------------------------ | -------------------------------- |
+| Proposed              | Under discussion, not yet agreed                 | New ADR, pending team review     |
+| Accepted              | Team has agreed, this is the active decision     | After review and approval        |
+| Deprecated            | Still valid but no longer the preferred approach | Newer alternatives exist         |
+| Superseded by ADR-XXX | Replaced by a newer decision                     | New ADR explicitly replaces this |
 
 ### Context Section Checklist
 
@@ -123,7 +128,7 @@ The title should be specific enough that you can understand the decision from it
 
 ### Sequential Numbering
 
-```
+```text
 docs/adr/
 ├── 001-use-postgresql.md
 ├── 002-adopt-grpc.md
