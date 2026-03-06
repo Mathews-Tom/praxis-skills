@@ -1,20 +1,17 @@
 ---
 name: sequential-thinking
 description: >
-  Structured, reflective problem-solving through sequential chain-of-thought reasoning.
-  Replaces the Sequential Thinking MCP server (sequentialthinking tool). Use this skill
-  when facing complex multi-step problems, planning and design tasks, analysis that may
-  need course correction, architectural decisions requiring trade-off evaluation, or any
-  task where the full scope is unclear initially.
-  Triggers on: "step by step reasoning", "chain of thought", "break down problem",
-  "think through this", "structured analysis", "multi-step problem solving",
-  "reflective reasoning", "deep analysis", "complex reasoning", "hypothesis verification",
-  "branching analysis", "trade-off evaluation".
-  NOT for diagnosing bugs, errors, stacktraces, or unexpected behavior in code — use
-  debug-investigator instead.
+  DEPRECATED: Use the model's native extended thinking instead. Structured, reflective
+  problem-solving through sequential chain-of-thought reasoning that replaced the
+  Sequential Thinking MCP server.
 metadata:
   version: 1.0.0
+  status: deprecated
 ---
+
+> **DEPRECATED** — Sonnet 4 and Opus 4 handle structured chain-of-thought natively,
+> including revision, branching, and scope adjustment. This skill no longer provides
+> meaningful uplift over the base model. Retained for reference only.
 
 # Sequential Thinking
 
