@@ -1,0 +1,31 @@
+cases:
+  - id: security_and_license_audit
+    prompt: "Audit the dependencies in our requirements.txt for security vulnerabilities and license issues"
+    fixtures: []
+    rubric:
+      - "checks for known CVEs or security vulnerabilities"
+      - "identifies license conflicts such as GPL in an MIT-licensed project"
+      - "flags abandoned or unmaintained packages"
+    trigger_expected: true
+
+  - id: unused_duplicate_detection
+    prompt: "Check our package.json for unused or duplicate dependencies"
+    fixtures: []
+    rubric:
+      - "detects unused dependencies not referenced in source"
+      - "identifies duplicate or overlapping packages"
+    trigger_expected: true
+
+  - id: negative_install_dependencies
+    prompt: "Install these new dependencies for my project"
+    fixtures: []
+    rubric:
+      - "installing dependencies is outside audit scope"
+    trigger_expected: false
+
+  - id: negative_general_tooling_question
+    prompt: "What's the difference between npm and yarn?"
+    fixtures: []
+    rubric:
+      - "general package manager comparison is not a dependency audit"
+    trigger_expected: false

@@ -1,0 +1,31 @@
+cases:
+  - id: search_api_pricing
+    prompt: "Search the web for the latest Claude API pricing and rate limits"
+    fixtures: []
+    rubric:
+      - "uses Tavily search API to perform the web search"
+      - "returns AI-ready snippets with relevant pricing information"
+      - "handles search-first intent without requiring a specific URL"
+    trigger_expected: true
+
+  - id: search_react_best_practices
+    prompt: "Find recent information about React Server Components best practices and patterns"
+    fixtures: []
+    rubric:
+      - "performs web search via Tavily for current information"
+      - "returns relevant results with source attribution"
+    trigger_expected: true
+
+  - id: negative_url_fetch
+    prompt: "Fetch the content from https://docs.anthropic.com/en/api/getting-started"
+    fixtures: []
+    rubric:
+      - "direct URL fetching is web-fetch territory, not web search"
+    trigger_expected: false
+
+  - id: negative_local_file
+    prompt: "Read the contents of /etc/hosts for me"
+    fixtures: []
+    rubric:
+      - "local filesystem operations are outside web search scope"
+    trigger_expected: false

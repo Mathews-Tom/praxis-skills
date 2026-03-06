@@ -1,0 +1,32 @@
+cases:
+  - id: pytorch_oom_rtx4090
+    prompt: "Optimize this PyTorch training loop, I keep getting OOM errors on my RTX 4090 (24GB)"
+    fixtures: []
+    rubric:
+      - "recommends mixed precision training (fp16/bf16)"
+      - "suggests gradient checkpointing to reduce VRAM usage"
+      - "addresses VRAM management (batch size reduction, memory clearing, or accumulation)"
+    trigger_expected: true
+
+  - id: xgboost_gpu_training
+    prompt: "Speed up my XGBoost training using GPU"
+    fixtures: []
+    rubric:
+      - "configures tree_method='gpu_hist' for GPU-accelerated training"
+      - "sets device parameter for GPU execution"
+      - "addresses GPU-specific tuning (max_bin, subsample, or grow_policy)"
+    trigger_expected: true
+
+  - id: sql_query_optimization
+    prompt: "Optimize this SQL query for better performance"
+    fixtures: []
+    rubric:
+      - "SQL query optimization is not a GPU optimization task"
+    trigger_expected: false
+
+  - id: cuda_environment_setup
+    prompt: "Set up a new CUDA development environment"
+    fixtures: []
+    rubric:
+      - "environment setup is outside GPU optimization scope"
+    trigger_expected: false
