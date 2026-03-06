@@ -3,11 +3,12 @@ name: task-decomposer
 description: >
   Breaks down large features into implementable tasks with dependency mapping, edge case
   identification, test strategy planning, and phased execution order. Produces task tables
-  with effort sizing, parallelization flags, and risk flags for each phase.
+  with parallelization flags and risk flags for each phase.
   Triggers on: "break down this feature", "decompose", "task breakdown",
   "how should I implement", "implementation plan", "what are the steps for",
   "edge cases for", "plan this feature", "implementation steps",
-  "break this into tasks", "work breakdown", "project breakdown".
+  "break this into tasks", "work breakdown", "dependency map", "phases".
+  NOT for effort estimates, PERT calculations, or confidence intervals — use estimate-calibrator instead.
   Use this skill when a feature or project needs to be broken into actionable steps.
 metadata:
   version: 1.0.0
