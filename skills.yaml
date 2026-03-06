@@ -95,12 +95,13 @@ skills:
   path: skills/concept-to-video
 - name: debug-investigator
   version: 1.0.0
-  description: 'Hypothesis-driven debugging framework: symptom capture, evidence analysis, hypothesis ranking, bisection strategy,
-    log analysis, instrumentation, and minimal reproduction. Triggers on: "debug this", "why is this failing", "root cause",
-    "diagnose", "this error", "this exception", "this stacktrace", "not working", "broken", "unexpected behavior", "bisect",
-    "narrow down", "isolate the issue", "help me debug". Use this skill when confronted with a bug, error, or unexpected behavior
-    in code. NOT for abstract reasoning, trade-off evaluation, or general problem decomposition without a specific error —
-    use sequential-thinking instead.'
+  description: 'Hypothesis-driven debugging methodology: ranked hypotheses with confirming/refuting tests, git bisect strategy,
+    log analysis, instrumentation point planning, and minimal reproduction design. Triggers on: "debug this systematically",
+    "root cause analysis", "bisect this bug", "rank hypotheses for this error", "help me isolate this issue", "create a minimal
+    reproduction", "instrumentation plan for this bug", "why does this keep failing". The differentiator is the structured
+    investigation methodology (hypothesis ranking, bisection strategy, instrumentation points) — use this skill for non-obvious
+    bugs that need systematic investigation, not simple errors the model diagnoses directly. NOT for abstract reasoning or
+    problem decomposition without a specific error — the model handles general reasoning natively.'
   path: skills/debug-investigator
 - name: dependency-audit
   version: 1.0.0
@@ -113,11 +114,8 @@ skills:
   path: skills/dependency-audit
 - name: doc-condenser
   version: 1.0.0
-  description: Transform verbose technical documentation into concise, scannable specs. Use this skill when you need to condense,
-    summarize, or reformat technical docs, specs, or READMEs — including when a document is too verbose, when you want a technical
-    summary, or when working with lengthy specification documents. Triggers on phrases like "make this concise", "too verbose",
-    "condense this", "technical summary", "strip the fluff", or "reformat this spec". See assets/template.md for the standard
-    output structure.
+  description: 'DEPRECATED: The base model handles document condensation and summarization natively at high quality. This
+    skill no longer provides meaningful uplift. Retained for reference only.'
   path: skills/doc-condenser
 - name: estimate-calibrator
   version: 1.0.0
@@ -256,11 +254,8 @@ skills:
   path: skills/rag-auditor
 - name: regex-builder
   version: 1.0.0
-  description: 'Generates, explains, and tests regular expression patterns. Builds patterns from positive and negative examples,
-    breaks down each component with a readable explanation table, generates edge-case test suites, and provides usage examples
-    in Python and JavaScript. Triggers on: "regex for", "regular expression", "pattern for", "match strings like", "extract
-    from", "build regex", "create pattern", "explain this regex", "what does this regex do", "regex to match", "parse with
-    regex", "validate format". Use this skill when building, explaining, or testing a regular expression pattern.'
+  description: 'DEPRECATED: The base model generates, explains, and tests regex patterns natively with high accuracy. This
+    skill no longer provides meaningful uplift. Retained for reference only.'
   path: skills/regex-builder
 - name: remotion-video
   version: 1.0.0
@@ -287,13 +282,8 @@ skills:
   path: skills/repo-sentinel
 - name: sequential-thinking
   version: 1.0.0
-  description: 'Structured, reflective problem-solving through sequential chain-of-thought reasoning. Replaces the Sequential
-    Thinking MCP server (sequentialthinking tool). Use this skill when facing complex multi-step problems, planning and design
-    tasks, analysis that may need course correction, architectural decisions requiring trade-off evaluation, or any task where
-    the full scope is unclear initially. Triggers on: "step by step reasoning", "chain of thought", "break down problem",
-    "think through this", "structured analysis", "multi-step problem solving", "reflective reasoning", "deep analysis", "complex
-    reasoning", "hypothesis verification", "branching analysis", "trade-off evaluation". NOT for diagnosing bugs, errors,
-    stacktraces, or unexpected behavior in code — use debug-investigator instead.'
+  description: 'DEPRECATED: Use the model''s native extended thinking instead. Structured, reflective problem-solving through
+    sequential chain-of-thought reasoning that replaced the Sequential Thinking MCP server.'
   path: skills/sequential-thinking
 - name: skill-evaluator
   version: 1.0.0
@@ -326,12 +316,12 @@ skills:
   path: skills/static-web-artifacts-builder
 - name: task-decomposer
   version: 1.0.0
-  description: 'Breaks down large features into implementable tasks with dependency mapping, edge case identification, test
-    strategy planning, and phased execution order. Produces task tables with parallelization flags and risk flags for each
-    phase. Triggers on: "break down this feature", "decompose", "task breakdown", "how should I implement", "implementation
-    plan", "what are the steps for", "edge cases for", "plan this feature", "implementation steps", "break this into tasks",
-    "work breakdown", "dependency map", "phases". NOT for effort estimates, PERT calculations, or confidence intervals — use
-    estimate-calibrator instead. Use this skill when a feature or project needs to be broken into actionable steps.'
+  description: 'Produces structured phased task boards from feature requests: dependency-mapped work items with parallelization
+    flags, risk flags, edge case tables, and test strategy matrices. Triggers on: "decompose this feature", "task breakdown
+    with dependencies", "phased implementation plan", "dependency map for", "break this into tasks with phases", "work breakdown
+    structure". The differentiator is the structured output format (phased tables, parallelization flags, dependency chains)
+    — use this skill when you need a formal task board, not ad-hoc decomposition the model handles natively. NOT for effort
+    estimates, PERT calculations, or confidence intervals — use estimate-calibrator instead.'
   path: skills/task-decomposer
 - name: tavily
   version: 1.0.0
