@@ -11,7 +11,7 @@ description: >
   to optimize context usage, asks about reducing token overhead from tool definitions,
   or says my context is too big or running out of context when MCPs are active.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # MCP-to-Skill Converter

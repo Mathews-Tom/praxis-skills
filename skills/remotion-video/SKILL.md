@@ -13,7 +13,7 @@ description: >
   For mathematical animations, algorithm visualizations, or headless container rendering,
   use concept-to-video (Manim) instead.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Remotion Video

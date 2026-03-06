@@ -12,7 +12,7 @@ description: >
   NOT for task decomposition, implementation plans, or dependency mapping — use task-decomposer instead.
   Use this skill when a task or project needs an effort estimate with explicit uncertainty.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Estimate Calibrator

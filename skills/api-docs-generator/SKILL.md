@@ -10,7 +10,7 @@ description: >
   "endpoint documentation", "response documentation".
   Use this skill when API endpoints need documentation or documentation audit.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # API Docs Generator

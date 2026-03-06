@@ -12,7 +12,7 @@ description: >
   NOT for general code review or PR review — use pr-review instead.
   NOT for security audits of repositories — use repo-sentinel instead.
 metadata:
-  version: 3.0.0
+  version: 1.0.0
   status: active
   classification: tooling-wrapper
   source: https://github.com/contactjccoaching-wq/immune

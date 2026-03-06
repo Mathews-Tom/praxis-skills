@@ -9,7 +9,7 @@ description: >
   "mock strategy for", "how to test", "test coverage for", "write a test file".
   Use this skill when given a Python function, class, or module and asked to produce tests.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Test Harness

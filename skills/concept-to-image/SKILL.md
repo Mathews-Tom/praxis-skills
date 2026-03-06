@@ -10,7 +10,7 @@ description: >
   "concept to image", "turn this into an image", "screenshot this HTML", "design a graphic for export".
   For interactive HTML visuals opened in a browser, use static-web-artifacts-builder instead.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Concept to Image

@@ -12,7 +12,7 @@ description: >
   NOT for abstract reasoning or problem decomposition without a specific error — the model
   handles general reasoning natively.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Debug Investigator

@@ -10,7 +10,7 @@ description: >
   "rollback strategy", "how to roll back", "migration review", "alter table risk".
   Use this skill when reviewing database migrations before deployment.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Migration Risk Analyzer

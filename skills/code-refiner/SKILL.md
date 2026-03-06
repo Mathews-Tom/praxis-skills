@@ -10,7 +10,7 @@ description: >
   "this code is messy", "too much nesting", "this function is too long", "clean this up before
   I PR it", "tidy up my code", cyclomatic complexity, cognitive complexity, code smells.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Code Refiner

@@ -12,7 +12,7 @@ description: >
   from API", "make an HTTP request", "extract page content", "get article text". NOT
   for web searches without a URL — use tavily for that.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Web Fetch

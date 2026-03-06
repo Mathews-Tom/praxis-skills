@@ -11,7 +11,7 @@ description: >
   "copy file", "file info", "find all Python files", "search codebase for". Use this
   skill when performing file operations, navigating codebases, or managing directories.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Filesystem

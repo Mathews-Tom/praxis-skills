@@ -5,7 +5,7 @@ description: >
   problem-solving through sequential chain-of-thought reasoning that replaced the
   Sequential Thinking MCP server.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
   status: deprecated
 ---
 

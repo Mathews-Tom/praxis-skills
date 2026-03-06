@@ -12,7 +12,7 @@ description: >
   Use this skill when diagnosing or evaluating a RAG pipeline's quality.
   For general architecture or system audits, use architecture-reviewer instead.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # RAG Auditor

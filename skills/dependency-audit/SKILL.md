@@ -11,7 +11,7 @@ description: >
   "package audit", "supply chain", "dependency risk".
   Use this skill when reviewing project dependencies for risk.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Dependency Audit

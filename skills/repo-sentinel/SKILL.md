@@ -13,7 +13,7 @@ description: >
   is this safe to push, pre-oss, open source readiness, release audit, or open source audit.
   This is the gatekeeper between internal and public.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Repo Sentinel

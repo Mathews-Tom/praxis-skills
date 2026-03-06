@@ -13,7 +13,7 @@ description: >
   requests like "check my references" or "does the abstract work" — the full
   diagnostic surfaces issues across all facets even when only one was asked about.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Manuscript Review Skill
