@@ -56,7 +56,7 @@
 
 ## Quick Reference
 
-```
+```text
 Key1:  value
 Key2:  value
 Key3:  value

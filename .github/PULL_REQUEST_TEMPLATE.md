@@ -12,7 +12,7 @@
        Then: "Run a quick audit on skills/your-skill-name"
 -->
 
-```
+```text
 (paste scorecard here)
 ```
 

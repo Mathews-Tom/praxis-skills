@@ -9,7 +9,7 @@ efficiently, and what each exception type reveals about the root cause.
 
 ### Structure
 
-```
+```text
 Traceback (most recent call last):
   File "main.py", line 10, in <module>      ← Entry point (oldest frame)
     result = process(data)
@@ -42,12 +42,12 @@ it's in a frame that passed bad data downstream.
 AttributeError: 'NoneType' object has no attribute 'name'
 ```
 
-| Cause | Frequency | Investigation |
-|-------|-----------|---------------|
+| Cause                                            | Frequency   | Investigation                                                                  |
+| ------------------------------------------------ | ----------- | ------------------------------------------------------------------------------ |
 | Variable is `None` when expected to be an object | Very common | Find where the variable was assigned — a function returned `None` unexpectedly |
-| Wrong variable name (typo) | Common | Check spelling against class definition |
-| Method called on wrong type | Moderate | Check what type the object actually is with logging |
-| Missing import or circular import | Rare | Check if the module loaded correctly |
+| Wrong variable name (typo)                       | Common      | Check spelling against class definition                                        |
+| Method called on wrong type                      | Moderate    | Check what type the object actually is with logging                            |
+| Missing import or circular import                | Rare        | Check if the module loaded correctly                                           |
 
 **First check:** What assigned the value? Look one frame up for the source.
 
@@ -57,12 +57,12 @@ AttributeError: 'NoneType' object has no attribute 'name'
 KeyError: 'user_id'
 ```
 
-| Cause | Frequency | Investigation |
-|-------|-----------|---------------|
-| Expected key missing from dict | Very common | Print the dict's actual keys |
-| Key name typo | Common | Compare key string with source dict |
-| Dict was populated conditionally | Moderate | Check if the populating code ran |
-| Dict replaced by different structure | Rare | Check where dict was last assigned |
+| Cause                                | Frequency   | Investigation                       |
+| ------------------------------------ | ----------- | ----------------------------------- |
+| Expected key missing from dict       | Very common | Print the dict's actual keys        |
+| Key name typo                        | Common      | Compare key string with source dict |
+| Dict was populated conditionally     | Moderate    | Check if the populating code ran    |
+| Dict replaced by different structure | Rare        | Check where dict was last assigned  |
 
 **First check:** Log `dict.keys()` at the failure point.
 
@@ -74,13 +74,13 @@ TypeError: func() takes 2 positional arguments but 3 were given
 TypeError: 'NoneType' object is not callable
 ```
 
-| Pattern | Cause | Investigation |
-|---------|-------|---------------|
-| `unsupported operand` | Wrong types in operation | Check types of both operands |
-| `takes N arguments but M given` | Wrong number of args | Check function signature vs call site |
-| `not callable` | Calling a non-function | Variable shadowing a function name |
-| `not subscriptable` | Indexing a non-sequence | Check actual type of the object |
-| `not iterable` | Iterating over non-iterable | Check what the loop variable actually is |
+| Pattern                         | Cause                       | Investigation                            |
+| ------------------------------- | --------------------------- | ---------------------------------------- |
+| `unsupported operand`           | Wrong types in operation    | Check types of both operands             |
+| `takes N arguments but M given` | Wrong number of args        | Check function signature vs call site    |
+| `not callable`                  | Calling a non-function      | Variable shadowing a function name       |
+| `not subscriptable`             | Indexing a non-sequence     | Check actual type of the object          |
+| `not iterable`                  | Iterating over non-iterable | Check what the loop variable actually is |
 
 ### ValueError
 
@@ -89,11 +89,11 @@ ValueError: invalid literal for int() with base 10: 'abc'
 ValueError: too many values to unpack (expected 2)
 ```
 
-| Pattern | Cause | Investigation |
-|---------|-------|---------------|
-| `invalid literal` | String→number conversion failure | Check the input data format |
-| `too many/not enough values to unpack` | Tuple/list size mismatch | Check the actual length of the iterable |
-| `is not in list` | `.index()` or `.remove()` on missing element | Verify element exists before operating |
+| Pattern                                | Cause                                        | Investigation                           |
+| -------------------------------------- | -------------------------------------------- | --------------------------------------- |
+| `invalid literal`                      | String→number conversion failure             | Check the input data format             |
+| `too many/not enough values to unpack` | Tuple/list size mismatch                     | Check the actual length of the iterable |
+| `is not in list`                       | `.index()` or `.remove()` on missing element | Verify element exists before operating  |
 
 ### ImportError / ModuleNotFoundError
 
@@ -102,12 +102,12 @@ ModuleNotFoundError: No module named 'mypackage'
 ImportError: cannot import name 'func' from 'module'
 ```
 
-| Cause | Investigation |
-|-------|---------------|
-| Package not installed | `pip list | grep package` or check requirements |
-| Virtual environment not activated | Check `which python` |
-| Circular import | A imports B which imports A — restructure |
-| Name doesn't exist in module | Check actual exports: `dir(module)` |
+| Cause                               | Investigation                             |
+| ----------------------------------- | ----------------------------------------- | ----------------------------------- |
+| Package not installed               | `pip list                                 | grep package` or check requirements |
+| Virtual environment not activated   | Check `which python`                      |
+| Circular import                     | A imports B which imports A — restructure |
+| Name doesn't exist in module        | Check actual exports: `dir(module)`       |
 | Relative import from wrong location | Check `__package__` and working directory |
 
 ### IndexError
@@ -116,11 +116,11 @@ ImportError: cannot import name 'func' from 'module'
 IndexError: list index out of range
 ```
 
-| Cause | Investigation |
-|-------|---------------|
-| Off-by-one in loop | Check `range()` bounds vs list length |
-| Empty list accessed | Check if list was populated |
-| Hardcoded index on variable-length data | Use `len()` check or `try/except` |
+| Cause                                   | Investigation                         |
+| --------------------------------------- | ------------------------------------- |
+| Off-by-one in loop                      | Check `range()` bounds vs list length |
+| Empty list accessed                     | Check if list was populated           |
+| Hardcoded index on variable-length data | Use `len()` check or `try/except`     |
 
 ### RuntimeError
 
@@ -129,11 +129,11 @@ RuntimeError: dictionary changed size during iteration
 RuntimeError: This event loop is already running
 ```
 
-| Pattern | Cause | Fix |
-|---------|-------|-----|
-| `dictionary changed size` | Modifying dict while iterating | Iterate over `list(dict.keys())` copy |
-| `event loop is already running` | Nested `asyncio.run()` | Use `await` directly in async context |
-| `maximum recursion depth` | Infinite recursion | Find the cycle in call chain |
+| Pattern                         | Cause                          | Fix                                   |
+| ------------------------------- | ------------------------------ | ------------------------------------- |
+| `dictionary changed size`       | Modifying dict while iterating | Iterate over `list(dict.keys())` copy |
+| `event loop is already running` | Nested `asyncio.run()`         | Use `await` directly in async context |
+| `maximum recursion depth`       | Infinite recursion             | Find the cycle in call chain          |
 
 ---
 
@@ -146,12 +146,12 @@ TypeError: Cannot read properties of undefined (reading 'name')
 TypeError: x is not a function
 ```
 
-| Pattern | Cause | Investigation |
-|---------|-------|---------------|
+| Pattern                               | Cause                           | Investigation                                           |
+| ------------------------------------- | ------------------------------- | ------------------------------------------------------- |
 | `Cannot read properties of undefined` | Accessing property on undefined | Check the full property chain — which part is undefined |
-| `Cannot read properties of null` | Accessing property on null | API returned null, or DOM element not found |
-| `x is not a function` | Calling non-function | Import error, wrong export, or variable shadowing |
-| `x is not a constructor` | Using `new` on non-constructor | Check the imported value type |
+| `Cannot read properties of null`      | Accessing property on null      | API returned null, or DOM element not found             |
+| `x is not a function`                 | Calling non-function            | Import error, wrong export, or variable shadowing       |
+| `x is not a constructor`              | Using `new` on non-constructor  | Check the imported value type                           |
 
 ### ReferenceError
 
@@ -201,7 +201,7 @@ is not `None`) and the frame that violated that assumption (Frame 3 returns `Non
 
 Tracebacks often include library internals. Focus on YOUR code first:
 
-```
+```text
 Traceback (most recent call last):
   File "myapp/views.py", line 15, in handler     ← YOUR CODE
     result = process(request.data)

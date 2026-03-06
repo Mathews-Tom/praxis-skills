@@ -21,13 +21,13 @@ with properly scoped fixtures and focused mocks.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/pytest-patterns.md` | Fixture scopes, parametrize, marks, conftest layout, built-in fixtures | Always |
-| `references/mock-strategies.md` | Mock decision tree, patch boundaries, assertions, anti-patterns | Target has external dependencies |
-| `references/async-testing.md` | pytest-asyncio modes, event loop fixtures, async mocking | Target contains async code |
-| `references/fixture-design.md` | Factory fixtures, yield teardown, scope selection, composition | Test requires non-trivial setup |
-| `references/coverage-targets.md` | Threshold table, branch vs line, pytest-cov config, exclusion patterns | Coverage assessment requested |
+| File                             | Contents                                                               | Load When                        |
+| -------------------------------- | ---------------------------------------------------------------------- | -------------------------------- |
+| `references/pytest-patterns.md`  | Fixture scopes, parametrize, marks, conftest layout, built-in fixtures | Always                           |
+| `references/mock-strategies.md`  | Mock decision tree, patch boundaries, assertions, anti-patterns        | Target has external dependencies |
+| `references/async-testing.md`    | pytest-asyncio modes, event loop fixtures, async mocking               | Target contains async code       |
+| `references/fixture-design.md`   | Factory fixtures, yield teardown, scope selection, composition         | Test requires non-trivial setup  |
+| `references/coverage-targets.md` | Threshold table, branch vs line, pytest-cov config, exclusion patterns | Coverage assessment requested    |
 
 ## Prerequisites
 
@@ -59,14 +59,15 @@ Before writing a single test, build a model of the target code:
 
 For each function under test, enumerate cases across four categories:
 
-| Category | What to Test | Example |
-|----------|-------------|---------|
-| Happy path | Expected inputs produce expected outputs | `add(2, 3)` returns `5` |
-| Boundary | Edge values at limits of valid input | Empty string, zero, max int, single element |
-| Error | Invalid inputs trigger proper exceptions | `None` where `str` expected, negative index |
-| State | State transitions produce correct side effects | Object moves from `pending` to `active` |
+| Category   | What to Test                                   | Example                                     |
+| ---------- | ---------------------------------------------- | ------------------------------------------- |
+| Happy path | Expected inputs produce expected outputs       | `add(2, 3)` returns `5`                     |
+| Boundary   | Edge values at limits of valid input           | Empty string, zero, max int, single element |
+| Error      | Invalid inputs trigger proper exceptions       | `None` where `str` expected, negative index |
+| State      | State transitions produce correct side effects | Object moves from `pending` to `active`     |
 
 For each case, note:
+
 - Input values (concrete, not abstract)
 - Expected output or exception
 - Required setup (fixtures)
@@ -79,12 +80,12 @@ Parametrize cases that share the same test logic but differ only in input/output
 1. **Identify shared setup** — If 3+ tests need the same object, extract a fixture.
 2. **Select scope** — Use the narrowest scope that avoids redundant setup:
 
-   | Scope | Use When | Example |
-   |-------|----------|---------|
-   | `function` | Default. Each test gets fresh state | Most unit tests |
-   | `class` | Tests within a class share expensive setup | DB connection per test class |
-   | `module` | All tests in a file share setup | Loaded config file |
-   | `session` | Entire test run shares setup | Docker container startup |
+   | Scope      | Use When                                   | Example                      |
+   | ---------- | ------------------------------------------ | ---------------------------- |
+   | `function` | Default. Each test gets fresh state        | Most unit tests              |
+   | `class`    | Tests within a class share expensive setup | DB connection per test class |
+   | `module`   | All tests in a file share setup            | Loaded config file           |
+   | `session`  | Entire test run shares setup               | Docker container startup     |
 
 3. **Design teardown** — Use `yield` fixtures when cleanup is needed. Never leave
    side effects (temp files, DB rows, monkey-patches) after a test.
@@ -124,7 +125,7 @@ Generate the test file following this structure:
 
 ## Output Format
 
-```
+```text
 # tests/test_{module}.py
 
 import pytest
@@ -189,11 +190,11 @@ class TestTargetFunction:
 
 ## Configuring Scope
 
-| Mode | Scope | Depth | When to Use |
-|------|-------|-------|-------------|
-| `quick` | Single function | Happy path + 1 error case | Rapid iteration, TDD red-green cycle |
-| `standard` | File or class | Happy + boundary + error + mocks | Default for most requests |
-| `comprehensive` | Module or package | All categories + async + parametrized matrix | Pre-release, critical path code |
+| Mode            | Scope             | Depth                                        | When to Use                          |
+| --------------- | ----------------- | -------------------------------------------- | ------------------------------------ |
+| `quick`         | Single function   | Happy path + 1 error case                    | Rapid iteration, TDD red-green cycle |
+| `standard`      | File or class     | Happy + boundary + error + mocks             | Default for most requests            |
+| `comprehensive` | Module or package | All categories + async + parametrized matrix | Pre-release, critical path code      |
 
 ## Calibration Rules
 
@@ -215,18 +216,19 @@ class TestTargetFunction:
 
 ## Error Handling
 
-| Problem | Resolution |
-|---------|------------|
-| Target function has no type hints | Infer types from usage patterns, default values, and docstrings. Note uncertainty in test docstring. |
-| Target has deeply nested dependencies | Mock at the nearest boundary to the function under test. Do not mock transitive dependencies individually. |
-| No existing test infrastructure (no conftest, no pytest config) | Generate a minimal `conftest.py` alongside the test file. Note the addition in output. |
-| Target code is untestable (global state, hidden dependencies) | Flag the design issue in the output. Generate tests for what is testable. Suggest refactoring to improve testability. |
-| Async code detected but pytest-asyncio not installed | Note the dependency requirement. Generate async test stubs with `@pytest.mark.asyncio` and instruct user to install. |
-| Target module cannot be imported | Report the import error. Do not generate tests for unimportable code. |
+| Problem                                                         | Resolution                                                                                                            |
+| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Target function has no type hints                               | Infer types from usage patterns, default values, and docstrings. Note uncertainty in test docstring.                  |
+| Target has deeply nested dependencies                           | Mock at the nearest boundary to the function under test. Do not mock transitive dependencies individually.            |
+| No existing test infrastructure (no conftest, no pytest config) | Generate a minimal `conftest.py` alongside the test file. Note the addition in output.                                |
+| Target code is untestable (global state, hidden dependencies)   | Flag the design issue in the output. Generate tests for what is testable. Suggest refactoring to improve testability. |
+| Async code detected but pytest-asyncio not installed            | Note the dependency requirement. Generate async test stubs with `@pytest.mark.asyncio` and instruct user to install.  |
+| Target module cannot be imported                                | Report the import error. Do not generate tests for unimportable code.                                                 |
 
 ## When NOT to Generate Tests
 
 Push back if:
+
 - The code is auto-generated (protobuf, OpenAPI client, ORM models) — test the generator or the schema, not the output
 - The request is for UI/E2E tests — this skill generates unit and integration tests only
 - The code has no clear behavior to test (pure configuration, constant definitions)

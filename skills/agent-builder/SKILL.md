@@ -21,7 +21,7 @@ metadata:
 
 This skill covers Claude Code's headless mode and the Agent SDK — not the raw Anthropic API.
 
-```
+```text
 Preferred: Claude Code CLI headless mode (claude -p)
 Preferred: Claude Agent SDK (wraps Claude Code CLI)
 Avoid:     Raw Anthropic API (anthropic.Anthropic())

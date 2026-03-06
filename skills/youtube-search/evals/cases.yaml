@@ -1,0 +1,65 @@
+cases:
+  - id: youtube_search_basic
+    prompt: "Search YouTube for the top videos about Claude Code skills"
+    fixtures: []
+    rubric:
+      - "activates youtube-search skill"
+      - "uses yt-dlp ytsearch to find videos"
+      - "returns structured results with title, channel, views"
+    trigger_expected: true
+
+  - id: youtube_search_trending
+    prompt: "Find me the most popular YouTube videos about MCP servers from the last month"
+    fixtures: []
+    rubric:
+      - "activates youtube-search skill"
+      - "uses yt-dlp ytsearch with date filtering"
+      - "sorts results by view count"
+    trigger_expected: true
+
+  - id: youtube_search_research
+    prompt: "Look up YouTube for recent tutorials on building AI agents"
+    fixtures: []
+    rubric:
+      - "activates youtube-search skill"
+      - "uses yt-dlp ytsearch"
+      - "presents results in a readable format"
+    trigger_expected: true
+
+  - id: youtube_search_discovery
+    prompt: "What videos exist about NotebookLM automation?"
+    fixtures: []
+    rubric:
+      - "activates youtube-search skill"
+      - "searches YouTube for NotebookLM content"
+    trigger_expected: true
+
+  - id: youtube_search_slash_command
+    prompt: "/yt-search claude code hooks 5"
+    fixtures: []
+    rubric:
+      - "activates youtube-search skill"
+      - "searches for 5 results about claude code hooks"
+    trigger_expected: true
+
+  - id: youtube_search_negative_analyze
+    prompt: "Analyze this YouTube video and give me key concepts: https://youtube.com/watch?v=abc123"
+    fixtures: []
+    rubric:
+      - "does not activate youtube-search (this is video analysis, not search)"
+      - "should activate youtube-analysis instead"
+    trigger_expected: false
+
+  - id: youtube_search_negative_download
+    prompt: "Download this YouTube video as MP4"
+    fixtures: []
+    rubric:
+      - "does not activate youtube-search (video download, not search)"
+    trigger_expected: false
+
+  - id: youtube_search_negative_web_search
+    prompt: "Search Google for the best AI tools in 2026"
+    fixtures: []
+    rubric:
+      - "does not activate youtube-search (Google web search, not YouTube)"
+    trigger_expected: false

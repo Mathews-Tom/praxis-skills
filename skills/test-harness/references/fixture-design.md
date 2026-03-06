@@ -55,6 +55,7 @@ def temp_database():
 ```
 
 **Execution order:**
+
 1. Everything before `yield` runs during setup
 2. The yielded value is injected into the test
 3. Everything after `yield` runs during teardown — even if the test fails
@@ -62,6 +63,7 @@ def temp_database():
 ### Teardown Guarantees
 
 Code after `yield` always runs, equivalent to a `finally` block. Use this for:
+
 - Closing connections
 - Deleting temp files
 - Reverting configuration changes
@@ -79,12 +81,12 @@ def mock_server():
 
 ## Scope Selection Criteria
 
-| Scope | Fixture Runs | State Isolation | Use When |
-|-------|-------------|-----------------|----------|
-| `function` | Every test | Full isolation | Default. Stateful objects, mutable data |
-| `class` | Once per class | Shared within class | Read-only resources, expensive parse |
-| `module` | Once per file | Shared within file | Config loading, file parsing |
-| `session` | Once per run | Shared globally | Docker start, external service init |
+| Scope      | Fixture Runs   | State Isolation     | Use When                                |
+| ---------- | -------------- | ------------------- | --------------------------------------- |
+| `function` | Every test     | Full isolation      | Default. Stateful objects, mutable data |
+| `class`    | Once per class | Shared within class | Read-only resources, expensive parse    |
+| `module`   | Once per file  | Shared within file  | Config loading, file parsing            |
+| `session`  | Once per run   | Shared globally     | Docker start, external service init     |
 
 ### Decision Flow
 
@@ -179,7 +181,7 @@ tears down first, then `user_repo`, then `db_connection`.
 
 ### Single conftest.py (Small Projects)
 
-```
+```text
 tests/
 ├── conftest.py       # All shared fixtures
 ├── test_api.py
@@ -189,7 +191,7 @@ tests/
 
 ### Hierarchical conftest.py (Large Projects)
 
-```
+```text
 tests/
 ├── conftest.py              # Session fixtures: DB pool, test config
 ├── unit/

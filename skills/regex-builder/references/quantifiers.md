@@ -6,14 +6,14 @@ Quantifier behavior, greedy vs lazy vs possessive matching, and backtracking.
 
 ## Basic Quantifiers
 
-| Quantifier | Meaning | Example |
-|------------|---------|---------|
-| `*` | 0 or more | `a*` matches "", "a", "aaa" |
-| `+` | 1 or more | `a+` matches "a", "aaa" (not "") |
-| `?` | 0 or 1 | `a?` matches "" or "a" |
-| `{n}` | Exactly n | `a{3}` matches "aaa" only |
-| `{n,}` | n or more | `a{2,}` matches "aa", "aaa", ... |
-| `{n,m}` | Between n and m | `a{2,4}` matches "aa", "aaa", "aaaa" |
+| Quantifier | Meaning         | Example                              |
+| ---------- | --------------- | ------------------------------------ |
+| `*`        | 0 or more       | `a*` matches "", "a", "aaa"          |
+| `+`        | 1 or more       | `a+` matches "a", "aaa" (not "")     |
+| `?`        | 0 or 1          | `a?` matches "" or "a"               |
+| `{n}`      | Exactly n       | `a{3}` matches "aaa" only            |
+| `{n,}`     | n or more       | `a{2,}` matches "aa", "aaa", ...     |
+| `{n,m}`    | Between n and m | `a{2,4}` matches "aa", "aaa", "aaaa" |
 
 ---
 
@@ -37,12 +37,12 @@ Lazy quantifiers match as little as possible:
         matches:    "hello"  then  "goodbye"  ← lazy stops at first closing "
 ```
 
-| Greedy | Lazy | Behavior |
-|--------|------|----------|
-| `*` | `*?` | Match minimum (prefer shorter) |
-| `+` | `+?` | Match minimum but at least 1 |
-| `?` | `??` | Prefer not matching (0) |
-| `{n,m}` | `{n,m}?` | Prefer n over m |
+| Greedy  | Lazy     | Behavior                       |
+| ------- | -------- | ------------------------------ |
+| `*`     | `*?`     | Match minimum (prefer shorter) |
+| `+`     | `+?`     | Match minimum but at least 1   |
+| `?`     | `??`     | Prefer not matching (0)        |
+| `{n,m}` | `{n,m}?` | Prefer n over m                |
 
 ### When to Use Lazy
 
@@ -62,11 +62,11 @@ Lazy quantifiers match as little as possible:
 
 Possessive quantifiers match as much as possible and **never backtrack**:
 
-| Greedy | Possessive | Available In |
-|--------|-----------|-------------|
-| `*` | `*+` | PCRE, Java (NOT Python re, NOT JavaScript) |
-| `+` | `++` | PCRE, Java |
-| `?` | `?+` | PCRE, Java |
+| Greedy | Possessive | Available In                               |
+| ------ | ---------- | ------------------------------------------ |
+| `*`    | `*+`       | PCRE, Java (NOT Python re, NOT JavaScript) |
+| `+`    | `++`       | PCRE, Java                                 |
+| `?`    | `?+`       | PCRE, Java                                 |
 
 ```regex
 # Possessive: fails fast on non-matching input
@@ -84,7 +84,7 @@ Possessive quantifiers prevent catastrophic backtracking by eliminating retry pa
 
 ### How Backtracking Works
 
-```
+```text
 Pattern: a+b
 Input:   aaac
 
@@ -112,11 +112,13 @@ For simple patterns, backtracking is fast. For pathological patterns, it's catas
 ```
 
 **Detection:** Nested quantifiers where the inner and outer pattern overlap:
+
 - `(a+)+` — a+ repeats, then the group repeats
 - `(a*)*` — similar nesting
 - `(a|aa)+` — alternation creates similar branching
 
 **Fix:**
+
 1. Remove nesting: `(a+)+b` → `a+b`
 2. Use possessive quantifier: `(a++)b`
 3. Use atomic group: `(?>a+)b`
@@ -124,11 +126,11 @@ For simple patterns, backtracking is fast. For pathological patterns, it's catas
 
 ### Backtracking Performance
 
-| Pattern | Input Length N | Time Complexity |
-|---------|---------------|-----------------|
-| `a+b` | N | O(N) — linear |
-| `(a+)+b` | N (no match) | O(2^N) — exponential |
-| `a*a*a*b` | N (no match) | O(N^3) — polynomial |
+| Pattern   | Input Length N | Time Complexity      |
+| --------- | -------------- | -------------------- |
+| `a+b`     | N              | O(N) — linear        |
+| `(a+)+b`  | N (no match)   | O(2^N) — exponential |
+| `a*a*a*b` | N (no match)   | O(N^3) — polynomial  |
 
 ---
 

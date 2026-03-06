@@ -89,7 +89,7 @@ quality, reproducibility, and clarity rather than strict formatting rules.
 Read `references/checklist.md` — the comprehensive 24-section, ~175-checkpoint
 refactoring checklist. Every audit pass is structured against this checklist.
 
-```
+```text
 Read references/checklist.md
 ```
 
@@ -314,7 +314,7 @@ reproducibility, and clarity.
 Produce the report as a structured document. Use `references/report-template.md`
 as the output format.
 
-```
+```text
 Read references/report-template.md
 ```
 

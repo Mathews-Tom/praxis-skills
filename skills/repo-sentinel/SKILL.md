@@ -241,7 +241,7 @@ Flag GPL/AGPL contamination if the target license is permissive (MIT, BSD, Apach
 
 **Private registry search patterns** — grep lock files and configs:
 
-```
+```text
 Files: package-lock.json, poetry.lock, Cargo.lock, pip.conf, pyproject.toml, .npmrc, .yarnrc
 Grep for: @company, internal-registry, private-pypi, artifactory, nexus, verdaccio
 ```
@@ -353,7 +353,7 @@ git grep -nE '\b\d{12}\b' -- '*.ts' '*.js' '*.py' '*.yaml' '*.yml' '*.json' '*.t
 
 **Output format:**
 
-```
+```text
 REPO SENTINEL AUDIT — <repo> — <date>
 
 [CRITICAL — Direct credential exposure]
@@ -395,7 +395,7 @@ When preparing a repo for open-source release, run this 4-stage pre-release audi
 the surface-based audit. Each stage emits **PASS** / **WARN** / **FAIL** with actionable
 remediation. Hard blockers in stages 1–3 halt the pipeline. Stage 4 produces advisory output.
 
-```
+```text
 Stage 1: Sensitive Assets        [HARD BLOCKER] → Surfaces 0–4, 8–9
 Stage 2: Legal & Compliance      [HARD BLOCKER] → Surface 11
 Stage 3: Public Surface Hygiene  [HARD BLOCKER] → Surfaces 4–7, 9–10

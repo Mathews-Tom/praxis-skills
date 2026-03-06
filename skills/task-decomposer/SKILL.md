@@ -29,12 +29,12 @@ risks — producing a ready-to-execute task board.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/decomposition-patterns.md` | Feature → task decomposition strategies, granularity guidelines | Always |
-| `references/edge-case-checklist.md` | Common edge case categories by domain (web, API, data, CLI) | Edge case identification needed |
-| `references/dependency-mapping.md` | Dependency graph construction, critical path identification | Multi-task breakdown |
-| `references/sizing-guide.md` | Effort estimation guidance (S/M/L), complexity indicators | Effort sizing needed |
+| File                                   | Contents                                                        | Load When                       |
+| -------------------------------------- | --------------------------------------------------------------- | ------------------------------- |
+| `references/decomposition-patterns.md` | Feature → task decomposition strategies, granularity guidelines | Always                          |
+| `references/edge-case-checklist.md`    | Common edge case categories by domain (web, API, data, CLI)     | Edge case identification needed |
+| `references/dependency-mapping.md`     | Dependency graph construction, critical path identification     | Multi-task breakdown            |
+| `references/sizing-guide.md`           | Effort estimation guidance (S/M/L), complexity indicators       | Effort sizing needed            |
 
 ## Prerequisites
 
@@ -58,23 +58,23 @@ risks — producing a ready-to-execute task board.
 
 Break the feature into tasks at the right granularity:
 
-| Granularity | Size | Example |
-|-------------|------|---------|
-| Too coarse | "Build the search feature" | Not actionable |
-| Right level | "Add full-text search index to products table" | Single PR, testable |
-| Too fine | "Import the search library" | Not independently meaningful |
+| Granularity | Size                                           | Example                      |
+| ----------- | ---------------------------------------------- | ---------------------------- |
+| Too coarse  | "Build the search feature"                     | Not actionable               |
+| Right level | "Add full-text search index to products table" | Single PR, testable          |
+| Too fine    | "Import the search library"                    | Not independently meaningful |
 
 **Right granularity test:** Each task should be completable in a single PR, testable
 in isolation, and deliverable independently (even if not user-visible alone).
 
 Group tasks into phases:
 
-| Phase | Purpose | Contains |
-|-------|---------|----------|
-| Foundation | Data models, schemas, interfaces | Types, database tables, API contracts |
-| Core logic | Business logic, algorithms | The actual feature implementation |
-| Integration | Connecting components, API endpoints | Routes, controllers, wire-up |
-| Polish | Edge cases, error handling, UX | Validation, error messages, loading states |
+| Phase       | Purpose                              | Contains                                   |
+| ----------- | ------------------------------------ | ------------------------------------------ |
+| Foundation  | Data models, schemas, interfaces     | Types, database tables, API contracts      |
+| Core logic  | Business logic, algorithms           | The actual feature implementation          |
+| Integration | Connecting components, API endpoints | Routes, controllers, wire-up               |
+| Polish      | Edge cases, error handling, UX       | Validation, error messages, loading states |
 
 ### Phase 3: Identify Edge Cases
 
@@ -89,11 +89,11 @@ For each task, enumerate edge cases:
 
 For each task, identify what to test:
 
-| Test Level | What to Test | Who Writes |
-|-----------|-------------|-----------|
-| Unit | Individual functions, pure logic | During implementation |
+| Test Level  | What to Test                          | Who Writes              |
+| ----------- | ------------------------------------- | ----------------------- |
+| Unit        | Individual functions, pure logic      | During implementation   |
 | Integration | Component interactions, API endpoints | After integration phase |
-| Manual | User flows, visual correctness | After polish phase |
+| Manual      | User flows, visual correctness        | After polish phase      |
 
 ### Phase 5: Map Dependencies
 
@@ -108,16 +108,16 @@ Identify which tasks depend on others:
 
 For each risk, identify mitigation:
 
-| Risk Type | Example | Mitigation |
-|-----------|---------|------------|
-| Technical unknown | "Never used WebSockets before" | Spike/prototype first |
-| External dependency | "Requires API access we don't have" | Request early, use mocks |
-| Scope uncertainty | "Requirements may change" | Implement core first, defer edge cases |
-| Performance risk | "May be slow with 1M rows" | Add benchmark task, define acceptable threshold |
+| Risk Type           | Example                             | Mitigation                                      |
+| ------------------- | ----------------------------------- | ----------------------------------------------- |
+| Technical unknown   | "Never used WebSockets before"      | Spike/prototype first                           |
+| External dependency | "Requires API access we don't have" | Request early, use mocks                        |
+| Scope uncertainty   | "Requirements may change"           | Implement core first, defer edge cases          |
+| Performance risk    | "May be slow with 1M rows"          | Add benchmark task, define acceptable threshold |
 
 ## Output Format
 
-```
+```text
 ## Task Decomposition: {Feature Name}
 
 ### Feature Summary
@@ -192,16 +192,17 @@ For each risk, identify mitigation:
 
 ## Error Handling
 
-| Problem | Resolution |
-|---------|------------|
-| Feature description is vague | State assumptions, decompose what's known, mark uncertain tasks with "pending clarification." |
-| Feature is too large (20+ tasks) | Split into multiple features. A feature that takes months is a project, not a feature. |
-| No clear acceptance criteria | Help the user define them: "What does done look like? What would you demo?" |
-| Technical stack unknown | Decompose at the logical level (data model, business logic, API, UI) without implementation specifics. |
+| Problem                          | Resolution                                                                                             |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Feature description is vague     | State assumptions, decompose what's known, mark uncertain tasks with "pending clarification."          |
+| Feature is too large (20+ tasks) | Split into multiple features. A feature that takes months is a project, not a feature.                 |
+| No clear acceptance criteria     | Help the user define them: "What does done look like? What would you demo?"                            |
+| Technical stack unknown          | Decompose at the logical level (data model, business logic, API, UI) without implementation specifics. |
 
 ## When NOT to Decompose
 
 Push back if:
+
 - The task is already atomic (single function, single file change) — just do it
 - The user wants time estimates, not task breakdown — use estimate-calibrator instead
 - The feature is exploratory (research, prototype) — decomposition assumes known scope

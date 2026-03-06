@@ -1,0 +1,79 @@
+cases:
+  - id: notebooklm_create_podcast
+    prompt: "Create a podcast about the latest AI research papers I've been reading"
+    fixtures: []
+    rubric:
+      - "activates notebooklm skill"
+      - "uses notebooklm create to make a notebook"
+      - "uses notebooklm generate audio for podcast creation"
+    trigger_expected: true
+
+  - id: notebooklm_add_youtube_sources
+    prompt: "Add these YouTube videos to NotebookLM and summarize the key themes"
+    fixtures: []
+    rubric:
+      - "activates notebooklm skill"
+      - "uses notebooklm source add for YouTube URLs"
+      - "uses notebooklm ask for analysis"
+    trigger_expected: true
+
+  - id: notebooklm_generate_infographic
+    prompt: "Make an infographic from my research notebook in NotebookLM"
+    fixtures: []
+    rubric:
+      - "activates notebooklm skill"
+      - "uses notebooklm generate infographic"
+    trigger_expected: true
+
+  - id: notebooklm_generate_flashcards
+    prompt: "Generate flashcards for studying from my NotebookLM sources"
+    fixtures: []
+    rubric:
+      - "activates notebooklm skill"
+      - "uses notebooklm generate flashcards"
+    trigger_expected: true
+
+  - id: notebooklm_explicit_slash_command
+    prompt: "/notebooklm list my notebooks"
+    fixtures: []
+    rubric:
+      - "activates notebooklm skill"
+      - "uses notebooklm list"
+    trigger_expected: true
+
+  - id: notebooklm_deep_research
+    prompt: "Use NotebookLM to do deep web research on quantum computing breakthroughs in 2026"
+    fixtures: []
+    rubric:
+      - "activates notebooklm skill"
+      - "uses notebooklm source add-research with --mode deep"
+    trigger_expected: true
+
+  - id: notebooklm_video_explainer
+    prompt: "Turn my notes into a video explainer using NotebookLM"
+    fixtures: []
+    rubric:
+      - "activates notebooklm skill"
+      - "uses notebooklm generate video"
+    trigger_expected: true
+
+  - id: notebooklm_negative_google_docs
+    prompt: "Create a Google Doc with my meeting notes"
+    fixtures: []
+    rubric:
+      - "does not activate notebooklm (Google Docs creation, not NotebookLM)"
+    trigger_expected: false
+
+  - id: notebooklm_negative_jupyter
+    prompt: "Open my Jupyter notebook and run the cells"
+    fixtures: []
+    rubric:
+      - "does not activate notebooklm (Jupyter notebook, not NotebookLM)"
+    trigger_expected: false
+
+  - id: notebooklm_negative_podcast_editing
+    prompt: "Edit this podcast MP3 file and trim the first 30 seconds"
+    fixtures: []
+    rubric:
+      - "does not activate notebooklm (audio editing, not podcast generation)"
+    trigger_expected: false

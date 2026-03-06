@@ -48,7 +48,7 @@ The renderer groups connections into **corridors** — horizontal bands sharing 
 
 Within each corridor, connections are sorted by target Y (ascending) and assigned evenly-spaced lane offsets (14px spacing). This distributes vertical segments so they don't overlap:
 
-```
+```text
 Corridor with 3 connections (spacing=14px, total width=28px):
   Connection to topmost target:    midX - 14px
   Connection to middle target:     midX

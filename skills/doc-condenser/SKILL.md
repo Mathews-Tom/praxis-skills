@@ -111,7 +111,7 @@ See `references/style-guide.md` for detailed formatting rules, table patterns, a
 
 **Before** (verbose):
 
-```
+```text
 We have successfully achieved and EXCEEDED the original goals of this specification!
 After many iterations and improvements, our automation rate reached 96.6% which is
 above our target of 95%. The team worked hard on this and we're very proud...
@@ -119,7 +119,7 @@ above our target of 95%. The team worked hard on this and we're very proud...
 
 **After** (concise):
 
-```
+```text
 **v31 PRODUCTION** | 96.6% automation (target: 95%)
 ```
 

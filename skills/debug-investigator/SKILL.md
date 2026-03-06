@@ -29,13 +29,13 @@ produces minimal reproductions — documenting every step so dead ends are never
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/stacktrace-patterns.md` | Exception taxonomy, traceback reading, common Python/JS error signatures | Stacktrace or exception present |
-| `references/hypothesis-templates.md` | Bug category catalog, probability ranking, confirmation/refutation tests | Always |
-| `references/bisection-guide.md` | git bisect workflow, binary search debugging, narrowing techniques | Bug appeared after a change |
-| `references/log-analysis.md` | Log pattern extraction, anomaly detection, timeline correlation | Log output available |
-| `references/instrumentation-points.md` | Strategic logging placement, breakpoint strategy, state inspection techniques | Investigation plan needed |
+| File                                   | Contents                                                                      | Load When                       |
+| -------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------- |
+| `references/stacktrace-patterns.md`    | Exception taxonomy, traceback reading, common Python/JS error signatures      | Stacktrace or exception present |
+| `references/hypothesis-templates.md`   | Bug category catalog, probability ranking, confirmation/refutation tests      | Always                          |
+| `references/bisection-guide.md`        | git bisect workflow, binary search debugging, narrowing techniques            | Bug appeared after a change     |
+| `references/log-analysis.md`           | Log pattern extraction, anomaly detection, timeline correlation               | Log output available            |
+| `references/instrumentation-points.md` | Strategic logging placement, breakpoint strategy, state inspection techniques | Investigation plan needed       |
 
 ## Prerequisites
 
@@ -155,7 +155,7 @@ After finding the root cause:
 
 ## Output Format
 
-```
+````
 ## Debug Investigation: {Brief Description}
 
 ### Symptom
@@ -215,14 +215,16 @@ After finding the root cause:
 ```{language}
 # Minimal code that triggers the bug
 {code}
-```
+````
 
 ### Resolution
+
 **Root cause:** {What was wrong}
 **Fix:** {What was changed — file:line, diff summary}
 **Prevention:** {Test added, lint rule, type annotation, etc.}
 **Lessons:** {What generalizes beyond this bug}
-```
+
+```text
 
 ## Configuring Scope
 
@@ -266,3 +268,4 @@ Push back if:
 - The "bug" is actually a feature request or design disagreement — redirect to ADR or discussion
 - The code is not under the user's control (third-party SaaS, managed service) — file a support ticket instead
 - The user wants to debug generated/minified code — debug the source, not the output
+```

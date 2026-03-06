@@ -21,19 +21,19 @@ needed — native tools are faster, more capable, and cost zero context tokens w
 
 ## Quick Reference
 
-| Filesystem MCP Tool | Replacement | Notes |
-|---|---|---|
-| `read_file(path)` | `Read` tool | Supports line offset and limit |
-| `read_multiple_files(paths)` | Multiple parallel `Read` calls | Faster than sequential MCP calls |
-| `write_file(path, content)` | `Write` tool | Overwrites entire file |
-| `edit_file(path, edits)` | `Edit` tool | Exact string replacement; surgical edits |
-| `list_directory(path)` | `Glob` or `Bash ls` | Glob for patterns, ls for simple listing |
-| `directory_tree(path)` | `Bash fd` or `Glob **/*` | fd is fastest; Glob for pattern filtering |
-| `search_files(pattern, path)` | `Grep` tool | Full regex, file type filters, context lines |
-| `create_directory(path)` | `Bash mkdir -p` | `-p` creates intermediate directories |
-| `move_file(src, dst)` | `Bash mv` | Also handles renames |
-| `get_file_info(path)` | `Bash stat` or `Bash ls -la` | Size, permissions, timestamps |
-| `list_allowed_directories` | N/A | Claude Code operates in the working directory; no sandbox restrictions |
+| Filesystem MCP Tool           | Replacement                    | Notes                                                                  |
+| ----------------------------- | ------------------------------ | ---------------------------------------------------------------------- |
+| `read_file(path)`             | `Read` tool                    | Supports line offset and limit                                         |
+| `read_multiple_files(paths)`  | Multiple parallel `Read` calls | Faster than sequential MCP calls                                       |
+| `write_file(path, content)`   | `Write` tool                   | Overwrites entire file                                                 |
+| `edit_file(path, edits)`      | `Edit` tool                    | Exact string replacement; surgical edits                               |
+| `list_directory(path)`        | `Glob` or `Bash ls`            | Glob for patterns, ls for simple listing                               |
+| `directory_tree(path)`        | `Bash fd` or `Glob **/*`       | fd is fastest; Glob for pattern filtering                              |
+| `search_files(pattern, path)` | `Grep` tool                    | Full regex, file type filters, context lines                           |
+| `create_directory(path)`      | `Bash mkdir -p`                | `-p` creates intermediate directories                                  |
+| `move_file(src, dst)`         | `Bash mv`                      | Also handles renames                                                   |
+| `get_file_info(path)`         | `Bash stat` or `Bash ls -la`   | Size, permissions, timestamps                                          |
+| `list_allowed_directories`    | N/A                            | Claude Code operates in the working directory; no sandbox restrictions |
 
 ---
 
@@ -43,13 +43,13 @@ needed — native tools are faster, more capable, and cost zero context tokens w
 
 Use the `Read` tool with an absolute path:
 
-```
+```text
 Read: /path/to/file.py
 ```
 
 For large files, use offset and limit to read specific sections:
 
-```
+```text
 Read: /path/to/file.py (offset: 100, limit: 50)
 ```
 
@@ -60,7 +60,7 @@ to avoid flooding context.
 
 Issue multiple `Read` calls in a single response. Claude Code executes them concurrently:
 
-```
+```text
 Read: /path/to/file1.py
 Read: /path/to/file2.py
 Read: /path/to/file3.py
@@ -83,7 +83,7 @@ The `Read` tool handles binary formats:
 
 Use the `Write` tool to create a file or overwrite an existing one:
 
-```
+```text
 Write: /path/to/new-file.py
 Content: <full file content>
 ```
@@ -95,7 +95,7 @@ write directly.
 
 Use the `Edit` tool for surgical modifications — replace exact string matches:
 
-```
+```text
 Edit: /path/to/file.py
 old_string: "def old_function():"
 new_string: "def new_function():"
@@ -114,7 +114,7 @@ changed region and shows a clear diff. Write replaces the entire file.
 
 ### By Name Pattern (Glob)
 
-```
+```text
 Glob: **/*.py           → all Python files recursively
 Glob: src/**/*.ts       → TypeScript files under src/
 Glob: *.md              → Markdown files in current directory
@@ -125,20 +125,20 @@ Results are sorted by modification time (most recent first).
 
 ### By Content (Grep)
 
-```
+```text
 Grep: pattern="def process_data" type="py"
 Grep: pattern="TODO|FIXME" glob="*.py"
 Grep: pattern="class.*Controller" output_mode="content" -C=2
 ```
 
-| Grep Parameter | Purpose |
-|---|---|
-| `pattern` | Regex pattern to match |
-| `type` | File type filter (py, js, ts, rust, go, etc.) |
-| `glob` | Glob pattern filter (`*.tsx`, `src/**/*.py`) |
-| `output_mode` | `files_with_matches` (default), `content`, `count` |
-| `-C`, `-A`, `-B` | Context lines: around, after, before matches |
-| `-i` | Case-insensitive search |
+| Grep Parameter   | Purpose                                            |
+| ---------------- | -------------------------------------------------- |
+| `pattern`        | Regex pattern to match                             |
+| `type`           | File type filter (py, js, ts, rust, go, etc.)      |
+| `glob`           | Glob pattern filter (`*.tsx`, `src/**/*.py`)       |
+| `output_mode`    | `files_with_matches` (default), `content`, `count` |
+| `-C`, `-A`, `-B` | Context lines: around, after, before matches       |
+| `-i`             | Case-insensitive search                            |
 
 ### Directory Listing
 
@@ -221,12 +221,12 @@ ls -la /path/to/file.py
 wc -l /path/to/file.py
 ```
 
-| Command | Returns |
-|---|---|
-| `stat` | Size, permissions, timestamps, inode |
+| Command  | Returns                                     |
+| -------- | ------------------------------------------- |
+| `stat`   | Size, permissions, timestamps, inode        |
 | `ls -la` | Permissions, owner, size, modification date |
-| `wc -l` | Line count |
-| `file` | MIME type detection |
+| `wc -l`  | Line count                                  |
+| `file`   | MIME type detection                         |
 
 ---
 
@@ -260,14 +260,14 @@ fd --type f --exec stat -f '%z %N' {} \; | sort -rn | head -20
 
 ## Error Handling
 
-| Error | Cause | Resolution |
-|---|---|---|
-| Read: file not found | Path incorrect or file deleted | Verify with `ls` or `Glob` |
-| Edit: old_string not unique | Multiple matches in the file | Add more surrounding context to make it unique |
-| Edit: old_string not found | Content changed since last read | Re-read the file, then retry with current content |
-| Write: file not read first | Attempting to overwrite without reading | Read the file first, then Write |
-| Permission denied | Insufficient OS permissions | Check with `ls -la`; use `chmod` if appropriate |
-| Glob: no files found | Pattern too restrictive | Broaden the pattern; check path spelling |
+| Error                       | Cause                                   | Resolution                                        |
+| --------------------------- | --------------------------------------- | ------------------------------------------------- |
+| Read: file not found        | Path incorrect or file deleted          | Verify with `ls` or `Glob`                        |
+| Edit: old_string not unique | Multiple matches in the file            | Add more surrounding context to make it unique    |
+| Edit: old_string not found  | Content changed since last read         | Re-read the file, then retry with current content |
+| Write: file not read first  | Attempting to overwrite without reading | Read the file first, then Write                   |
+| Permission denied           | Insufficient OS permissions             | Check with `ls -la`; use `chmod` if appropriate   |
+| Glob: no files found        | Pattern too restrictive                 | Broaden the pattern; check path spelling          |
 
 ---
 

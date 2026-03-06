@@ -40,7 +40,7 @@ user-provided context. 2-3 sentences.}}
 
 Option A — Text-based bar chart:
 
-```
+```text
 Structural Integrity  ████████░░  4.0/5
 Scalability          ██████░░░░  3.0/5
 Security             ██████░░░░  3.0/5
@@ -99,7 +99,7 @@ architecture set up for success or heading toward trouble?}}
 
 **Arithmetic breakdown** (required for audit trail):
 
-```
+```text
 Structural Integrity:   {{X}} × 0.20 = {{result}}
 Scalability:           {{X}} × 0.18 = {{result}}
 Security:              {{X}} × 0.18 = {{result}}

@@ -24,12 +24,12 @@ failures, and recommends targeted improvements.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/retrieval-metrics.md` | Precision@K, Recall@K, MRR, NDCG definitions and calculation | Always |
-| `references/generation-metrics.md` | Groundedness, completeness, hallucination detection methods | Generation evaluation needed |
-| `references/failure-taxonomy.md` | RAG failure categories: retrieval, generation, chunking, embedding | Failure diagnosis needed |
-| `references/diagnostic-queries.md` | Designing evaluation query sets, known-answer questions, difficulty levels | Evaluation setup |
+| File                               | Contents                                                                   | Load When                    |
+| ---------------------------------- | -------------------------------------------------------------------------- | ---------------------------- |
+| `references/retrieval-metrics.md`  | Precision@K, Recall@K, MRR, NDCG definitions and calculation               | Always                       |
+| `references/generation-metrics.md` | Groundedness, completeness, hallucination detection methods                | Generation evaluation needed |
+| `references/failure-taxonomy.md`   | RAG failure categories: retrieval, generation, chunking, embedding         | Failure diagnosis needed     |
+| `references/diagnostic-queries.md` | Designing evaluation query sets, known-answer questions, difficulty levels | Evaluation setup             |
 
 ## Prerequisites
 
@@ -54,13 +54,13 @@ Document the RAG pipeline configuration:
 
 Create a diverse set of test queries:
 
-| Query Type | Purpose | Count |
-|-----------|---------|-------|
-| Known-answer (factoid) | Measure retrieval + generation accuracy | 10+ |
-| Multi-hop | Require combining info from multiple chunks | 5+ |
-| Unanswerable | Not in the corpus — should abstain | 3+ |
-| Ambiguous | Multiple valid interpretations | 3+ |
-| Recent/updated | Test freshness | 2+ |
+| Query Type             | Purpose                                     | Count |
+| ---------------------- | ------------------------------------------- | ----- |
+| Known-answer (factoid) | Measure retrieval + generation accuracy     | 10+   |
+| Multi-hop              | Require combining info from multiple chunks | 5+    |
+| Unanswerable           | Not in the corpus — should abstain          | 3+    |
+| Ambiguous              | Multiple valid interpretations              | 3+    |
+| Recent/updated         | Test freshness                              | 2+    |
 
 For each query, document the expected answer and the source chunk(s).
 
@@ -88,32 +88,32 @@ For each test query with retrieved context:
 
 For every incorrect or low-quality response, classify the root cause:
 
-| Failure Type | Diagnosis | Indicator |
-|-------------|-----------|-----------|
-| Retrieval failure | Relevant chunks not retrieved | Low Recall@K |
-| Ranking failure | Relevant chunk retrieved but ranked low | Low MRR, high Recall |
-| Chunk boundary issue | Answer split across chunk boundaries | Partial matches in multiple chunks |
-| Embedding mismatch | Query semantics don't match chunk embeddings | Relevant chunk has low similarity score |
-| Generation failure | Correct context but wrong answer | High retrieval scores, low groundedness |
-| Hallucination | Model invents facts not in context | Claims not traceable to any chunk |
-| Over-abstention | Model refuses to answer when context is sufficient | Unanswered with relevant context present |
+| Failure Type         | Diagnosis                                          | Indicator                                |
+| -------------------- | -------------------------------------------------- | ---------------------------------------- |
+| Retrieval failure    | Relevant chunks not retrieved                      | Low Recall@K                             |
+| Ranking failure      | Relevant chunk retrieved but ranked low            | Low MRR, high Recall                     |
+| Chunk boundary issue | Answer split across chunk boundaries               | Partial matches in multiple chunks       |
+| Embedding mismatch   | Query semantics don't match chunk embeddings       | Relevant chunk has low similarity score  |
+| Generation failure   | Correct context but wrong answer                   | High retrieval scores, low groundedness  |
+| Hallucination        | Model invents facts not in context                 | Claims not traceable to any chunk        |
+| Over-abstention      | Model refuses to answer when context is sufficient | Unanswered with relevant context present |
 
 ### Phase 6: Recommendations
 
 Based on failure analysis, recommend specific improvements:
 
-| Failure Pattern | Recommendation |
-|----------------|---------------|
-| Chunk boundary issues | Increase overlap, try semantic chunking |
-| Low Precision@K | Reduce K, add reranking stage |
-| Low Recall@K | Increase K, try hybrid search |
-| Embedding mismatch | Try different embedding model, add query expansion |
-| Hallucination | Strengthen grounding instruction in prompt, reduce temperature |
-| Over-abstention | Soften abstention criteria in prompt |
+| Failure Pattern       | Recommendation                                                 |
+| --------------------- | -------------------------------------------------------------- |
+| Chunk boundary issues | Increase overlap, try semantic chunking                        |
+| Low Precision@K       | Reduce K, add reranking stage                                  |
+| Low Recall@K          | Increase K, try hybrid search                                  |
+| Embedding mismatch    | Try different embedding model, add query expansion             |
+| Hallucination         | Strengthen grounding instruction in prompt, reduce temperature |
+| Over-abstention       | Soften abstention criteria in prompt                           |
 
 ## Output Format
 
-```
+```text
 ## RAG Audit Report
 
 ### Pipeline Configuration
@@ -180,16 +180,17 @@ Based on failure analysis, recommend specific improvements:
 
 ## Error Handling
 
-| Problem | Resolution |
-|---------|------------|
-| No known-answer queries available | Help design them from the document corpus. Pick 10 facts and formulate questions. |
-| Pipeline access not available | Work from recorded inputs/outputs. Post-hoc evaluation is possible with query-context-response triples. |
-| Corpus is too large to review | Sample-based evaluation. Select representative documents and generate queries from them. |
-| Multiple failure types co-exist | Address retrieval failures first. Generation quality cannot exceed retrieval quality. |
+| Problem                           | Resolution                                                                                              |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| No known-answer queries available | Help design them from the document corpus. Pick 10 facts and formulate questions.                       |
+| Pipeline access not available     | Work from recorded inputs/outputs. Post-hoc evaluation is possible with query-context-response triples. |
+| Corpus is too large to review     | Sample-based evaluation. Select representative documents and generate queries from them.                |
+| Multiple failure types co-exist   | Address retrieval failures first. Generation quality cannot exceed retrieval quality.                   |
 
 ## When NOT to Audit
 
 Push back if:
+
 - The pipeline hasn't been built yet — design it first, audit after
 - The corpus has fewer than 10 documents — too small for meaningful retrieval evaluation
 - The user wants to compare embedding models — that's a benchmark task, not an audit

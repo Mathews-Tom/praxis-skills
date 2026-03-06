@@ -21,12 +21,12 @@ case identification, and ready-to-use code in Python and JavaScript.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/character-classes.md` | Character class reference, Unicode categories, POSIX classes | Always |
-| `references/quantifiers.md` | Quantifier behavior, greedy vs lazy vs possessive, backtracking | Pattern needs repetition |
-| `references/common-patterns.md` | Validated patterns for email, URL, phone, IP, date, UUID, etc. | Common validation requested |
-| `references/flavor-differences.md` | Syntax differences between Python, JavaScript, PCRE, POSIX | Multi-language usage needed |
+| File                               | Contents                                                        | Load When                   |
+| ---------------------------------- | --------------------------------------------------------------- | --------------------------- |
+| `references/character-classes.md`  | Character class reference, Unicode categories, POSIX classes    | Always                      |
+| `references/quantifiers.md`        | Quantifier behavior, greedy vs lazy vs possessive, backtracking | Pattern needs repetition    |
+| `references/common-patterns.md`    | Validated patterns for email, URL, phone, IP, date, UUID, etc.  | Common validation requested |
+| `references/flavor-differences.md` | Syntax differences between Python, JavaScript, PCRE, POSIX      | Multi-language usage needed |
 
 ## Prerequisites
 
@@ -63,12 +63,12 @@ Analyze the examples to build a pattern:
 
 Break down the pattern into a component table:
 
-| Component | Meaning |
-|-----------|---------|
-| `^` | Start of string |
+| Component  | Meaning                     |
+| ---------- | --------------------------- |
+| `^`        | Start of string             |
 | `[A-Za-z]` | One letter (upper or lower) |
-| `\d{3,5}` | 3 to 5 digits |
-| `$` | End of string |
+| `\d{3,5}`  | 3 to 5 digits               |
+| `$`        | End of string               |
 
 Document capture groups separately if the pattern uses them.
 
@@ -89,7 +89,7 @@ Produce the pattern, explanation, test cases, and usage examples.
 
 ## Output Format
 
-```
+````
 ## Regex Pattern: {Brief Description}
 
 ### Requirements
@@ -100,37 +100,39 @@ Produce the pattern, explanation, test cases, and usage examples.
 ### Pattern
 ```regex
 {pattern}
-```
+````
 
 ### Explanation
 
-| Component | Meaning |
-|-----------|---------|
+| Component     | Meaning                   |
+| ------------- | ------------------------- |
 | `{component}` | {what it matches and why} |
 
 ### Capture Groups
 
-| Group | Name | Captures | Example |
-|-------|------|----------|---------|
-| 1 | {name} | {what} | {example value} |
+| Group | Name   | Captures | Example         |
+| ----- | ------ | -------- | --------------- |
+| 1     | {name} | {what}   | {example value} |
 
 ### Test Cases
 
-| # | Input | Should Match | Reason |
-|---|-------|-------------|--------|
-| 1 | `{input}` | Yes | {why — happy path} |
-| 2 | `{input}` | Yes | {why — boundary} |
-| 3 | `{input}` | No | {why — invalid} |
-| 4 | `{input}` | No | {why — near-miss} |
-| 5 | `` (empty) | No | Empty input |
+| #   | Input      | Should Match | Reason             |
+| --- | ---------- | ------------ | ------------------ |
+| 1   | `{input}`  | Yes          | {why — happy path} |
+| 2   | `{input}`  | Yes          | {why — boundary}   |
+| 3   | `{input}`  | No           | {why — invalid}    |
+| 4   | `{input}`  | No           | {why — near-miss}  |
+| 5   | `` (empty) | No           | Empty input        |
 
 ### Edge Cases
+
 - {Edge case 1}: {what to watch for}
 - {Edge case 2}: {what to watch for}
 
 ### Usage
 
 **Python:**
+
 ```python
 import re
 
@@ -150,6 +152,7 @@ matches = pattern.findall(text)
 ```
 
 **JavaScript:**
+
 ```javascript
 const pattern = /{pattern}/;
 
@@ -165,7 +168,8 @@ if (match) {
 // Find all
 const matches = [...text.matchAll(/{pattern}/g)];
 ```
-```
+
+```text
 
 ## Calibration Rules
 
@@ -201,3 +205,4 @@ Push back if:
 - The validation is for a standard format with a library (email validation, URL parsing) — use the standard library
 - The pattern is for security-critical input validation as the sole defense — regex is a first filter, not a security boundary
 - The user wants to modify matched content in complex ways — regex replacement has limits; suggest code instead
+```

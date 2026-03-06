@@ -76,7 +76,7 @@ most of these, but verify manually for anything missed.
 
 ### Security Red Flags (CRITICAL — always check)
 
-```
+```text
 # Hardcoded secrets (search recursively, exclude lock files and node_modules)
 password\s*=\s*["\']
 api_key\s*=\s*["\']
@@ -100,7 +100,7 @@ NODE_ENV\s*=\s*development  (in non-.env files)
 
 ### Architecture Red Flags
 
-```
+```text
 # In-memory state (prevents horizontal scaling)
 session_store.*memory
 InMemoryCache
@@ -119,7 +119,7 @@ require\(.*\.\.\/\.\.\/     # Deep relative requires (Node.js)
 
 ### Performance Red Flags
 
-```
+```text
 # N+1 query patterns
 for.*\{.*\.find\(    # Query inside loop
 for.*\{.*\.get\(     # DB get inside loop

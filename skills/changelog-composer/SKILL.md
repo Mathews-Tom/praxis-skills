@@ -22,12 +22,12 @@ following Keep a Changelog conventions.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/conventional-commits.md` | Commit type parsing, scope extraction, breaking change indicators | Repository uses conventional commits |
-| `references/categorization-rules.md` | Change classification logic, audience filtering, severity ordering | Always |
-| `references/audience-filter.md` | User-facing vs internal change detection, exclusion patterns | Always |
-| `references/changelog-formats.md` | Keep a Changelog, GitHub Releases, announcement copy templates | Format selection needed |
+| File                                 | Contents                                                           | Load When                            |
+| ------------------------------------ | ------------------------------------------------------------------ | ------------------------------------ |
+| `references/conventional-commits.md` | Commit type parsing, scope extraction, breaking change indicators  | Repository uses conventional commits |
+| `references/categorization-rules.md` | Change classification logic, audience filtering, severity ordering | Always                               |
+| `references/audience-filter.md`      | User-facing vs internal change detection, exclusion patterns       | Always                               |
+| `references/changelog-formats.md`    | Keep a Changelog, GitHub Releases, announcement copy templates     | Format selection needed              |
 
 ## Prerequisites
 
@@ -56,14 +56,14 @@ Collect all changes between the previous release and the current state:
 
 Categorize each change by its impact:
 
-| Category | Conventional Commit Type | Indicators |
-|----------|------------------------|------------|
-| Breaking Changes | `feat!:`, `BREAKING CHANGE:` | API removal, signature change, behavior change |
-| Features | `feat:` | New capability, new endpoint, new command |
-| Fixes | `fix:` | Bug correction, error handling improvement |
-| Performance | `perf:` | Speed improvement, memory reduction |
-| Documentation | `docs:` | README, API docs, guides |
-| Internal | `chore:`, `ci:`, `refactor:`, `test:`, `build:` | No user-facing impact |
+| Category         | Conventional Commit Type                        | Indicators                                     |
+| ---------------- | ----------------------------------------------- | ---------------------------------------------- |
+| Breaking Changes | `feat!:`, `BREAKING CHANGE:`                    | API removal, signature change, behavior change |
+| Features         | `feat:`                                         | New capability, new endpoint, new command      |
+| Fixes            | `fix:`                                          | Bug correction, error handling improvement     |
+| Performance      | `perf:`                                         | Speed improvement, memory reduction            |
+| Documentation    | `docs:`                                         | README, API docs, guides                       |
+| Internal         | `chore:`, `ci:`, `refactor:`, `test:`, `build:` | No user-facing impact                          |
 
 For repositories without conventional commits, classify by reading the commit message
 and changed files. Code changes to public API → Feature or Fix. Test-only changes → Internal.
@@ -98,6 +98,7 @@ For each included change, write a human-readable description:
 ### Phase 5: Output
 
 Assemble the changelog in the requested format, ordered by severity:
+
 1. Breaking Changes (always first)
 2. Features
 3. Fixes
@@ -106,7 +107,7 @@ Assemble the changelog in the requested format, ordered by severity:
 
 ## Output Format
 
-```
+```text
 ## [{version}] - {YYYY-MM-DD}
 
 ### Breaking Changes
@@ -128,11 +129,11 @@ Assemble the changelog in the requested format, ordered by severity:
 
 ## Configuring Scope
 
-| Mode | Input | Output | When to Use |
-|------|-------|--------|-------------|
-| `release` | Tag-to-HEAD | Full changelog entry | Preparing a versioned release |
-| `sprint` | Date range or commit range | Summary of changes | Sprint review, status update |
-| `pr` | Single PR | One-line changelog entry | PR description template |
+| Mode      | Input                      | Output                   | When to Use                   |
+| --------- | -------------------------- | ------------------------ | ----------------------------- |
+| `release` | Tag-to-HEAD                | Full changelog entry     | Preparing a versioned release |
+| `sprint`  | Date range or commit range | Summary of changes       | Sprint review, status update  |
+| `pr`      | Single PR                  | One-line changelog entry | PR description template       |
 
 ## Calibration Rules
 
@@ -149,18 +150,19 @@ Assemble the changelog in the requested format, ordered by severity:
 
 ## Error Handling
 
-| Problem | Resolution |
-|---------|------------|
-| No tags exist in repository | Ask for a starting commit or date. Default to the initial commit if the repository is small. |
-| Repository doesn't use conventional commits | Classify by reading commit messages and changed files. Note reduced classification accuracy. |
-| PR descriptions are empty or low-quality | Fall back to commit messages. Flag entries that may need manual review. |
-| Ambiguous change classification | Default to "Features" for additions, "Fixes" for modifications. Mark uncertain entries for review. |
-| Too many changes for a single release | Group by component/module. Consider whether the release should be split. |
-| Merge commits obscure individual changes | Use `--no-merges` to skip merge commits. Parse individual commits within merged PRs. |
+| Problem                                     | Resolution                                                                                         |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| No tags exist in repository                 | Ask for a starting commit or date. Default to the initial commit if the repository is small.       |
+| Repository doesn't use conventional commits | Classify by reading commit messages and changed files. Note reduced classification accuracy.       |
+| PR descriptions are empty or low-quality    | Fall back to commit messages. Flag entries that may need manual review.                            |
+| Ambiguous change classification             | Default to "Features" for additions, "Fixes" for modifications. Mark uncertain entries for review. |
+| Too many changes for a single release       | Group by component/module. Consider whether the release should be split.                           |
+| Merge commits obscure individual changes    | Use `--no-merges` to skip merge commits. Parse individual commits within merged PRs.               |
 
 ## When NOT to Compose
 
 Push back if:
+
 - The user wants to auto-publish release notes without review — changelogs require human judgment
 - The repository has no meaningful commit history (single "initial commit" with everything)
 - The request is for marketing copy, not technical release notes — different skill

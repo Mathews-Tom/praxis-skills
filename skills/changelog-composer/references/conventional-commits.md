@@ -7,7 +7,7 @@ description, and breaking change indicators from commit messages.
 
 ## Format
 
-```
+```text
 <type>[optional scope][!]: <description>
 
 [optional body]
@@ -17,19 +17,19 @@ description, and breaking change indicators from commit messages.
 
 ### Type Mapping
 
-| Type | Category | User-Facing |
-|------|----------|-------------|
-| `feat` | Feature | Yes |
-| `fix` | Fix | Yes |
-| `perf` | Performance | Yes |
-| `docs` | Documentation | Sometimes |
-| `refactor` | Internal | No (usually) |
-| `test` | Internal | No |
-| `chore` | Internal | No |
-| `ci` | Internal | No |
-| `build` | Internal | No |
-| `style` | Internal | No |
-| `revert` | Depends on reverted commit | Depends |
+| Type       | Category                   | User-Facing  |
+| ---------- | -------------------------- | ------------ |
+| `feat`     | Feature                    | Yes          |
+| `fix`      | Fix                        | Yes          |
+| `perf`     | Performance                | Yes          |
+| `docs`     | Documentation              | Sometimes    |
+| `refactor` | Internal                   | No (usually) |
+| `test`     | Internal                   | No           |
+| `chore`    | Internal                   | No           |
+| `ci`       | Internal                   | No           |
+| `build`    | Internal                   | No           |
+| `style`    | Internal                   | No           |
+| `revert`   | Depends on reverted commit | Depends      |
 
 ### Breaking Change Indicators
 
@@ -37,18 +37,20 @@ A commit is a breaking change if ANY of these are present:
 
 1. `!` after the type/scope: `feat!: remove deprecated API`
 2. `BREAKING CHANGE:` in the footer:
+
    ```
    feat: new auth system
 
    BREAKING CHANGE: token format changed from JWT to opaque
    ```
+
 3. `BREAKING-CHANGE:` (hyphenated variant) in the footer
 
 ### Scope
 
 The scope is a noun describing the section of the codebase:
 
-```
+```text
 feat(auth): add OAuth2 support
 fix(parser): handle empty input
 perf(cache): reduce memory allocation
@@ -98,17 +100,17 @@ def parse_commit(message: str) -> dict | None:
 
 When commits don't follow the convention, classify by keywords:
 
-| Keyword Pattern | Likely Category |
-|----------------|-----------------|
-| "add", "implement", "introduce", "support" | Feature |
-| "fix", "resolve", "correct", "patch", "repair" | Fix |
-| "speed", "faster", "optimize", "reduce memory" | Performance |
-| "doc", "readme", "comment", "guide" | Documentation |
-| "refactor", "clean", "restructure", "rename" | Internal |
-| "update dep", "bump", "upgrade" | Dependency (internal unless security) |
-| "test", "spec", "coverage" | Internal |
-| "ci", "pipeline", "workflow", "action" | Internal |
-| "remove", "delete", "drop", "deprecate" | Potentially breaking |
+| Keyword Pattern                                | Likely Category                       |
+| ---------------------------------------------- | ------------------------------------- |
+| "add", "implement", "introduce", "support"     | Feature                               |
+| "fix", "resolve", "correct", "patch", "repair" | Fix                                   |
+| "speed", "faster", "optimize", "reduce memory" | Performance                           |
+| "doc", "readme", "comment", "guide"            | Documentation                         |
+| "refactor", "clean", "restructure", "rename"   | Internal                              |
+| "update dep", "bump", "upgrade"                | Dependency (internal unless security) |
+| "test", "spec", "coverage"                     | Internal                              |
+| "ci", "pipeline", "workflow", "action"         | Internal                              |
+| "remove", "delete", "drop", "deprecate"        | Potentially breaking                  |
 
 ---
 
@@ -116,7 +118,7 @@ When commits don't follow the convention, classify by keywords:
 
 ### Revert Commits
 
-```
+```text
 revert: feat(auth): add OAuth2 support
 
 This reverts commit abc1234.

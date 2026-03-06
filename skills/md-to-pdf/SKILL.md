@@ -202,7 +202,7 @@ Example `.mermaidrc`:
 
 ## File Structure
 
-```
+```text
 md-to-pdf/
 ├── SKILL.md                    # This file — skill documentation
 ├── LICENSE.txt                 # MIT license

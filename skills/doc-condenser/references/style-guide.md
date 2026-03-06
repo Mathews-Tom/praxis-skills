@@ -117,7 +117,7 @@ Avoid deep nesting. If you need `####`, consider restructuring.
 
 Always end with scannable summary:
 
-```markdown
+````markdown
 ## Quick Reference
 
 | Key   | Value      |
@@ -127,15 +127,11 @@ Always end with scannable summary:
 | Roots | 2,162      |
 
 Or as code block:
-```
 
-Index: 287,716 forms
-Speed: 6-7ms/word  
-Roots: 2,162
+```text
 
 ```
-
-```
+````
 
 ## Word Budget Guidelines
 

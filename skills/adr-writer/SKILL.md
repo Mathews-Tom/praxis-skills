@@ -21,12 +21,12 @@ revisiting decisions months later.
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/adr-template.md` | Standard ADR template with field explanations and examples | Always |
-| `references/status-lifecycle.md` | Status transitions, supersession rules, deprecation process | ADR references existing decisions |
-| `references/context-capture.md` | Techniques for eliciting and documenting decision context | Complex or multi-stakeholder decision |
-| `references/alternatives-analysis.md` | Framework for evaluating and documenting rejected alternatives | Multiple options being considered |
+| File                                  | Contents                                                       | Load When                             |
+| ------------------------------------- | -------------------------------------------------------------- | ------------------------------------- |
+| `references/adr-template.md`          | Standard ADR template with field explanations and examples     | Always                                |
+| `references/status-lifecycle.md`      | Status transitions, supersession rules, deprecation process    | ADR references existing decisions     |
+| `references/context-capture.md`       | Techniques for eliciting and documenting decision context      | Complex or multi-stakeholder decision |
+| `references/alternatives-analysis.md` | Framework for evaluating and documenting rejected alternatives | Multiple options being considered     |
 
 ## Prerequisites
 
@@ -90,7 +90,7 @@ Document what this decision makes easier and harder:
 
 ## Output Format
 
-```
+```text
 # ADR-{NNN}: {Descriptive Title}
 
 **Status:** {Proposed | Accepted | Deprecated | Superseded by ADR-XXX}
@@ -157,17 +157,18 @@ the rest of the document.}
 
 ## Error Handling
 
-| Problem | Resolution |
-|---------|------------|
-| User cannot articulate alternatives | Help them brainstorm by asking: "What else could you have done? What did you consider and reject?" |
-| Decision is trivial (no real alternatives) | Suggest it doesn't need an ADR. ADRs are for non-obvious decisions with tradeoffs. |
-| Decision already made, no context remembered | Reconstruct context from code, PRs, commit history. Note reconstructed context as "best available." |
-| Existing ADR numbering scheme unknown | Check `docs/adr/` or `docs/decisions/`. If no directory exists, suggest creating one and starting at 001. |
-| Decision scope is too broad | Split into multiple focused ADRs. One for the database choice, one for the caching strategy, etc. |
+| Problem                                      | Resolution                                                                                                |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| User cannot articulate alternatives          | Help them brainstorm by asking: "What else could you have done? What did you consider and reject?"        |
+| Decision is trivial (no real alternatives)   | Suggest it doesn't need an ADR. ADRs are for non-obvious decisions with tradeoffs.                        |
+| Decision already made, no context remembered | Reconstruct context from code, PRs, commit history. Note reconstructed context as "best available."       |
+| Existing ADR numbering scheme unknown        | Check `docs/adr/` or `docs/decisions/`. If no directory exists, suggest creating one and starting at 001. |
+| Decision scope is too broad                  | Split into multiple focused ADRs. One for the database choice, one for the caching strategy, etc.         |
 
 ## When NOT to Write an ADR
 
 Push back if:
+
 - The decision is easily reversible (library version, code formatting rules) — use a comment or config instead
 - The decision is a standard practice with no alternatives (use HTTPS, validate input) — not decision-worthy
 - The user wants to document implementation details — ADRs are for WHY decisions, not HOW implementations

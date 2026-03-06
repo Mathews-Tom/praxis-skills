@@ -22,12 +22,12 @@ benchmark reports that support informed decisions — not just "A is faster than
 
 ## Reference Files
 
-| File | Contents | Load When |
-|------|----------|-----------|
-| `references/metric-selection.md` | Metric catalog (latency percentiles, throughput, memory, accuracy), selection criteria per task type | Always |
-| `references/test-case-design.md` | Representative input selection, scale variation, edge case coverage, warmup strategies | Always |
-| `references/environment-capture.md` | Hardware/software context recording, reproducibility requirements, variance control | Always |
-| `references/statistical-rigor.md` | Sample sizing, variance measurement, significance testing, outlier handling | Results need statistical validation |
+| File                                | Contents                                                                                             | Load When                           |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `references/metric-selection.md`    | Metric catalog (latency percentiles, throughput, memory, accuracy), selection criteria per task type | Always                              |
+| `references/test-case-design.md`    | Representative input selection, scale variation, edge case coverage, warmup strategies               | Always                              |
+| `references/environment-capture.md` | Hardware/software context recording, reproducibility requirements, variance control                  | Always                              |
+| `references/statistical-rigor.md`   | Sample sizing, variance measurement, significance testing, outlier handling                          | Results need statistical validation |
 
 ## Prerequisites
 
@@ -51,14 +51,14 @@ benchmark reports that support informed decisions — not just "A is faster than
 
 Choose metrics that match the decision context:
 
-| Metric Category | Specific Metrics | When Important |
-|----------------|-----------------|----------------|
-| Latency | P50, P95, P99, mean, std dev | User-facing operations, API calls |
-| Throughput | ops/sec, tokens/sec, MB/sec | Batch processing, streaming |
-| Memory | Peak RSS, avg RSS, allocation rate | Resource-constrained environments |
-| Accuracy | F1, BLEU, exact match, precision/recall | ML models, algorithms with quality tradeoffs |
-| Cost | $/1K operations, $/hour, $/GB | Cloud services, API comparisons |
-| Startup | Time to first operation, cold start | Serverless, CLI tools |
+| Metric Category | Specific Metrics                        | When Important                               |
+| --------------- | --------------------------------------- | -------------------------------------------- |
+| Latency         | P50, P95, P99, mean, std dev            | User-facing operations, API calls            |
+| Throughput      | ops/sec, tokens/sec, MB/sec             | Batch processing, streaming                  |
+| Memory          | Peak RSS, avg RSS, allocation rate      | Resource-constrained environments            |
+| Accuracy        | F1, BLEU, exact match, precision/recall | ML models, algorithms with quality tradeoffs |
+| Cost            | $/1K operations, $/hour, $/GB           | Cloud services, API comparisons              |
+| Startup         | Time to first operation, cold start     | Serverless, CLI tools                        |
 
 Select 2-4 metrics. More than 4 makes comparison tables unreadable.
 
@@ -88,7 +88,7 @@ Produce comparison tables with clear winners per metric, followed by tradeoff an
 
 ## Output Format
 
-```
+````text
 # Benchmark: {Descriptive Title}
 
 **Date:** {YYYY-MM-DD}
@@ -150,8 +150,9 @@ Produce comparison tables with clear winners per metric, followed by tradeoff an
 
 # Run benchmark
 {commands to execute the benchmark}
-```
-```
+````
+
+```text
 
 ## Configuring Scope
 
@@ -193,3 +194,4 @@ Push back if:
 - The candidates are fundamentally different tools (comparing a database to a message queue)
 - The user wants to benchmark trivial operations (comparing two string concatenation methods in Python)
 - Results from others already exist and conditions match — link to existing benchmarks instead
+```

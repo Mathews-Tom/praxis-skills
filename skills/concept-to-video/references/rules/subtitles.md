@@ -12,7 +12,7 @@ Generate SRT subtitle files from scene timing and overlay them on exported video
 
 SRT is the standard subtitle format. Each entry has: sequence number, timecode, text.
 
-```
+```text
 1
 00:00:00,000 --> 00:00:03,500
 Today we explore binary search.

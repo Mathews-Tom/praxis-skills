@@ -8,7 +8,7 @@ Catalog of prompt structures organized by strategy, with templates and usage gui
 
 No examples. Direct instruction only.
 
-```
+```text
 {Role/persona statement — optional}
 
 {Task instruction}
@@ -30,7 +30,7 @@ No examples. Direct instruction only.
 
 Provide examples of input → output pairs before the actual task.
 
-```
+```text
 {Task instruction}
 
 Example 1:
@@ -49,6 +49,7 @@ Output:
 **When to use:** Pattern-following tasks, classification, formatting, extraction.
 
 **Guidelines:**
+
 - 2-5 examples is typical. More is not always better.
 - Examples should cover the range of expected inputs (not all similar).
 - Include at least one edge case example.
@@ -60,7 +61,7 @@ Output:
 
 Ask the model to reason step by step before giving the final answer.
 
-```
+```text
 {Task instruction}
 
 Think through this step by step:
@@ -74,6 +75,7 @@ Think through this step by step:
 **When to use:** Multi-step reasoning, math, logical deduction, complex analysis.
 
 **Variants:**
+
 - **Explicit CoT:** "Think step by step" in the instruction
 - **Few-shot CoT:** Examples include the reasoning steps
 - **Zero-shot CoT:** Just append "Let's think step by step" (surprisingly effective)
@@ -84,7 +86,7 @@ Think through this step by step:
 
 Frame the model as an expert in a specific domain.
 
-```
+```text
 You are a {role} with expertise in {domain}. You have {years} of experience
 with {specific skills}.
 
@@ -104,7 +106,7 @@ Your task is to {instruction}.
 
 Specify the exact output format the model must follow.
 
-```
+````
 {Task instruction}
 
 Respond in the following JSON format:
@@ -116,10 +118,11 @@ Respond in the following JSON format:
     "nested": "object"
   }
 }
-```
+````
 
 {Input}
-```
+
+```text
 
 **When to use:** When output must be machine-parseable (JSON, CSV, YAML).
 
@@ -132,7 +135,8 @@ Respond in the following JSON format:
 
 Break a complex task into explicit subtasks within the prompt.
 
-```
+```text
+
 I need you to complete the following task in steps:
 
 Step 1: {subtask 1}
@@ -142,7 +146,8 @@ Step 3: Based on Steps 1 and 2, {subtask 3}
 Present each step's result before moving to the next.
 
 {Input}
-```
+
+```text
 
 **When to use:** Complex tasks that benefit from intermediate checkpoints.
 
@@ -152,10 +157,12 @@ Present each step's result before moving to the next.
 
 Define what the output must and must not contain.
 
-```
+```text
+
 {Task instruction}
 
 Rules:
+
 - MUST: {requirement 1}
 - MUST: {requirement 2}
 - MUST NOT: {prohibition 1}
@@ -163,7 +170,8 @@ Rules:
 - IF {condition} THEN {behavior}
 
 {Input}
-```
+
+```text
 
 **When to use:** Tasks with strict requirements or common failure modes to prevent.
 
@@ -171,20 +179,23 @@ Rules:
 
 ## Comparison / Selection Pattern
 
-```
+```text
+
 Compare the following options and recommend the best one:
 
 Option A: {description}
 Option B: {description}
 
 Evaluation criteria (in order of importance):
+
 1. {criterion 1}
 2. {criterion 2}
 3. {criterion 3}
 
 For each option, evaluate against each criterion. Then provide your recommendation
 with justification.
-```
+
+```text
 
 ---
 
@@ -200,3 +211,4 @@ with justification.
 | Summarization | Zero-shot with length constraint | Few-shot with length examples |
 | Translation/formatting | Few-shot | Zero-shot with format specification |
 | Decision/recommendation | Comparison pattern | Chain-of-thought |
+```

@@ -232,6 +232,18 @@ skills:
     strategy", "how to roll back", "migration review", "alter table risk". Use this skill when reviewing database migrations
     before deployment.'
   path: skills/migration-risk-analyzer
+- name: notebooklm
+  version: 1.1.0
+  description: 'Complete API for Google NotebookLM — full programmatic access including features not in the web UI. Create
+    notebooks, add sources (URLs, YouTube, PDFs, audio, video, images), chat with content, generate all artifact types (podcasts,
+    videos, infographics, slide decks, quizzes, flashcards, mind maps, reports, data tables), and download results in multiple
+    formats. Uses the notebooklm-py CLI. Use this skill when the user mentions: notebooklm, notebook lm, create a podcast,
+    generate a podcast, audio overview, create flashcards, generate flashcards, create a quiz, generate quiz, generate infographic,
+    make an infographic, generate slide deck, create mind map, generate mind map, generate report, turn this into a podcast,
+    summarize in notebooklm, add sources to notebooklm, notebooklm analysis, create a video explainer, generate video overview,
+    research with notebooklm, offload analysis, bulk source import, download from notebooklm, notebooklm deliverables, or
+    uses /notebooklm.'
+  path: skills/notebooklm
 - name: pr-review
   version: 1.1.0
   description: 'Pull request and code review with diff-based routing across five dimensions: code quality and guideline compliance,
@@ -369,3 +381,12 @@ skills:
     talk notes, tech talk breakdown, video key points, TL;DR of video, video takeaways, or pastes any URL containing youtube.com
     or youtu.be.'
   path: skills/youtube-analysis
+- name: youtube-search
+  version: 1.1.0
+  description: 'Search YouTube by keyword and return structured video metadata (title, URL, channel, views, duration, upload
+    date). Uses yt-dlp for scraping — no API keys required. Returns ranked results for discovery, trend analysis, and source
+    curation. Use this skill when the user mentions: search youtube, youtube search, find youtube videos, find videos about,
+    top youtube videos on, trending videos on, youtube results for, look up on youtube, what videos exist about, discover
+    youtube content, youtube for research, curate youtube sources, yt search, search for videos, find me videos, youtube trending,
+    popular videos about, latest videos on, youtube discovery, or uses /yt-search.'
+  path: skills/youtube-search

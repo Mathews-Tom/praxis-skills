@@ -134,7 +134,7 @@ any weight adjustments in the report.
 
 ### Formula
 
-```
+```text
 Overall Score (%) = Σ(dimension_score × weight) / 5 × 100
 ```
 
@@ -173,7 +173,7 @@ Overall Score (%) = Σ(dimension_score × weight) / 5 × 100
 | Data Architecture      | 3     | 5%       | 3 × 0.05    | 0.150     |
 | **Total**              |       | **100%** |             | **3.220** |
 
-```
+```text
 Overall = 3.220 / 5 × 100 = 64.4%
 Grade: D (60-69 range)
 ```
