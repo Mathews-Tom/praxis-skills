@@ -1,0 +1,65 @@
+name: Skill Evals
+
+on:
+  pull_request:
+    paths:
+      - 'skills/**'
+      - 'scripts/validate_evals.py'
+  push:
+    branches:
+      - main
+    paths:
+      - 'skills/**'
+  schedule:
+    - cron: '0 0 * * 1'  # Weekly Monday — catches model drift
+
+jobs:
+  validate:
+    name: Validate eval schema & manifest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate manifest is up to date
+        run: |
+          python scripts/generate_manifest.py
+          git diff --exit-code skills.yaml || {
+            echo "ERROR: skills.yaml is out of sync with SKILL.md files"
+            echo "Run 'python scripts/generate_manifest.py' and commit the result"
+            exit 1
+          }
+
+      - name: Validate eval cases schema
+        run: python scripts/validate_evals.py
+
+      - name: Check eval coverage for changed skills
+        if: github.event_name == 'pull_request'
+        run: |
+          changed_skills=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- skills/ \
+            | grep 'SKILL.md' \
+            | sed 's|skills/\([^/]*\)/.*|\1|' \
+            | sort -u)
+
+          missing=0
+          for skill in $changed_skills; do
+            if [ ! -f "skills/${skill}/evals/cases.yaml" ]; then
+              echo "WARNING: skills/${skill}/SKILL.md changed but no evals/cases.yaml found"
+              missing=$((missing + 1))
+            fi
+          done
+
+          if [ "$missing" -gt 0 ]; then
+            echo ""
+            echo "${missing} changed skill(s) have no eval cases."
+            echo "Consider adding evals/cases.yaml for modified skills."
+          fi
