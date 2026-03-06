@@ -1,0 +1,35 @@
+cases:
+  - id: metrics_dashboard_html
+    prompt: >
+      Create an interactive HTML dashboard showing our system metrics (CPU, memory, disk usage)
+      that I can open directly in a browser.
+    fixtures: []
+    rubric:
+      - "produces a self-contained HTML file with no external dependencies"
+      - "uses HTML5, CSS3, and inline SVG or Canvas for visualizations"
+      - "requires no build toolchain — opens directly in a browser"
+    trigger_expected: true
+
+  - id: interactive_data_flow_diagram
+    prompt: >
+      Build an interactive diagram of our data flow from ingestion through processing to storage
+      that I can open in my browser.
+    fixtures: []
+    rubric:
+      - "creates interactive elements with hover, click, or drag behavior via JS"
+      - "uses pure HTML/CSS/JS without framework dependencies"
+    trigger_expected: true
+
+  - id: negative_png_export
+    prompt: "Export this chart as a PNG image file"
+    fixtures: []
+    rubric:
+      - "PNG image export is concept-to-image territory, not static web artifact"
+    trigger_expected: false
+
+  - id: negative_react_app
+    prompt: "Build a React web application with routing, state management, and API integration"
+    fixtures: []
+    rubric:
+      - "full React application is outside static web artifact scope"
+    trigger_expected: false

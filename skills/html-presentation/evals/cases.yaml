@@ -1,0 +1,37 @@
+cases:
+  - id: outline_to_slides
+    prompt: >
+      Convert my outline into an HTML slide presentation:
+      1. Introduction
+      2. Problem Statement
+      3. Solution
+      4. Results
+      5. Conclusion
+    fixtures: []
+    rubric:
+      - "produces a self-contained HTML file"
+      - "uses Reveal.js or equivalent slide framework"
+      - "creates one slide per section from the outline"
+    trigger_expected: true
+
+  - id: dark_themed_presentation
+    prompt: "Create a dark-themed presentation from this markdown document"
+    fixtures: []
+    rubric:
+      - "applies a dark theme to the slide deck"
+      - "supports keyboard navigation between slides"
+    trigger_expected: true
+
+  - id: powerpoint_format
+    prompt: "Create a PowerPoint presentation"
+    fixtures: []
+    rubric:
+      - "PPTX format is outside HTML presentation scope"
+    trigger_expected: false
+
+  - id: blog_post_from_outline
+    prompt: "Write a blog post from this outline"
+    fixtures: []
+    rubric:
+      - "blog post authoring is not an HTML slide presentation task"
+    trigger_expected: false

@@ -1,0 +1,31 @@
+cases:
+  - id: binary_search_animation
+    prompt: "Create a video animation showing how a binary search algorithm works step by step"
+    fixtures: []
+    rubric:
+      - "uses Manim Python library for animation"
+      - "produces MP4 or GIF output"
+      - "animates the algorithm steps showing search progression"
+    trigger_expected: true
+
+  - id: data_pipeline_flow
+    prompt: "Animate a data pipeline flowing from ingestion to processing to storage"
+    fixtures: []
+    rubric:
+      - "creates a Manim scene with appropriate classes"
+      - "shows temporal flow between pipeline stages"
+    trigger_expected: true
+
+  - id: negative_branded_product_demo
+    prompt: "Create a branded product demo video with our company logo and music"
+    fixtures: []
+    rubric:
+      - "branded product demos with logos and music are remotion-video territory, not concept-to-video"
+    trigger_expected: false
+
+  - id: negative_static_infographic
+    prompt: "Make a static infographic about our tech stack"
+    fixtures: []
+    rubric:
+      - "static images are outside concept-to-video scope which produces animated video output"
+    trigger_expected: false
