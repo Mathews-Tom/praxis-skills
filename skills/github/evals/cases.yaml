@@ -1,0 +1,32 @@
+cases:
+  - id: create_issue_for_bug
+    prompt: "Create a GitHub issue for the login bug we found today"
+    fixtures: []
+    rubric:
+      - "uses gh issue create command"
+      - "includes title and body flags with descriptive content"
+      - "applies appropriate labels (e.g., bug)"
+    trigger_expected: true
+
+  - id: check_ci_failing_pr
+    prompt: "Check why CI is failing on our latest PR"
+    fixtures: []
+    rubric:
+      - "uses gh run list or gh pr checks to inspect CI status"
+      - "identifies failing workflow or job"
+      - "shows error details or suggests viewing logs"
+    trigger_expected: true
+
+  - id: git_commit_message
+    prompt: "Write a git commit message for my changes"
+    fixtures: []
+    rubric:
+      - "git commit message authoring is a local git operation, not a GitHub CLI task"
+    trigger_expected: false
+
+  - id: deploy_to_production
+    prompt: "Deploy our application to production"
+    fixtures: []
+    rubric:
+      - "deployment is outside GitHub CLI operations scope"
+    trigger_expected: false

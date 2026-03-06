@@ -1,0 +1,32 @@
+cases:
+  - id: git_bisect_intermittent_bug
+    prompt: "This bug keeps appearing intermittently — help me bisect which commit introduced it"
+    fixtures: []
+    rubric:
+      - "designs git bisect strategy with good/bad commit range identification"
+      - "identifies good/bad commit range boundaries"
+      - "creates systematic investigation plan with ordered steps"
+    trigger_expected: true
+
+  - id: race_condition_minimal_repro
+    prompt: "Help me create a minimal reproduction for this race condition in our async code"
+    fixtures: []
+    rubric:
+      - "ranks hypotheses with confirming/refuting tests"
+      - "plans instrumentation points for observing async behavior"
+      - "designs minimal reproduction isolating the race condition"
+    trigger_expected: true
+
+  - id: abstract_tradeoff_reasoning
+    prompt: "Think through the trade-offs of using PostgreSQL vs MongoDB for our use case"
+    fixtures: []
+    rubric:
+      - "does not activate debug-investigator (abstract reasoning, not debugging)"
+    trigger_expected: false
+
+  - id: document_summarization
+    prompt: "Summarize this document for me"
+    fixtures: []
+    rubric:
+      - "does not activate debug-investigator (summarization, not debugging)"
+    trigger_expected: false

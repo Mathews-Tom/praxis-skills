@@ -1,0 +1,31 @@
+cases:
+  - id: convert_slack_mcp
+    prompt: "Convert our Slack MCP server into a Claude Code skill to reduce context usage"
+    fixtures: []
+    rubric:
+      - "analyzes MCP tool definitions from the Slack server"
+      - "classifies tools by replacement strategy (direct, composite, skip)"
+      - "generates a SKILL.md file with converted instructions"
+    trigger_expected: true
+
+  - id: slim_context_mcp_tools
+    prompt: "My context window is too full from MCP tools, help me slim them down"
+    fixtures: []
+    rubric:
+      - "identifies high-token-cost MCP tools"
+      - "recommends conversion to skills for the most impactful tools"
+    trigger_expected: true
+
+  - id: build_new_mcp_server
+    prompt: "Build a new MCP server from scratch"
+    fixtures: []
+    rubric:
+      - "MCP server creation is outside MCP-to-skill conversion scope"
+    trigger_expected: false
+
+  - id: general_context_question
+    prompt: "Why is my Claude conversation running out of context?"
+    fixtures: []
+    rubric:
+      - "general context window questions without MCP tools are outside conversion scope"
+    trigger_expected: false

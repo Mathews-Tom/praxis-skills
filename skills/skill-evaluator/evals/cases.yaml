@@ -1,0 +1,32 @@
+cases:
+  - id: evaluate_single_skill
+    prompt: "Evaluate the quality of the sql-optimizer SKILL.md"
+    fixtures: []
+    rubric:
+      - "scores across defined dimensions including frontmatter quality and trigger coverage"
+      - "produces severity-classified findings (critical, warning, info)"
+      - "gives actionable recommendations for improvement"
+    trigger_expected: true
+
+  - id: audit_all_skills
+    prompt: "Run a full audit across all skills in this repo and rank them by quality"
+    fixtures: []
+    rubric:
+      - "produces comparative ranking table across all skills"
+      - "includes per-skill summaries with scores"
+      - "identifies lowest-scoring skills with specific deficiencies"
+    trigger_expected: true
+
+  - id: negative_prompt_improvement
+    prompt: "Improve this LLM prompt for better classification accuracy: 'Classify the sentiment of the following text'"
+    fixtures: []
+    rubric:
+      - "prompt engineering is prompt-lab territory, not skill evaluation"
+    trigger_expected: false
+
+  - id: negative_skill_creation
+    prompt: "Write a new skill for database optimization from scratch"
+    fixtures: []
+    rubric:
+      - "skill creation is outside skill evaluation scope"
+    trigger_expected: false
