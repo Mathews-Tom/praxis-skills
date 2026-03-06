@@ -1,9 +1,15 @@
 ---
 name: doc-condenser
-description: Transform verbose technical documentation into concise, scannable specs. Use this skill when you need to condense, summarize, or reformat technical docs, specs, or READMEs — including when a document is too verbose, when you want a technical summary, or when working with lengthy specification documents. Triggers on phrases like "make this concise", "too verbose", "condense this", "technical summary", "strip the fluff", or "reformat this spec". See assets/template.md for the standard output structure.
+description: "DEPRECATED: The base model handles document condensation and summarization natively at high quality. This skill no longer provides meaningful uplift. Retained for reference only."
 metadata:
   version: 1.0.0
+  status: deprecated
 ---
+
+> **DEPRECATED** — Modern Claude models condense and summarize technical documentation
+> natively with comparable quality. The output format preferences encoded here (40% length
+> cap, tables over prose, paths first) are too generic to justify skill overhead. Retained
+> for archival reference only.
 
 # Document Condenser
 

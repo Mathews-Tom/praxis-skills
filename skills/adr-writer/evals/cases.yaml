@@ -1,0 +1,31 @@
+cases:
+  - id: adr_postgresql_over_mongodb
+    prompt: "Write an ADR for choosing PostgreSQL over MongoDB for our user service"
+    fixtures: []
+    rubric:
+      - "Output includes ADR number and title in a standard format (e.g., ADR-NNNN: Title)"
+      - "Output includes a status field (e.g., Accepted, Proposed, Deprecated)"
+      - "Output contains context, decision, and consequences sections"
+    trigger_expected: true
+
+  - id: adr_event_sourcing_order_service
+    prompt: "Document the decision to use event sourcing for our order service"
+    fixtures: []
+    rubric:
+      - "Output includes an alternatives considered section listing rejected options"
+      - "Output lists both positive and negative consequences of the decision"
+    trigger_expected: true
+
+  - id: negative_api_documentation
+    prompt: "Write documentation for our API endpoints"
+    fixtures: []
+    rubric:
+      - "Skill should not trigger for general API documentation requests"
+    trigger_expected: false
+
+  - id: negative_technical_spec
+    prompt: "Create a technical spec for the new feature"
+    fixtures: []
+    rubric:
+      - "Skill should not trigger for technical spec creation"
+    trigger_expected: false

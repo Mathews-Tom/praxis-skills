@@ -1,0 +1,36 @@
+cases:
+  - id: branded_product_launch_video
+    prompt: >
+      Create a Remotion video for our product launch with our brand colors (#1A1A2E, #E94560),
+      logo at assets/logo.png, and background music from assets/launch-track.mp3.
+    fixtures: []
+    rubric:
+      - "sets up Remotion React project with composition and video entry point"
+      - "uses TailwindCSS or styled-components for styling with specified brand colors"
+      - "includes audio sync via Remotion Audio component with the background music file"
+    trigger_expected: true
+
+  - id: data_driven_revenue_video
+    prompt: >
+      Generate a data-driven video showing monthly revenue growth from this CSV data.
+      The video should animate bar charts with labeled axes and smooth transitions.
+    fixtures: []
+    rubric:
+      - "creates React composition with data input props for CSV-sourced revenue data"
+      - "animates chart or data visualization using Remotion interpolate/spring"
+      - "produces renderable video via Remotion CLI or renderMedia"
+    trigger_expected: true
+
+  - id: negative_math_proof_animation
+    prompt: "Animate a math proof step by step showing the derivation of Euler's identity"
+    fixtures: []
+    rubric:
+      - "mathematical proof animation is concept-to-video/Manim territory, not Remotion"
+    trigger_expected: false
+
+  - id: negative_static_product_image
+    prompt: "Create a static image of our product on a white background for the website hero section"
+    fixtures: []
+    rubric:
+      - "static image generation is not a video task"
+    trigger_expected: false

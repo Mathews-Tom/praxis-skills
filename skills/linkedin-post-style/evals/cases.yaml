@@ -1,0 +1,46 @@
+cases:
+  - id: observational_post_from_notes
+    prompt: "Write a LinkedIn post about this: Google released Gemini 2.5 Pro. It scores 92% on SWE-bench. It can handle 1M token context. It's their best coding model yet."
+    fixtures: []
+    rubric:
+      - "Uses 5-act structure: hook, legend, credibility, observation, meaning"
+      - "Hook is a specific metric or fact, not an opinion"
+      - "No exclamation marks or emoji anywhere in the post"
+      - "No superlatives such as 'incredible', 'amazing', or 'game-changing'"
+      - "Withholds first-person ('I', 'my', 'me') until late in the post"
+      - "Post length is 150-300 words"
+    trigger_expected: true
+
+  - id: rewrite_existing_draft
+    prompt: "Rewrite this for LinkedIn in my style: 'Excited to announce that our team just shipped an amazing new AI feature! It's incredible how much faster developers can code now. What do you think? #AI #DevTools #Innovation'"
+    fixtures: []
+    rubric:
+      - "Removes all anti-patterns: exclamation marks, 'excited to announce', superlatives, hashtags in body, audience question"
+      - "Moves links and hashtags to comment section or omits them from the post body"
+      - "Preserves the core technical content (team shipped an AI feature that speeds up developer coding)"
+      - "Applies informed-casual voice throughout"
+    trigger_expected: true
+
+  - id: experience_post
+    prompt: "Draft a post about my experience using Cursor vs Claude Code for the past month. Cursor is good for small edits but Claude Code handles complex refactors better. I switched fully to Claude Code."
+    fixtures: []
+    rubric:
+      - "Uses early first-person ('I', 'my') consistent with experience post pattern"
+      - "No hedging qualifiers ('maybe', 'perhaps', 'I think', 'it seems')"
+      - "Contains specific observations rather than generalizations"
+      - "Ends with a meaning layer (broader implication or insight), not a call-to-action or audience question"
+    trigger_expected: true
+
+  - id: generic_writing_request
+    prompt: "Write a professional email to my manager about taking time off next week."
+    fixtures: []
+    rubric:
+      - "Does not apply LinkedIn post style rules (this is an email, not LinkedIn content)"
+    trigger_expected: false
+
+  - id: technical_blog_post
+    prompt: "Write a 2000-word technical blog post about database sharding strategies."
+    fixtures: []
+    rubric:
+      - "Does not apply LinkedIn post style rules (this is long-form blog content, not LinkedIn short-form post)"
+    trigger_expected: false

@@ -1,0 +1,64 @@
+cases:
+  - id: missing_index_on_filter
+    prompt: >
+      Optimize this query, table has 5M rows:
+      SELECT * FROM orders WHERE customer_email = 'user@example.com' AND status = 'pending';
+    fixtures: []
+    rubric:
+      - "identifies missing index on filter columns (customer_email, status)"
+      - "recommends composite index on (customer_email, status)"
+      - "flags SELECT * as anti-pattern"
+      - "suggests selecting specific columns instead of SELECT *"
+    trigger_expected: true
+
+  - id: n_plus_one_pattern
+    prompt: >
+      This is slow in our Django app:
+      for user in User.objects.all():
+          orders = Order.objects.filter(user_id=user.id)
+          print(f'{user.name}: {orders.count()}')
+    fixtures: []
+    rubric:
+      - "identifies N+1 query pattern"
+      - "recommends select_related or prefetch_related"
+      - "suggests single query with JOIN or subquery"
+      - "explains why N+1 causes N additional database roundtrips"
+    trigger_expected: true
+
+  - id: suboptimal_join_with_explain
+    prompt: >
+      Why is this slow? PostgreSQL EXPLAIN shows Seq Scan on products (cost=0.00..45000.00 rows=1000000):
+      SELECT p.name, c.name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.price > 100 ORDER BY p.created_at DESC LIMIT 20;
+    fixtures: []
+    rubric:
+      - "interprets EXPLAIN output identifying Seq Scan as full table scan"
+      - "recommends index on products(price) or products(created_at)"
+      - "considers composite or covering index"
+      - "explains cost numbers from EXPLAIN output"
+    trigger_expected: true
+
+  - id: function_on_indexed_column
+    prompt: >
+      This query ignores my index on users.email:
+      SELECT * FROM users WHERE UPPER(email) = 'USER@EXAMPLE.COM';
+    fixtures: []
+    rubric:
+      - "identifies function on indexed column prevents index use"
+      - "recommends expression index (CREATE INDEX ON users(UPPER(email)))"
+      - "suggests application-level normalization as alternative"
+      - "explains why the optimizer cannot use the existing index when a function wraps the column"
+    trigger_expected: true
+
+  - id: migration_risk_question
+    prompt: "Is this ALTER TABLE safe to run in production?"
+    fixtures: []
+    rubric:
+      - "migration risk analysis is outside query optimization scope"
+    trigger_expected: false
+
+  - id: database_design_question
+    prompt: "How should I design the schema for a multi-tenant SaaS application?"
+    fixtures: []
+    rubric:
+      - "schema design is outside query optimization scope"
+    trigger_expected: false

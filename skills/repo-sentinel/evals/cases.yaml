@@ -1,0 +1,54 @@
+cases:
+  - id: detect_hardcoded_api_key
+    prompt: "Audit this file before pushing:\n```python\nAPI_KEY = 'EXAMPLE_KEY_DO_NOT_USE'\nresponse = requests.get(url, headers={'Authorization': f'Bearer {API_KEY}'})\n```"
+    fixtures: []
+    rubric:
+      - "classifies as CRITICAL severity"
+      - "identifies hardcoded credential"
+      - "recommends environment variable"
+      - "recommends credential rotation"
+    trigger_expected: true
+
+  - id: detect_internal_url_in_docs
+    prompt: "Review this README before making the repo public:\n## Setup\nSee https://wiki.internal.corp/auth-setup for authentication details.\nContact john.smith@company.com for access."
+    fixtures: []
+    rubric:
+      - "flags internal URL as HIGH"
+      - "flags personal email/name as MEDIUM"
+      - "recommends removing internal references"
+      - "recommends generic contact"
+    trigger_expected: true
+
+  - id: detect_env_file_tracked
+    prompt: "Is this repo safe to push? git ls-files shows .env and .env.production are tracked."
+    fixtures: []
+    rubric:
+      - "flags .env files as CRITICAL"
+      - "recommends git rm --cached"
+      - "recommends adding to .gitignore"
+      - "warns about history scrubbing if already pushed"
+    trigger_expected: true
+
+  - id: pre_oss_audit_request
+    prompt: "We want to open source this repo. Run a security audit."
+    fixtures: []
+    rubric:
+      - "triggers full audit mode (not fast-path)"
+      - "covers multiple attack surfaces"
+      - "checks for LICENSE file"
+      - "checks for SECURITY.md"
+    trigger_expected: true
+
+  - id: general_security_question
+    prompt: "What are the OWASP top 10 vulnerabilities?"
+    fixtures: []
+    rubric:
+      - "does not trigger repo-sentinel skill"
+    trigger_expected: false
+
+  - id: code_review_request
+    prompt: "Review this function for bugs and code quality issues."
+    fixtures: []
+    rubric:
+      - "does not trigger repo-sentinel skill"
+    trigger_expected: false

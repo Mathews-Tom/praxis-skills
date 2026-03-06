@@ -20,6 +20,14 @@ repos:
 
   - repo: local
     hooks:
+      - id: generate-manifest
+        name: Regenerate skills.yaml
+        entry: python scripts/generate_manifest.py
+        language: python
+        additional_dependencies: [pyyaml]
+        pass_filenames: false
+        files: ^skills/
+
       - id: block-env-files
         name: block-env-files
         entry: bash -c 'if git diff --cached --name-only | grep -qE "^\.env"; then echo "Blocked: .env file"; exit 1; fi'

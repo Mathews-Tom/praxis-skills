@@ -1,0 +1,31 @@
+cases:
+  - id: monolith_to_microservices
+    prompt: "Estimate the effort to migrate our monolith to microservices — 3 services, ~50K LoC"
+    fixtures: []
+    rubric:
+      - "produces three-point estimate with best/likely/worst case"
+      - "identifies unknowns and assumptions"
+      - "calculates PERT range or weighted estimate"
+    trigger_expected: true
+
+  - id: oauth2_api_effort
+    prompt: "How long will it take to add OAuth2 authentication to our API?"
+    fixtures: []
+    rubric:
+      - "breaks work into atomic units or subtasks"
+      - "provides confidence interval or range-based estimate"
+    trigger_expected: true
+
+  - id: negative_task_decomposition
+    prompt: "Break this feature into implementation tasks with dependencies"
+    fixtures: []
+    rubric:
+      - "task decomposition with dependency mapping is task-decomposer territory, not estimation"
+    trigger_expected: false
+
+  - id: negative_technology_choice
+    prompt: "What technologies should I use for this project?"
+    fixtures: []
+    rubric:
+      - "technology selection is outside effort estimation scope"
+    trigger_expected: false

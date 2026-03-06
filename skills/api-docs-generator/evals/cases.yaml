@@ -1,0 +1,31 @@
+cases:
+  - id: fastapi_endpoint_docs
+    prompt: "Generate API docs for this FastAPI endpoint: @app.get('/users/{id}') def get_user(id: int) -> User: ..."
+    fixtures: []
+    rubric:
+      - "Output adds response codes (e.g., 200, 404, 422)"
+      - "Output adds parameter descriptions and example values"
+      - "Output generates OpenAPI-compatible documentation"
+    trigger_expected: true
+
+  - id: audit_rest_api_docs
+    prompt: "Audit the documentation on our REST API"
+    fixtures: []
+    rubric:
+      - "Output identifies missing or incomplete descriptions"
+      - "Output checks response code coverage across endpoints"
+    trigger_expected: true
+
+  - id: negative_project_readme
+    prompt: "Write a README for my project"
+    fixtures: []
+    rubric:
+      - "Skill should not trigger for general documentation requests"
+    trigger_expected: false
+
+  - id: negative_create_endpoint
+    prompt: "Create a new API endpoint"
+    fixtures: []
+    rubric:
+      - "Skill should not trigger for API implementation tasks"
+    trigger_expected: false

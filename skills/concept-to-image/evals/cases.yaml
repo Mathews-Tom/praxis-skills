@@ -1,0 +1,31 @@
+cases:
+  - id: architecture_diagram_png
+    prompt: "Create a PNG image of a system architecture diagram showing three microservices"
+    fixtures: []
+    rubric:
+      - "produces HTML/CSS/SVG visual representation of the architecture"
+      - "exports as PNG file"
+      - "design is self-contained without external dependencies"
+    trigger_expected: true
+
+  - id: comparison_chart_svg
+    prompt: "Export this concept as an SVG: a comparison chart of React vs Vue vs Angular"
+    fixtures: []
+    rubric:
+      - "outputs SVG file format"
+      - "uses HTML/CSS rendering to produce the visual"
+    trigger_expected: true
+
+  - id: negative_interactive_dashboard
+    prompt: "Create an interactive dashboard I can open in my browser"
+    fixtures: []
+    rubric:
+      - "interactive web applications are static-web-artifacts-builder territory, not concept-to-image"
+    trigger_expected: false
+
+  - id: negative_photo_generation
+    prompt: "Generate a photo of a sunset"
+    fixtures: []
+    rubric:
+      - "photographic AI image generation is outside concept-to-image scope which uses HTML/CSS rendering"
+    trigger_expected: false

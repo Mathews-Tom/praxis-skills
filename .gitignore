@@ -43,7 +43,7 @@ playwright-report/
 
 # ── Skill packaging ──────────────────────────
 *.skill
-evals/
+evals/results/
 
 # ── Editors & IDE ─────────────────────────────
 .vscode/

@@ -1,0 +1,48 @@
+cases:
+  - id: generate_tests_for_function
+    prompt: "Write pytest tests for the calculate_discount function in sample_module.py"
+    fixtures: ["fixtures/sample_module.py"]
+    rubric:
+      - "generates test for happy path (valid price and percentage)"
+      - "generates boundary tests (0% discount, 100% discount, price of 0)"
+      - "generates error tests (negative price raises ValueError, percentage > 100 raises ValueError)"
+      - "uses pytest.raises for exception testing"
+      - "uses pytest.mark.parametrize for boundary cases"
+    trigger_expected: true
+
+  - id: generate_tests_for_module
+    prompt: "Generate a comprehensive test suite for fixtures/sample_module.py"
+    fixtures: ["fixtures/sample_module.py"]
+    rubric:
+      - "generates tests for BOTH functions (calculate_discount and find_duplicates)"
+      - "tests find_duplicates with empty list"
+      - "tests find_duplicates with no duplicates"
+      - "tests find_duplicates with multiple duplicates"
+      - "preserves duplicate order in assertions"
+      - "uses concrete test data (not placeholders)"
+    trigger_expected: true
+
+  - id: mock_strategy_request
+    prompt: "Write tests for a function that calls an external API. The function is: def fetch_user(user_id: str) -> dict: response = requests.get(f'https://api.example.com/users/{user_id}'); response.raise_for_status(); return response.json()"
+    fixtures: []
+    rubric:
+      - "mocks requests.get at the module import boundary"
+      - "tests happy path with mocked JSON response"
+      - "tests error case (HTTP 404 raises)"
+      - "asserts mock was called with correct URL"
+      - "does not make real HTTP requests"
+    trigger_expected: true
+
+  - id: run_existing_tests
+    prompt: "Run the tests in tests/ and tell me what fails."
+    fixtures: []
+    rubric:
+      - "does not trigger test-harness skill (test execution, not test generation)"
+    trigger_expected: false
+
+  - id: e2e_test_request
+    prompt: "Write Playwright end-to-end tests for our web application login flow."
+    fixtures: []
+    rubric:
+      - "does not trigger test-harness skill (E2E/browser tests, not unit/integration pytest tests)"
+    trigger_expected: false

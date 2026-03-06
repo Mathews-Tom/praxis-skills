@@ -1,7 +1,7 @@
 ---
 name: skill-evaluator
 description: >
-  Evaluate Claude Code skill quality across 6 weighted dimensions: frontmatter quality,
+  Evaluate Claude Code SKILL.md quality across 6 weighted dimensions: frontmatter quality,
   trigger coverage, structural completeness, content depth, consistency and integrity,
   and CONTRIBUTING.md compliance. Produces scored audit reports with severity-classified
   findings and actionable recommendations. Two modes: (1) Quick Audit — single skill,
@@ -9,9 +9,10 @@ description: >
   comparative ranking table plus per-skill summaries. Triggers on: "evaluate skill",
   "audit skill quality", "score skill", "skill review", "check skill completeness",
   "rate this skill", "skill quality check", "grade skill", "assess skill", "skill audit",
-  "how good is this skill", or when a user asks for feedback on a SKILL.md file. Use this
-  skill when reviewing skills before deployment, comparing skill quality across a repo,
-  or diagnosing why a skill fails to activate on relevant queries.
+  "how good is this skill", "SKILL.md feedback". Use this skill when reviewing Claude Code
+  skills before deployment, comparing skill quality across a repo, or diagnosing why a
+  skill fails to activate on relevant queries.
+  NOT for evaluating or improving LLM prompts — use prompt-lab instead.
 metadata:
   version: 1.0.0
 ---

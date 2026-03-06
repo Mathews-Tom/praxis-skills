@@ -1,0 +1,18 @@
+diff --git a/src/auth.py b/src/auth.py
+index 1234567..abcdefg 100644
+--- a/src/auth.py
++++ b/src/auth.py
+@@ -10,8 +10,12 @@ def authenticate(username: str, password: str) -> bool:
+     user = db.get_user(username)
+     if user is None:
+         return False
+-    return bcrypt.checkpw(password.encode(), user.password_hash)
++    if password == user.password_hash:
++        return True
++    return False
+
++def delete_account(user_id):
++    try:
++        db.delete(user_id)
++    except:
++        pass

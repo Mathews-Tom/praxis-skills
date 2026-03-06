@@ -1,0 +1,45 @@
+cases:
+  - id: reduce_deep_nesting
+    prompt: >
+      Simplify this function, it has too much nesting:
+
+      def process(data):
+          if data:
+              if data.get('valid'):
+                  if data['type'] == 'A':
+                      return handle_a(data)
+                  else:
+                      return handle_b(data)
+              else:
+                  raise ValueError('invalid')
+          else:
+              raise ValueError('no data')
+    fixtures: []
+    rubric:
+      - "reduces nesting via early returns or guard clauses"
+      - "preserves exact behavior including both ValueError raises and handle_a/handle_b dispatch"
+      - "explains the refactoring approach applied"
+    trigger_expected: true
+
+  - id: cleanup_before_pr
+    prompt: "Clean up this code before I PR it"
+    fixtures: []
+    rubric:
+      - "identifies anti-patterns or code smells"
+      - "applies DRY principles to reduce duplication"
+      - "produces cleaner output with improved readability"
+    trigger_expected: true
+
+  - id: negative_debug_wrong_result
+    prompt: "Debug why this function returns the wrong result"
+    fixtures: []
+    rubric:
+      - "debugging incorrect behavior is outside code refining scope"
+    trigger_expected: false
+
+  - id: negative_add_error_handling
+    prompt: "Add error handling to this function"
+    fixtures: []
+    rubric:
+      - "adding new error handling is feature addition, not code simplification or refactoring"
+    trigger_expected: false

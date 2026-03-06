@@ -1,0 +1,31 @@
+cases:
+  - id: pre_submission_review
+    prompt: "Review my paper before I submit it to the conference"
+    fixtures: []
+    rubric:
+      - "produces section-level diagnostics with specific feedback"
+      - "checks citation hygiene (formatting, completeness, consistency)"
+      - "assesses overall submission readiness"
+    trigger_expected: true
+
+  - id: reference_consistency_check
+    prompt: "Check the references in my thesis chapter for consistency"
+    fixtures: []
+    rubric:
+      - "identifies citation format issues across references"
+      - "checks for missing or duplicate references"
+    trigger_expected: true
+
+  - id: numbers_from_code
+    prompt: "Verify that the numbers in my paper come from code"
+    fixtures: []
+    rubric:
+      - "numerical provenance verification is manuscript-provenance territory, not manuscript review"
+    trigger_expected: false
+
+  - id: write_introduction
+    prompt: "Write the introduction section for my paper"
+    fixtures: []
+    rubric:
+      - "writing new manuscript content is outside review scope"
+    trigger_expected: false

@@ -1,0 +1,14 @@
+cases:
+  - id: build_email_regex
+    prompt: "Build a regex to match email addresses"
+    fixtures: []
+    rubric:
+      - "does not activate regex-builder (deprecated, model handles natively)"
+    trigger_expected: false
+
+  - id: explain_regex_pattern
+    prompt: "Explain what this regex does: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    fixtures: []
+    rubric:
+      - "does not activate regex-builder (deprecated, model handles natively)"
+    trigger_expected: false

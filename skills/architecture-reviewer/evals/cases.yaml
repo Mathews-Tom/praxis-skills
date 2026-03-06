@@ -1,0 +1,48 @@
+cases:
+  - id: codebase_review_request
+    prompt: "Review the architecture of this Python web application. It's a FastAPI monolith with PostgreSQL, Redis for caching, and Celery for background tasks. Team of 4, ~50K LoC, serving 10K daily active users."
+    fixtures: []
+    rubric:
+      - "asks clarifying questions before starting analysis"
+      - "evaluates all 7 dimensions: structural integrity, scalability, enterprise readiness, performance, security, operational excellence, data architecture"
+      - "produces scores on 1-5 scale per dimension"
+      - "uses severity labels S1-S5 for findings"
+      - "includes weighted overall score with letter grade"
+      - "includes prioritized recommendations in three tiers: Quick Wins, Medium-Term, Strategic"
+    trigger_expected: true
+
+  - id: document_review_mode
+    prompt: "Critique this architecture design document for our new microservices migration. We're breaking a Django monolith into 6 services connected via RabbitMQ."
+    fixtures: []
+    rubric:
+      - "activates Document review mode (Mode B)"
+      - "identifies risks in the migration approach"
+      - "evaluates whether microservices pattern fits the stated requirements"
+      - "checks for missing concerns: data consistency, service discovery, deployment strategy"
+      - "produces a scored report"
+    trigger_expected: true
+
+  - id: enterprise_readiness_focus
+    prompt: "Assess our system's enterprise readiness. We need SOC2 compliance and handle PII for 500K users."
+    fixtures: []
+    rubric:
+      - "evaluates enterprise readiness dimension in depth"
+      - "references SOC2 compliance requirements specifically"
+      - "addresses PII handling and data protection"
+      - "produces findings with severity classifications"
+      - "includes actionable compliance recommendations"
+    trigger_expected: true
+
+  - id: diagram_request
+    prompt: "Draw an architecture diagram of our microservices system."
+    fixtures: []
+    rubric:
+      - "does not activate architecture review workflow"
+    trigger_expected: false
+
+  - id: code_review_request
+    prompt: "Review my latest pull request for code quality issues."
+    fixtures: []
+    rubric:
+      - "does not activate architecture review workflow"
+    trigger_expected: false

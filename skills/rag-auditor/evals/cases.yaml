@@ -1,0 +1,44 @@
+cases:
+  - id: diagnose_retrieval_failure
+    prompt: "My RAG pipeline returns irrelevant answers. Using OpenAI text-embedding-3-small, Pinecone with K=5, and GPT-4 for generation. Chunk size is 512 tokens with no overlap. What's wrong?"
+    fixtures: []
+    rubric:
+      - "identifies retrieval stage as likely failure point"
+      - "questions zero overlap chunking"
+      - "suggests increasing overlap or semantic chunking"
+      - "recommends measuring Precision@K and Recall@K"
+    trigger_expected: true
+
+  - id: diagnose_hallucination
+    prompt: "Our RAG system retrieves relevant documents but the generated answers contain facts not in the retrieved context. How do I audit this?"
+    fixtures: []
+    rubric:
+      - "identifies generation-stage failure (not retrieval)"
+      - "recommends groundedness evaluation"
+      - "suggests strengthening grounding instructions in prompt"
+      - "recommends measuring hallucination rate"
+    trigger_expected: true
+
+  - id: full_pipeline_audit
+    prompt: "Audit our RAG pipeline: 10K documents chunked at 1024 tokens, BAAI/bge-large embeddings, ChromaDB, K=10, Claude Sonnet for generation. We're getting inconsistent quality."
+    fixtures: []
+    rubric:
+      - "evaluates both retrieval AND generation stages"
+      - "recommends evaluation query design"
+      - "addresses chunk size for the embedding model"
+      - "produces structured audit approach"
+    trigger_expected: true
+
+  - id: general_architecture_audit
+    prompt: "Audit the architecture of our microservices system for scalability issues."
+    fixtures: []
+    rubric:
+      - "does not activate RAG auditor skill"
+    trigger_expected: false
+
+  - id: embedding_model_comparison
+    prompt: "Which embedding model should I use for my project?"
+    fixtures: []
+    rubric:
+      - "does not activate RAG auditor skill"
+    trigger_expected: false

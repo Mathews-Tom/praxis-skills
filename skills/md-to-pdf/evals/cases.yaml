@@ -1,0 +1,54 @@
+cases:
+  - id: basic_markdown_conversion
+    prompt: "Convert this markdown file to PDF: report.md"
+    fixtures: []
+    rubric:
+      - "invokes md_to_pdf.py or equivalent conversion pipeline"
+      - "produces a .pdf output file"
+      - "uses pandoc for markdown-to-HTML conversion"
+      - "uses Playwright/Chromium for HTML-to-PDF"
+    trigger_expected: true
+
+  - id: mermaid_diagram_rendering
+    prompt: "Convert my markdown to PDF. It contains Mermaid diagrams:\n```mermaid\nflowchart LR\n  A[Start] --> B[Process] --> C[End]\n```"
+    fixtures: []
+    rubric:
+      - "detects Mermaid code blocks"
+      - "invokes mmdc (mermaid-cli) to render SVG"
+      - "replaces mermaid blocks with rendered SVG in source"
+      - "produces PDF with rendered diagram (not raw code)"
+    trigger_expected: true
+
+  - id: latex_math_rendering
+    prompt: "Make a PDF from this markdown with math equations: $E=mc^2$ and $$\\int_0^1 f(x) dx$$"
+    fixtures: []
+    rubric:
+      - "detects LaTeX math (both inline $ and display $$)"
+      - "uses KaTeX for server-side rendering"
+      - "produces PDF with rendered equations (not raw LaTeX)"
+      - "handles both inline and display modes"
+    trigger_expected: true
+
+  - id: custom_options
+    prompt: "Convert notes.md to PDF with US Letter size, landscape orientation, and page numbers."
+    fixtures: []
+    rubric:
+      - "applies --format Letter"
+      - "applies --landscape flag"
+      - "applies --header-footer for page numbers"
+      - "passes all options to the conversion script"
+    trigger_expected: true
+
+  - id: html_to_pdf_request
+    prompt: "Convert this HTML file to a PDF document."
+    fixtures: []
+    rubric:
+      - "does not trigger md-to-pdf skill (input is HTML, not markdown)"
+    trigger_expected: false
+
+  - id: pdf_editing_request
+    prompt: "Edit this PDF and change the title on page 3."
+    fixtures: []
+    rubric:
+      - "does not trigger md-to-pdf skill (editing existing PDF, not creating from markdown)"
+    trigger_expected: false

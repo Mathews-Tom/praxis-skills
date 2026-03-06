@@ -1,14 +1,15 @@
 ---
 name: prompt-lab
 description: >
-  Systematic prompt engineering: analyzes existing prompts for failure modes, generates
-  structured variants (direct, few-shot, chain-of-thought), designs evaluation rubrics
-  with weighted criteria, and produces test case suites for comparing prompt performance.
-  Triggers on: "improve this prompt", "prompt engineering", "prompt lab",
-  "generate prompt variants", "A/B test prompts", "evaluate this prompt",
-  "prompt failure modes", "optimize prompt", "write a better prompt",
-  "prompt design", "prompt iteration", "few-shot examples".
-  Use this skill when designing, improving, or evaluating LLM prompts.
+  Systematic LLM prompt engineering: analyzes existing prompts for failure modes,
+  generates structured variants (direct, few-shot, chain-of-thought), designs evaluation
+  rubrics with weighted criteria, and produces test case suites for comparing prompt
+  performance. Triggers on: "prompt engineering", "prompt lab", "generate prompt variants",
+  "A/B test prompts", "evaluate prompt", "optimize prompt", "write a better prompt",
+  "prompt design", "prompt iteration", "few-shot examples", "chain-of-thought prompt",
+  "prompt failure modes", "improve this prompt".
+  Use this skill when designing, improving, or evaluating LLM prompts specifically.
+  NOT for evaluating Claude Code skills or SKILL.md files — use skill-evaluator instead.
 metadata:
   version: 1.0.0
 ---

@@ -2,15 +2,15 @@
 name: web-fetch
 description: >
   Web content fetching and URL retrieval via curl and WebFetch — replaces the Fetch
-  MCP server (fetch_html, fetch_json, fetch_markdown, fetch_txt). Covers HTTP
-  GET/POST requests, JSON API consumption with jq, HTML retrieval, markdown
-  conversion, plain text extraction, authenticated requests, redirects, cookies,
-  and timeouts. Trigger phrases: "fetch this URL", "get the page content",
-  "download HTML", "call this API", "curl this endpoint", "grab the JSON",
-  "fetch markdown from", "retrieve web content", "hit this endpoint", "scrape this
-  page", "read this URL", "pull data from API", "make an HTTP request". Use this
-  skill when the user provides a URL and wants its content, when consuming REST
-  APIs, or when extracting readable content from web pages.
+  MCP server (fetch_html, fetch_json, fetch_markdown, fetch_txt). Use this skill when
+  a specific URL is provided and the user wants its content. Covers HTTP GET/POST,
+  JSON API consumption with jq, HTML retrieval, markdown conversion, plain text
+  extraction, authenticated requests, redirects, cookies, and timeouts. Trigger
+  phrases: "fetch this URL", "get the page content", "download HTML", "call this
+  API", "curl this endpoint", "grab the JSON", "fetch markdown from", "retrieve web
+  content", "hit this endpoint", "scrape this page", "read this URL", "pull data
+  from API", "make an HTTP request", "extract page content", "get article text". NOT
+  for web searches without a URL — use tavily for that.
 metadata:
   version: 1.0.0
 ---

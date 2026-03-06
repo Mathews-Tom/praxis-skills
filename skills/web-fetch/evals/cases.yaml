@@ -1,0 +1,31 @@
+cases:
+  - id: fetch_github_api_json
+    prompt: "Fetch the content from https://api.github.com/repos/anthropics/claude-code and show me the repo details"
+    fixtures: []
+    rubric:
+      - "uses curl or WebFetch to retrieve the URL"
+      - "makes HTTP GET request to the specified endpoint"
+      - "parses and presents the JSON response"
+    trigger_expected: true
+
+  - id: fetch_html_extract_content
+    prompt: "Download the HTML from https://example.com and extract the main content"
+    fixtures: []
+    rubric:
+      - "retrieves full page content from the URL"
+      - "supports HTML content extraction from the response"
+    trigger_expected: true
+
+  - id: negative_web_search
+    prompt: "Search the web for information about Rust async patterns and best practices"
+    fixtures: []
+    rubric:
+      - "open-ended web search is tavily territory, not direct URL fetching"
+    trigger_expected: false
+
+  - id: negative_scraping_script
+    prompt: "Create a Python web scraping script using BeautifulSoup to crawl product pages"
+    fixtures: []
+    rubric:
+      - "code generation for scraping is outside content fetching scope"
+    trigger_expected: false

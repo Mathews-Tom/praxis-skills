@@ -1,17 +1,17 @@
 ---
 name: regex-builder
 description: >
-  Generates, explains, and tests regular expression patterns. Builds patterns from
-  positive and negative examples, breaks down each component with a readable explanation
-  table, generates edge-case test suites, and provides usage examples in Python and
-  JavaScript.
-  Triggers on: "regex for", "regular expression", "pattern for", "match strings like",
-  "extract from", "build regex", "create pattern", "explain this regex",
-  "what does this regex do", "regex to match", "parse with regex", "validate format".
-  Use this skill when building, explaining, or testing a regular expression pattern.
+  DEPRECATED: The base model generates, explains, and tests regex patterns natively
+  with high accuracy. This skill no longer provides meaningful uplift. Retained for
+  reference only.
 metadata:
   version: 1.0.0
+  status: deprecated
 ---
+
+> **DEPRECATED** — Modern Claude models produce accurate, well-explained regex patterns
+> with edge-case test suites natively, including multi-language usage examples. The uplift
+> delta from this skill approaches zero. Retained for archival reference only.
 
 # Regex Builder
 

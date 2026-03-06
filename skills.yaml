@@ -26,13 +26,12 @@ skills:
   path: skills/api-docs-generator
 - name: architecture-diagram
   version: 1.0.0
-  description: Generate detailed layered architecture diagrams as self-contained HTML artifacts with inline SVG icons, CSS
-    Grid nested container layout, SVG path connection overlays, and color-coded connection legends. Use when the user asks
-    to create architecture diagrams, infrastructure diagrams, system topology diagrams, network diagrams, cloud architecture
-    visuals, deployment diagrams, integration flow diagrams, or any request involving visual representation of system components,
-    their containment hierarchy, and interconnections. Triggers on terms like "architecture diagram", "infra diagram", "system
-    diagram", "topology", "deployment diagram", "network diagram", "integration architecture", or when the user provides a
-    system description and asks for a visual/diagram.
+  description: 'Generate detailed layered architecture diagrams as self-contained HTML artifacts with inline SVG icons, CSS
+    Grid nested container layout, SVG path connection overlays, and color-coded connection legends. Triggers on: "architecture
+    diagram", "infra diagram", "system diagram", "deployment diagram", "network diagram", "topology", "draw architecture",
+    "visualize architecture", "system topology", or any request for visual representation of system components, containment
+    hierarchy, and interconnections. For architecture reviews, audits, critiques, or design assessments, use architecture-reviewer
+    instead.'
   path: skills/architecture-diagram
 - name: architecture-reviewer
   version: 1.0.0
@@ -42,7 +41,8 @@ skills:
     analysis of design docs, RFCs, specs; (3) Hybrid — drift detection between intent and implementation. Triggers on: "review
     architecture", "critique design", "audit system", "evaluate codebase", "find design flaws", "assess scalability", "check
     security", "enterprise readiness", "architecture assessment", "technical due diligence", or when user provides a system
-    design document or codebase and asks for feedback or improvements.'
+    design document or codebase and asks for feedback or improvements. For architecture diagrams, visuals, or topology drawings,
+    use architecture-diagram instead.'
   path: skills/architecture-reviewer
 - name: benchmark-runner
   version: 1.0.0
@@ -74,13 +74,13 @@ skills:
 - name: concept-to-image
   version: 1.0.0
   description: 'Turn any concept, idea, or description into a polished static HTML visual, then export it as a PNG or SVG
-    image. Use this skill whenever the user wants to create a visual representation of an idea and needs an image file output
-    (PNG or SVG). This includes: infographics, concept diagrams, flowcharts, comparison charts, process visuals, educational
-    diagrams, social media graphics, data visualizations, posters, cards, badges, icons, logos sketches, or any "make me an
-    image of X" request that can be achieved with HTML/CSS/SVG rather than photographic AI generation. Also trigger when the
-    user has an existing HTML visual and wants to export/convert it to PNG or SVG. Trigger phrases include: "create an image
-    of", "make a visual", "design a graphic", "export as PNG", "save as SVG", "concept to image", "turn this into an image",
-    "screenshot this HTML", "generate an infographic", or any request combining a concept description with image output.'
+    image file. Use this skill when the user explicitly needs an image file output (PNG or SVG). This includes: concept diagrams,
+    flowcharts, comparison charts, process visuals, educational diagrams, social media graphics, data visualizations, posters,
+    cards, badges, icons, logo sketches, or any "make me an image of X" request achievable with HTML/CSS/SVG rather than photographic
+    AI generation. Also trigger when the user has an existing HTML visual and wants to export/convert it to PNG or SVG. Trigger
+    phrases: "create an image of", "export as PNG", "save as SVG", "concept to image", "turn this into an image", "screenshot
+    this HTML", "design a graphic for export". For interactive HTML visuals opened in a browser, use static-web-artifacts-builder
+    instead.'
   path: skills/concept-to-image
 - name: concept-to-video
   version: 1.1.0
@@ -95,12 +95,13 @@ skills:
   path: skills/concept-to-video
 - name: debug-investigator
   version: 1.0.0
-  description: 'Systematic debugging framework: symptom capture, evidence analysis, hypothesis generation, bisection strategy,
-    log analysis, instrumentation, and minimal reproduction design. Transforms ad-hoc debugging into structured investigation
-    with ranked hypotheses and concrete investigation plans. Triggers on: "debug this", "why is this failing", "root cause",
-    "investigate", "diagnose", "this error", "this exception", "this stacktrace", "not working", "broken", "unexpected behavior",
-    "bisect", "narrow down", "isolate the issue", "help me debug". Use this skill when confronted with a bug, error, or unexpected
-    behavior in any codebase.'
+  description: 'Hypothesis-driven debugging methodology: ranked hypotheses with confirming/refuting tests, git bisect strategy,
+    log analysis, instrumentation point planning, and minimal reproduction design. Triggers on: "debug this systematically",
+    "root cause analysis", "bisect this bug", "rank hypotheses for this error", "help me isolate this issue", "create a minimal
+    reproduction", "instrumentation plan for this bug", "why does this keep failing". The differentiator is the structured
+    investigation methodology (hypothesis ranking, bisection strategy, instrumentation points) — use this skill for non-obvious
+    bugs that need systematic investigation, not simple errors the model diagnoses directly. NOT for abstract reasoning or
+    problem decomposition without a specific error — the model handles general reasoning natively.'
   path: skills/debug-investigator
 - name: dependency-audit
   version: 1.0.0
@@ -113,11 +114,8 @@ skills:
   path: skills/dependency-audit
 - name: doc-condenser
   version: 1.0.0
-  description: Transform verbose technical documentation into concise, scannable specs. Use this skill when you need to condense,
-    summarize, or reformat technical docs, specs, or READMEs — including when a document is too verbose, when you want a technical
-    summary, or when working with lengthy specification documents. Triggers on phrases like "make this concise", "too verbose",
-    "condense this", "technical summary", "strip the fluff", or "reformat this spec". See assets/template.md for the standard
-    output structure.
+  description: 'DEPRECATED: The base model handles document condensation and summarization natively at high quality. This
+    skill no longer provides meaningful uplift. Retained for reference only.'
   path: skills/doc-condenser
 - name: estimate-calibrator
   version: 1.0.0
@@ -125,8 +123,8 @@ skills:
     and assumption documentation. Breaks work into atomic units, identifies technical and scope uncertainties, calculates
     PERT ranges, and provides confidence rationale. Triggers on: "estimate this", "how long will this take", "effort estimate",
     "time estimate", "best case worst case", "confidence interval", "sizing", "estimate effort", "how big is this", "story
-    points", "t-shirt sizing", "estimate the work", "project estimate". Use this skill when a task or project needs an effort
-    estimate with explicit uncertainty.'
+    points", "t-shirt sizing", "estimate the work", "PERT". NOT for task decomposition, implementation plans, or dependency
+    mapping — use task-decomposer instead. Use this skill when a task or project needs an effort estimate with explicit uncertainty.'
   path: skills/estimate-calibrator
 - name: filesystem
   version: 1.0.0
@@ -167,6 +165,15 @@ skills:
     minimal, corporate, hacker terminal). Consider asking the user for clarification on theme, navigation direction, and content
     structure if not already specified.
   path: skills/html-presentation
+- name: immune
+  version: 3.0.0
+  description: 'Hybrid adaptive memory system with two complementary memories: Cheatsheet (positive patterns injected before
+    generation) and Immune (negative patterns scanned after generation). Uses Hot/Cold tiered memory with multi-domain support
+    and auto-learning. Detects known errors via antibodies, discovers new threats, and learns winning strategies over time.
+    Triggers on: "scan for errors", "immune scan", "check output quality", "detect patterns", "scan content", "cheatsheet
+    injection", "antibody scan", "adaptive memory scan", "immune check", "quality scan", "pattern detection". NOT for general
+    code review or PR review — use pr-review instead. NOT for security audits of repositories — use repo-sentinel instead.'
+  path: skills/immune
 - name: linkedin-post-style
   version: 1.1.0
   description: Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored, and precise.
@@ -237,29 +244,27 @@ skills:
   path: skills/pr-review
 - name: prompt-lab
   version: 1.0.0
-  description: 'Systematic prompt engineering: analyzes existing prompts for failure modes, generates structured variants
+  description: 'Systematic LLM prompt engineering: analyzes existing prompts for failure modes, generates structured variants
     (direct, few-shot, chain-of-thought), designs evaluation rubrics with weighted criteria, and produces test case suites
-    for comparing prompt performance. Triggers on: "improve this prompt", "prompt engineering", "prompt lab", "generate prompt
-    variants", "A/B test prompts", "evaluate this prompt", "prompt failure modes", "optimize prompt", "write a better prompt",
-    "prompt design", "prompt iteration", "few-shot examples". Use this skill when designing, improving, or evaluating LLM
-    prompts.'
+    for comparing prompt performance. Triggers on: "prompt engineering", "prompt lab", "generate prompt variants", "A/B test
+    prompts", "evaluate prompt", "optimize prompt", "write a better prompt", "prompt design", "prompt iteration", "few-shot
+    examples", "chain-of-thought prompt", "prompt failure modes", "improve this prompt". Use this skill when designing, improving,
+    or evaluating LLM prompts specifically. NOT for evaluating Claude Code skills or SKILL.md files — use skill-evaluator
+    instead.'
   path: skills/prompt-lab
 - name: rag-auditor
   version: 1.0.0
   description: 'Evaluates RAG (Retrieval-Augmented Generation) pipeline quality across retrieval and generation stages. Measures
     precision, recall, MRR for retrieval; groundedness, completeness, and hallucination rate for generation. Diagnoses failure
-    root causes and recommends chunk, retrieval, and prompt improvements. Triggers on: "audit RAG", "RAG quality", "evaluate
-    retrieval", "hallucination detection", "retrieval precision", "why is RAG failing", "RAG diagnosis", "retrieval quality",
-    "RAG evaluation", "chunk quality", "RAG pipeline review", "grounding check". Use this skill when diagnosing or evaluating
-    a RAG pipeline''s quality.'
+    root causes and recommends chunk, retrieval, and prompt improvements. Triggers on: "audit RAG pipeline", "RAG quality",
+    "evaluate RAG retrieval", "hallucination detection", "retrieval precision", "why is RAG failing", "RAG diagnosis", "retrieval
+    quality", "RAG evaluation", "chunk quality", "RAG pipeline review", "grounding check". Use this skill when diagnosing
+    or evaluating a RAG pipeline''s quality. For general architecture or system audits, use architecture-reviewer instead.'
   path: skills/rag-auditor
 - name: regex-builder
   version: 1.0.0
-  description: 'Generates, explains, and tests regular expression patterns. Builds patterns from positive and negative examples,
-    breaks down each component with a readable explanation table, generates edge-case test suites, and provides usage examples
-    in Python and JavaScript. Triggers on: "regex for", "regular expression", "pattern for", "match strings like", "extract
-    from", "build regex", "create pattern", "explain this regex", "what does this regex do", "regex to match", "parse with
-    regex", "validate format". Use this skill when building, explaining, or testing a regular expression pattern.'
+  description: 'DEPRECATED: The base model generates, explains, and tests regex patterns natively with high accuracy. This
+    skill no longer provides meaningful uplift. Retained for reference only.'
   path: skills/regex-builder
 - name: remotion-video
   version: 1.0.0
@@ -286,24 +291,20 @@ skills:
   path: skills/repo-sentinel
 - name: sequential-thinking
   version: 1.0.0
-  description: 'Structured, reflective problem-solving through sequential chain-of-thought reasoning. Replaces the Sequential
-    Thinking MCP server (sequentialthinking tool). Use this skill when facing complex multi-step problems, planning and design
-    tasks, analysis that may need course correction, debugging with iterative hypothesis testing, architectural decisions
-    requiring trade-off evaluation, or any task where the full scope is unclear initially. Trigger on: sequential thinking,
-    step by step reasoning, chain of thought, break down problem, think through this, structured analysis, multi-step problem
-    solving, reflective reasoning, thought process, deep analysis, complex reasoning, hypothesis verification, branching analysis,
-    revision-based thinking, dynamic problem solving.'
+  description: 'DEPRECATED: Use the model''s native extended thinking instead. Structured, reflective problem-solving through
+    sequential chain-of-thought reasoning that replaced the Sequential Thinking MCP server.'
   path: skills/sequential-thinking
 - name: skill-evaluator
   version: 1.0.0
-  description: 'Evaluate Claude Code skill quality across 6 weighted dimensions: frontmatter quality, trigger coverage, structural
-    completeness, content depth, consistency and integrity, and CONTRIBUTING.md compliance. Produces scored audit reports
-    with severity-classified findings and actionable recommendations. Two modes: (1) Quick Audit — single skill, full per-dimension
-    report with weighted scoring; (2) Full Audit — all skills in repo, comparative ranking table plus per-skill summaries.
-    Triggers on: "evaluate skill", "audit skill quality", "score skill", "skill review", "check skill completeness", "rate
-    this skill", "skill quality check", "grade skill", "assess skill", "skill audit", "how good is this skill", or when a
-    user asks for feedback on a SKILL.md file. Use this skill when reviewing skills before deployment, comparing skill quality
-    across a repo, or diagnosing why a skill fails to activate on relevant queries.'
+  description: 'Evaluate Claude Code SKILL.md quality across 6 weighted dimensions: frontmatter quality, trigger coverage,
+    structural completeness, content depth, consistency and integrity, and CONTRIBUTING.md compliance. Produces scored audit
+    reports with severity-classified findings and actionable recommendations. Two modes: (1) Quick Audit — single skill, full
+    per-dimension report with weighted scoring; (2) Full Audit — all skills in repo, comparative ranking table plus per-skill
+    summaries. Triggers on: "evaluate skill", "audit skill quality", "score skill", "skill review", "check skill completeness",
+    "rate this skill", "skill quality check", "grade skill", "assess skill", "skill audit", "how good is this skill", "SKILL.md
+    feedback". Use this skill when reviewing Claude Code skills before deployment, comparing skill quality across a repo,
+    or diagnosing why a skill fails to activate on relevant queries. NOT for evaluating or improving LLM prompts — use prompt-lab
+    instead.'
   path: skills/skill-evaluator
 - name: sql-optimizer
   version: 1.0.0
@@ -315,31 +316,29 @@ skills:
   path: skills/sql-optimizer
 - name: static-web-artifacts-builder
   version: 1.0.0
-  description: 'Suite of tools for creating elaborate, self-contained static HTML artifacts — infographics, interactive diagrams,
-    architecture visuals, data dashboards, and rich visual deliverables. Use this skill when asked to create an interactive
-    HTML artifact, build a self-contained web component, generate a static HTML visualization, make an interactive diagram,
-    produce a visual infographic, or render any high-density visual as a single HTML file. Zero build toolchain — no React,
-    no Vite, no Parcel. Pure HTML5 + CSS3 (Grid/Flexbox) + inline SVG. Triggers on: "create interactive HTML", "build self-contained
-    web component", "generate static HTML visualization", "make an interactive diagram", "produce infographic", "render as
-    HTML artifact", "build a visual dashboard", "create a diagram I can open in browser".'
+  description: 'Build elaborate, self-contained static HTML artifacts opened in a browser — interactive diagrams, architecture
+    visuals, data dashboards, HTML infographics, and rich interactive deliverables. Use this skill when the output is an HTML
+    file viewed in a browser. Zero build toolchain — no React, no Vite, no Parcel. Pure HTML5 + CSS3 (Grid/Flexbox) + inline
+    SVG. Triggers on: "interactive HTML", "self-contained web component", "open in browser", "interactive diagram", "visual
+    dashboard", "HTML artifact", "HTML infographic", "interactive infographic". For image file output (PNG/SVG), use concept-to-image
+    instead.'
   path: skills/static-web-artifacts-builder
 - name: task-decomposer
   version: 1.0.0
-  description: 'Breaks down large features into implementable tasks with dependency mapping, edge case identification, test
-    strategy planning, and phased execution order. Produces task tables with effort sizing, parallelization flags, and risk
-    flags for each phase. Triggers on: "break down this feature", "decompose", "task breakdown", "how should I implement",
-    "implementation plan", "what are the steps for", "edge cases for", "plan this feature", "implementation steps", "break
-    this into tasks", "work breakdown", "project breakdown". Use this skill when a feature or project needs to be broken into
-    actionable steps.'
+  description: 'Produces structured phased task boards from feature requests: dependency-mapped work items with parallelization
+    flags, risk flags, edge case tables, and test strategy matrices. Triggers on: "decompose this feature", "task breakdown
+    with dependencies", "phased implementation plan", "dependency map for", "break this into tasks with phases", "work breakdown
+    structure". The differentiator is the structured output format (phased tables, parallelization flags, dependency chains)
+    — use this skill when you need a formal task board, not ad-hoc decomposition the model handles natively. NOT for effort
+    estimates, PERT calculations, or confidence intervals — use estimate-calibrator instead.'
   path: skills/task-decomposer
 - name: tavily
   version: 1.0.0
-  description: 'AI-optimized web search and content extraction via Tavily API. Use this skill when you need to search the
-    web for current information, recent events, technical documentation, news, or any topic requiring live internet data.
-    Triggers on: "search the web", "look this up online", "find recent information about", "search for", "google this", "web
-    search", "look up", "find current data on", "what does the web say about", "research online", "fetch web content", "extract
-    page content", "get article text", "scrape URL". Tavily returns clean, AI-ready snippets — prefer it over raw web fetch
-    for search queries. Use extract for full page content when a specific URL is already known.'
+  description: 'AI-optimized web search via Tavily API. Use this skill when no specific URL is provided and the user needs
+    to search the web for current information, recent events, technical documentation, or news. Triggers on: "search the web",
+    "look this up online", "find recent information about", "search for", "google this", "web search", "look up", "find current
+    data on", "what does the web say about", "research online". NOT for fetching a known URL — use web-fetch for that. Tavily
+    returns clean, AI-ready snippets optimized for search-first intent.'
   path: skills/tavily
 - name: test-harness
   version: 1.0.0
@@ -353,12 +352,12 @@ skills:
 - name: web-fetch
   version: 1.0.0
   description: 'Web content fetching and URL retrieval via curl and WebFetch — replaces the Fetch MCP server (fetch_html,
-    fetch_json, fetch_markdown, fetch_txt). Covers HTTP GET/POST requests, JSON API consumption with jq, HTML retrieval, markdown
-    conversion, plain text extraction, authenticated requests, redirects, cookies, and timeouts. Trigger phrases: "fetch this
-    URL", "get the page content", "download HTML", "call this API", "curl this endpoint", "grab the JSON", "fetch markdown
-    from", "retrieve web content", "hit this endpoint", "scrape this page", "read this URL", "pull data from API", "make an
-    HTTP request". Use this skill when the user provides a URL and wants its content, when consuming REST APIs, or when extracting
-    readable content from web pages.'
+    fetch_json, fetch_markdown, fetch_txt). Use this skill when a specific URL is provided and the user wants its content.
+    Covers HTTP GET/POST, JSON API consumption with jq, HTML retrieval, markdown conversion, plain text extraction, authenticated
+    requests, redirects, cookies, and timeouts. Trigger phrases: "fetch this URL", "get the page content", "download HTML",
+    "call this API", "curl this endpoint", "grab the JSON", "fetch markdown from", "retrieve web content", "hit this endpoint",
+    "scrape this page", "read this URL", "pull data from API", "make an HTTP request", "extract page content", "get article
+    text". NOT for web searches without a URL — use tavily for that.'
   path: skills/web-fetch
 - name: youtube-analysis
   version: 1.0.0

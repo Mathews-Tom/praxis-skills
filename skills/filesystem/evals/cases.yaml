@@ -1,0 +1,31 @@
+cases:
+  - id: find_typescript_files
+    prompt: "Find all TypeScript files in the src directory"
+    fixtures: []
+    rubric:
+      - "uses Glob tool or equivalent file search"
+      - "pattern matches *.ts files"
+      - "returns file paths"
+    trigger_expected: true
+
+  - id: show_directory_tree
+    prompt: "Show the directory tree of my project"
+    fixtures: []
+    rubric:
+      - "uses ls or tree via Bash to list directory contents"
+      - "displays hierarchical directory structure"
+    trigger_expected: true
+
+  - id: negative_code_refactor
+    prompt: "Refactor the code in this file"
+    fixtures: []
+    rubric:
+      - "code modification is outside filesystem operations scope"
+    trigger_expected: false
+
+  - id: negative_web_search
+    prompt: "Search the web for documentation"
+    fixtures: []
+    rubric:
+      - "web search is outside filesystem operations scope"
+    trigger_expected: false

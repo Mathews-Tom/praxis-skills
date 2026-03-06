@@ -1,14 +1,16 @@
 ---
 name: debug-investigator
 description: >
-  Systematic debugging framework: symptom capture, evidence analysis, hypothesis
-  generation, bisection strategy, log analysis, instrumentation, and minimal reproduction
-  design. Transforms ad-hoc debugging into structured investigation with ranked hypotheses
-  and concrete investigation plans.
-  Triggers on: "debug this", "why is this failing", "root cause", "investigate", "diagnose",
-  "this error", "this exception", "this stacktrace", "not working", "broken",
-  "unexpected behavior", "bisect", "narrow down", "isolate the issue", "help me debug".
-  Use this skill when confronted with a bug, error, or unexpected behavior in any codebase.
+  Hypothesis-driven debugging methodology: ranked hypotheses with confirming/refuting tests,
+  git bisect strategy, log analysis, instrumentation point planning, and minimal reproduction
+  design. Triggers on: "debug this systematically", "root cause analysis", "bisect this bug",
+  "rank hypotheses for this error", "help me isolate this issue", "create a minimal
+  reproduction", "instrumentation plan for this bug", "why does this keep failing".
+  The differentiator is the structured investigation methodology (hypothesis ranking,
+  bisection strategy, instrumentation points) — use this skill for non-obvious bugs that
+  need systematic investigation, not simple errors the model diagnoses directly.
+  NOT for abstract reasoning or problem decomposition without a specific error — the model
+  handles general reasoning natively.
 metadata:
   version: 1.0.0
 ---
@@ -19,6 +21,11 @@ Structured debugging methodology that replaces ad-hoc exploration with hypothesi
 investigation. Captures symptoms, analyzes evidence (stacktraces, logs, state), generates
 ranked hypotheses, designs bisection strategies, identifies instrumentation points, and
 produces minimal reproductions — documenting every step so dead ends are never revisited.
+
+> **When to use this skill vs native debugging:** The base model handles straightforward
+> debugging (clear stacktraces, obvious errors) natively. Use this skill for non-obvious bugs
+> requiring systematic investigation: intermittent failures, bugs with no clear stacktrace,
+> performance regressions, or issues requiring git bisection and hypothesis ranking.
 
 ## Reference Files
 
