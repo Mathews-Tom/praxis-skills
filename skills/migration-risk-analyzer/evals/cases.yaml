@@ -1,0 +1,58 @@
+cases:
+  - id: alter_table_add_column_not_null
+    prompt: "Analyze this migration for risk: ALTER TABLE orders ADD COLUMN paid BOOLEAN NOT NULL DEFAULT false;"
+    fixtures: []
+    rubric:
+      - "Identifies ACCESS EXCLUSIVE lock (or equivalent heavyweight lock) on the orders table"
+      - "Estimates downtime or lock duration impact on concurrent queries"
+      - "Generates rollback script containing DROP COLUMN paid"
+      - "Flags DEFAULT false as safe non-blocking backfill on Postgres 11+ (ADD COLUMN with non-volatile DEFAULT avoids table rewrite)"
+    trigger_expected: true
+
+  - id: drop_column_irreversible
+    prompt: "Is this migration safe? ALTER TABLE users DROP COLUMN legacy_email;"
+    fixtures: []
+    rubric:
+      - "Flags the operation as IRREVERSIBLE due to permanent data loss"
+      - "Recommends backing up the column data before execution"
+      - "Does not generate a rollback script that restores data (data is unrecoverable without backup)"
+      - "Warns about dependent views, indexes, or constraints that reference legacy_email"
+    trigger_expected: true
+
+  - id: multi_operation_migration
+    prompt: >-
+      Review this migration:
+      ALTER TABLE products ADD COLUMN category_id INTEGER;
+      CREATE INDEX idx_products_category ON products(category_id);
+      ALTER TABLE products ADD CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(id);
+    fixtures: []
+    rubric:
+      - "Analyzes each of the three operations separately with individual risk assessments"
+      - "Identifies cumulative lock risk from multiple sequential ALTER TABLE and DDL statements"
+      - "Notes that CREATE INDEX blocks writes and recommends CREATE INDEX CONCURRENTLY as alternative"
+      - "Produces a per-operation risk table or structured breakdown showing lock type, duration estimate, and severity"
+    trigger_expected: true
+
+  - id: backfill_large_table
+    prompt: "Analyze risk: UPDATE users SET status = 'active' WHERE status IS NULL; -- table has 50M rows"
+    fixtures: []
+    rubric:
+      - "Flags row-level locking at scale affecting 50M rows"
+      - "Estimates long transaction duration proportional to table size"
+      - "Recommends batched updates (e.g., process N rows per transaction) instead of single bulk UPDATE"
+      - "Warns about transaction log (WAL) growth and potential replication lag"
+    trigger_expected: true
+
+  - id: general_database_question
+    prompt: "What is a database migration?"
+    fixtures: []
+    rubric:
+      - "Does not perform migration risk analysis (this is a general knowledge question)"
+    trigger_expected: false
+
+  - id: query_optimization_request
+    prompt: "This query is slow: SELECT * FROM orders WHERE created_at > '2024-01-01'"
+    fixtures: []
+    rubric:
+      - "Does not perform migration risk analysis (this is query optimization, not a schema migration)"
+    trigger_expected: false
