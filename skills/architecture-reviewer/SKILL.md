@@ -9,7 +9,9 @@ description: >
   between intent and implementation. Triggers on: "review architecture", "critique design",
   "audit system", "evaluate codebase", "find design flaws", "assess scalability", "check
   security", "enterprise readiness", "architecture assessment", "technical due diligence",
-  or when user provides a system design document or codebase and asks for feedback or improvements.
+  or when user provides a system design document or codebase and asks for feedback or
+  improvements. For architecture diagrams, visuals, or topology drawings, use
+  architecture-diagram instead.
 metadata:
   version: 1.0.0
 ---
