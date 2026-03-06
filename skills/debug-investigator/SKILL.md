@@ -1,14 +1,14 @@
 ---
 name: debug-investigator
 description: >
-  Systematic debugging framework: symptom capture, evidence analysis, hypothesis
-  generation, bisection strategy, log analysis, instrumentation, and minimal reproduction
-  design. Transforms ad-hoc debugging into structured investigation with ranked hypotheses
-  and concrete investigation plans.
-  Triggers on: "debug this", "why is this failing", "root cause", "investigate", "diagnose",
+  Hypothesis-driven debugging framework: symptom capture, evidence analysis, hypothesis
+  ranking, bisection strategy, log analysis, instrumentation, and minimal reproduction.
+  Triggers on: "debug this", "why is this failing", "root cause", "diagnose",
   "this error", "this exception", "this stacktrace", "not working", "broken",
   "unexpected behavior", "bisect", "narrow down", "isolate the issue", "help me debug".
-  Use this skill when confronted with a bug, error, or unexpected behavior in any codebase.
+  Use this skill when confronted with a bug, error, or unexpected behavior in code.
+  NOT for abstract reasoning, trade-off evaluation, or general problem decomposition
+  without a specific error — use sequential-thinking instead.
 metadata:
   version: 1.0.0
 ---

@@ -4,12 +4,14 @@ description: >
   Structured, reflective problem-solving through sequential chain-of-thought reasoning.
   Replaces the Sequential Thinking MCP server (sequentialthinking tool). Use this skill
   when facing complex multi-step problems, planning and design tasks, analysis that may
-  need course correction, debugging with iterative hypothesis testing, architectural
-  decisions requiring trade-off evaluation, or any task where the full scope is unclear
-  initially. Trigger on: sequential thinking, step by step reasoning, chain of thought,
-  break down problem, think through this, structured analysis, multi-step problem solving,
-  reflective reasoning, thought process, deep analysis, complex reasoning, hypothesis
-  verification, branching analysis, revision-based thinking, dynamic problem solving.
+  need course correction, architectural decisions requiring trade-off evaluation, or any
+  task where the full scope is unclear initially.
+  Triggers on: "step by step reasoning", "chain of thought", "break down problem",
+  "think through this", "structured analysis", "multi-step problem solving",
+  "reflective reasoning", "deep analysis", "complex reasoning", "hypothesis verification",
+  "branching analysis", "trade-off evaluation".
+  NOT for diagnosing bugs, errors, stacktraces, or unexpected behavior in code — use
+  debug-investigator instead.
 metadata:
   version: 1.0.0
 ---
