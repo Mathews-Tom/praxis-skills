@@ -1,15 +1,15 @@
 ---
 name: task-decomposer
 description: >
-  Breaks down large features into implementable tasks with dependency mapping, edge case
-  identification, test strategy planning, and phased execution order. Produces task tables
-  with parallelization flags and risk flags for each phase.
-  Triggers on: "break down this feature", "decompose", "task breakdown",
-  "how should I implement", "implementation plan", "what are the steps for",
-  "edge cases for", "plan this feature", "implementation steps",
-  "break this into tasks", "work breakdown", "dependency map", "phases".
-  NOT for effort estimates, PERT calculations, or confidence intervals — use estimate-calibrator instead.
-  Use this skill when a feature or project needs to be broken into actionable steps.
+  Produces structured phased task boards from feature requests: dependency-mapped work items
+  with parallelization flags, risk flags, edge case tables, and test strategy matrices.
+  Triggers on: "decompose this feature", "task breakdown with dependencies", "phased
+  implementation plan", "dependency map for", "break this into tasks with phases",
+  "work breakdown structure". The differentiator is the structured output format (phased
+  tables, parallelization flags, dependency chains) — use this skill when you need a
+  formal task board, not ad-hoc decomposition the model handles natively.
+  NOT for effort estimates, PERT calculations, or confidence intervals — use
+  estimate-calibrator instead.
 metadata:
   version: 1.0.0
 ---
@@ -20,6 +20,12 @@ Transforms ambiguous feature requests into concrete, implementable task sequence
 identifies acceptance criteria, decomposes into phased work items with effort sizing,
 maps dependencies and parallelization, enumerates edge cases, plans testing, and flags
 risks — producing a ready-to-execute task board.
+
+> **When to use this skill vs native decomposition:** The base model decomposes features
+> well in an ad-hoc format. Use this skill specifically when you need the structured output:
+> phased task tables with dependency mapping, parallelization flags, risk flags, and
+> integrated test strategy. If you just need a quick list of steps, ask directly without
+> invoking this skill.
 
 ## Reference Files
 
