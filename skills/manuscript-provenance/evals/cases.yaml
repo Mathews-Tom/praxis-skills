@@ -1,0 +1,31 @@
+cases:
+  - id: numbers_match_scripts
+    prompt: "Check whether the numbers in our paper match the output from our analysis scripts"
+    fixtures: []
+    rubric:
+      - "cross-references manuscript values against code or script outputs"
+      - "detects hardcoded values that should come from computed results"
+      - "identifies stale or mismatched outputs"
+    trigger_expected: true
+
+  - id: latex_reproducibility
+    prompt: "Verify reproducibility of this LaTeX manuscript against our data pipeline"
+    fixtures: []
+    rubric:
+      - "traces claims to computational outputs in the pipeline"
+      - "checks pipeline completeness and identifies missing links"
+    trigger_expected: true
+
+  - id: writing_quality_review
+    prompt: "Review my paper for writing quality and structure"
+    fixtures: []
+    rubric:
+      - "writing quality review is manuscript-review territory, not provenance auditing"
+    trigger_expected: false
+
+  - id: run_analysis_scripts
+    prompt: "Run our analysis scripts and generate the results"
+    fixtures: []
+    rubric:
+      - "executing analysis pipelines is outside provenance auditing scope"
+    trigger_expected: false

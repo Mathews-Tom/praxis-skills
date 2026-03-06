@@ -1,0 +1,31 @@
+cases:
+  - id: microservices_architecture_diagram
+    prompt: "Create an architecture diagram for our microservices: API Gateway, User Service, Order Service, PostgreSQL, Redis"
+    fixtures: []
+    rubric:
+      - "Output produces a self-contained HTML file"
+      - "Output uses SVG or CSS Grid for layout"
+      - "Output includes connection lines or arrows between components"
+    trigger_expected: true
+
+  - id: aws_deployment_diagram
+    prompt: "Draw a deployment diagram showing our AWS infrastructure"
+    fixtures: []
+    rubric:
+      - "Output shows containment hierarchy (e.g., VPC > Subnet > Instance)"
+      - "Output uses color-coded legends to distinguish component types"
+    trigger_expected: true
+
+  - id: negative_architecture_review
+    prompt: "Review the architecture of our system for flaws"
+    fixtures: []
+    rubric:
+      - "Skill should not trigger for architecture review or analysis"
+    trigger_expected: false
+
+  - id: negative_process_flowchart
+    prompt: "Create a flowchart of our checkout process"
+    fixtures: []
+    rubric:
+      - "Skill should not trigger for process flow diagrams"
+    trigger_expected: false
