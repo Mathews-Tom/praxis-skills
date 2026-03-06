@@ -22,17 +22,17 @@ Extract transcripts from YouTube videos and produce structured concept analysis 
 
 ## Reference Files
 
-| File | Purpose |
-|------|---------|
-| `scripts/fetch_transcript.py` | Core transcript + metadata fetcher (CLI + importable) |
-| `scripts/analyze_video.py` | Orchestrator: fetch → structure → export scaffold |
-| `scripts/utils.py` | URL parsing, timestamp formatting, transcript chunking |
-| `references/analysis-patterns.md` | Prompt patterns for each video type |
-| `assets/output-template.md` | Markdown template for final output |
+| File                              | Purpose                                                |
+| --------------------------------- | ------------------------------------------------------ |
+| `scripts/fetch_transcript.py`     | Core transcript + metadata fetcher (CLI + importable)  |
+| `scripts/analyze_video.py`        | Orchestrator: fetch → structure → export scaffold      |
+| `scripts/utils.py`                | URL parsing, timestamp formatting, transcript chunking |
+| `references/analysis-patterns.md` | Prompt patterns for each video type                    |
+| `assets/output-template.md`       | Markdown template for final output                     |
 
 ## Workflow
 
-```
+```text
 User provides YouTube URL
         │
         ▼
@@ -48,7 +48,7 @@ User provides YouTube URL
 │  Step 2: Transcript │────▶│  yt-dlp      │
 │  (youtube-t-api)    │fail │  (fallback)  │
 └────────┬────────────┘     └──────┬───────┘
-         │◀───────────────────────┘
+         │◀───────────────-────────┘
          ▼
 ┌─────────────────────┐
 │  Step 3: Metadata   │
@@ -90,17 +90,17 @@ yt-dlp --version
 
 Use `scripts/utils.py:parse_youtube_url()` to extract the video ID. Supported formats:
 
-| Format | Example |
-|--------|---------|
-| Standard watch | `youtube.com/watch?v=dQw4w9WgXcQ` |
-| Short URL | `youtu.be/dQw4w9WgXcQ` |
-| Shorts | `youtube.com/shorts/dQw4w9WgXcQ` |
-| Embed | `youtube.com/embed/dQw4w9WgXcQ` |
-| Live | `youtube.com/live/dQw4w9WgXcQ` |
-| With params | `youtube.com/watch?v=dQw4w9WgXcQ&t=120&list=PLxxx` |
-| Bare ID | `dQw4w9WgXcQ` |
-| Mobile | `m.youtube.com/watch?v=dQw4w9WgXcQ` |
-| Music | `music.youtube.com/watch?v=dQw4w9WgXcQ` |
+| Format         | Example                                            |
+| -------------- | -------------------------------------------------- |
+| Standard watch | `youtube.com/watch?v=dQw4w9WgXcQ`                  |
+| Short URL      | `youtu.be/dQw4w9WgXcQ`                             |
+| Shorts         | `youtube.com/shorts/dQw4w9WgXcQ`                   |
+| Embed          | `youtube.com/embed/dQw4w9WgXcQ`                    |
+| Live           | `youtube.com/live/dQw4w9WgXcQ`                     |
+| With params    | `youtube.com/watch?v=dQw4w9WgXcQ&t=120&list=PLxxx` |
+| Bare ID        | `dQw4w9WgXcQ`                                      |
+| Mobile         | `m.youtube.com/watch?v=dQw4w9WgXcQ`                |
+| Music          | `music.youtube.com/watch?v=dQw4w9WgXcQ`            |
 
 If parsing fails, ask the user to provide the URL in a standard format.
 
@@ -149,11 +149,11 @@ No separate step needed — `fetch_video()` returns everything.
 
 Choose based on user request or video duration:
 
-| Depth | When to Use | Sections to Fill |
-|-------|-------------|-----------------|
-| `quick` | User wants fast overview, or video < 10 min | TL;DR, Key Concepts, Takeaways |
-| `standard` | Default for most videos | All template sections |
-| `deep` | User wants thorough breakdown, or video > 30 min | All sections + timestamped section-by-section |
+| Depth      | When to Use                                      | Sections to Fill                              |
+| ---------- | ------------------------------------------------ | --------------------------------------------- |
+| `quick`    | User wants fast overview, or video < 10 min      | TL;DR, Key Concepts, Takeaways                |
+| `standard` | Default for most videos                          | All template sections                         |
+| `deep`     | User wants thorough breakdown, or video > 30 min | All sections + timestamped section-by-section |
 
 ### Analysis Process
 
@@ -186,14 +186,14 @@ python analyze_video.py "YOUTUBE_URL" --depth deep
 
 ### Video Type Patterns
 
-| Type | Key Extraction Focus | See |
-|------|---------------------|-----|
-| Lecture | Thesis, arguments, citations, definitions | `references/analysis-patterns.md` |
-| Tutorial | Steps, tools, prerequisites, gotchas | `references/analysis-patterns.md` |
+| Type      | Key Extraction Focus                              | See                               |
+| --------- | ------------------------------------------------- | --------------------------------- |
+| Lecture   | Thesis, arguments, citations, definitions         | `references/analysis-patterns.md` |
+| Tutorial  | Steps, tools, prerequisites, gotchas              | `references/analysis-patterns.md` |
 | Interview | Perspectives, disagreements, attributed positions | `references/analysis-patterns.md` |
-| Podcast | Topic threads, opinions, recommendations | `references/analysis-patterns.md` |
-| Tech Talk | Architecture, trade-offs, benchmarks, lessons | `references/analysis-patterns.md` |
-| Panel | Consensus vs. disagreement, per-speaker views | `references/analysis-patterns.md` |
+| Podcast   | Topic threads, opinions, recommendations          | `references/analysis-patterns.md` |
+| Tech Talk | Architecture, trade-offs, benchmarks, lessons     | `references/analysis-patterns.md` |
+| Panel     | Consensus vs. disagreement, per-speaker views     | `references/analysis-patterns.md` |
 
 Read `references/analysis-patterns.md` for detailed extraction guidance per type.
 
@@ -207,6 +207,7 @@ python analyze_video.py "YOUTUBE_URL" --output ./analysis.md --depth standard --
 ```
 
 Flags:
+
 - `--output PATH`: Where to write (default: `./{sanitized_title}.md`)
 - `--depth quick|standard|deep`: Analysis depth
 - `--type auto|lecture|tutorial|interview|podcast|tech-talk|panel`: Video type hint
@@ -219,15 +220,15 @@ The scaffold contains populated metadata and `[TO BE ANALYZED]` placeholders. Cl
 
 ## Error Handling
 
-| Error | Exit Code | Cause | Resolution |
-|-------|-----------|-------|------------|
-| URL parse failure | 1 | Invalid or unsupported URL format | Ask user for standard YouTube URL |
-| No transcript | 2 | Video has no captions (manual or auto) | Inform user; suggest a different video |
-| Video unavailable | 1 | Private, deleted, or geo-blocked | Inform user of the restriction |
-| Age-restricted | 1 | Requires authentication | Inform user; yt-dlp may work with cookies |
-| Metadata fetch fail | 0 | yt-dlp network issue | Transcript still works; metadata shows "Unknown" |
-| Language unavailable | 0 | Requested lang not available | Auto-falls back to available language |
-| yt-dlp not installed | 1 | Missing dependency | Run Step 0 dependency installation |
+| Error                | Exit Code | Cause                                  | Resolution                                       |
+| -------------------- | --------- | -------------------------------------- | ------------------------------------------------ |
+| URL parse failure    | 1         | Invalid or unsupported URL format      | Ask user for standard YouTube URL                |
+| No transcript        | 2         | Video has no captions (manual or auto) | Inform user; suggest a different video           |
+| Video unavailable    | 1         | Private, deleted, or geo-blocked       | Inform user of the restriction                   |
+| Age-restricted       | 1         | Requires authentication                | Inform user; yt-dlp may work with cookies        |
+| Metadata fetch fail  | 0         | yt-dlp network issue                   | Transcript still works; metadata shows "Unknown" |
+| Language unavailable | 0         | Requested lang not available           | Auto-falls back to available language            |
+| yt-dlp not installed | 1         | Missing dependency                     | Run Step 0 dependency installation               |
 
 ## Limitations
 
