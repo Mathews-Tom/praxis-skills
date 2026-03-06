@@ -1,0 +1,61 @@
+# ============================================================
+# Immune System — Configuration v3.0.0
+# ============================================================
+# Hybrid adaptive system: Cheatsheet (positive) + Immune (negative)
+# Two memory files: cheatsheet_memory.json + immune_memory.json
+# ============================================================
+
+immune:
+  version: "3.0.0"
+  scan_model: "haiku"
+  memory_path: "immune_memory.json"
+  cheatsheet_path: "cheatsheet_memory.json"
+  auto_add_threats: true
+  auto_add_strategies: true
+  severity_levels: [critical, warning, info]
+  domains_multi: true  # antibodies/strategies use "domains" array, not single "domain"
+
+# Tiered memory — keeps active set small for optimal Haiku performance
+# Benchmark showed sweet spot at 13-20 antibodies (F1=0.94)
+# Beyond 20, precision drops (more false positives)
+tiers:
+  hot:
+    max_per_scan: 15
+    # An antibody/strategy is HOT if ANY of these conditions is true:
+    criteria:
+      - "severity == critical"       # antibodies only
+      - "effectiveness >= 0.7"       # strategies only
+      - "seen_count >= 3"
+      - "last_seen < 30 days ago"
+  cold:
+    # COLD items are sent as a one-line topic summary (not full details)
+    summary_format: "comma-separated pattern keywords"
+    # If scanner detects something matching a COLD item → reactivate it
+    reactivation: true
+
+# Cheatsheet — positive patterns injected BEFORE generation
+cheatsheet:
+  max_hot: 15
+  # Strategy ID prefix per domain (e.g., CS-FITNESS-001)
+  id_prefix:
+    fitness: "CS-FITNESS"
+    code: "CS-CODE"
+    writing: "CS-WRITING"
+    research: "CS-RESEARCH"
+    strategy: "CS-STRATEGY"
+    webdesign: "CS-WEBDESIGN"
+    _global: "CS-GLOBAL"
+  # Default effectiveness for new strategies (0.0-1.0)
+  default_effectiveness: 0.5
+  # Strategies below this effectiveness are candidates for removal
+  min_effectiveness: 0.2
+
+# Domain hints for auto-detection
+# You can add custom domains or edit keywords to match your content
+domain_keywords:
+  code: ["function", "class", "import", "const", "let", "var", "def", "return", "async", "await", "SQL", "API", "endpoint", "worker", "fetch", "query"]
+  fitness: ["séries", "reps", "exercice", "muscle", "squat", "curl", "programme", "entraînement", "sets", "workout", "deload", "hypertrophie"]
+  writing: ["paragraphe", "article", "rédaction", "contenu", "SEO", "paragraph", "content", "blog"]
+  research: ["source", "étude", "analyse", "hypothèse", "study", "analysis", "findings"]
+  strategy: ["marché", "compétiteur", "ROI", "market", "competitor", "revenue", "pivot"]
+  webdesign: ["CSS", "HTML", "responsive", "CTA", "landing page", "UI", "UX", "layout"]

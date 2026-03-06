@@ -1,0 +1,55 @@
+cases:
+  - id: sql_injection_code_scan
+    prompt: >
+      /immune Check this function for common pitfalls:
+      const userId = req.query.id;
+      const result = await db.prepare(`SELECT * FROM users WHERE id = '${userId}'`).all();
+      return Response.json(result);
+    rubric:
+      - "detects SQL injection via string concatenation"
+      - "recommends parameterized queries with .bind()"
+      - "classifies as critical severity"
+    trigger_expected: true
+
+  - id: multi_domain_scan
+    prompt: >
+      /immune domains=fitness,code Check this workout generator API for issues:
+      Programme débutant: Back squat 5x5 à 80kg for a sedentary 45-year-old.
+      const STRIPE_KEY = 'sk_live_abc123';
+    rubric:
+      - "detects heavy squat inappropriate for sedentary beginner"
+      - "detects hardcoded API key in source code"
+      - "handles multi-domain scanning (fitness + code)"
+    trigger_expected: true
+
+  - id: clean_code_no_issues
+    prompt: >
+      /immune scan-only Check this code:
+      async function getUser(id) {
+        try {
+          const stmt = db.prepare('SELECT * FROM users WHERE id = ?');
+          const user = await stmt.bind(id).first();
+          if (!user) return new Response('Not found', { status: 404 });
+          return Response.json(user);
+        } catch (err) {
+          console.error('DB error:', err);
+          return new Response('Server error', { status: 500 });
+        }
+      }
+    rubric:
+      - "reports scan_result as clean"
+      - "does not flag false positives on well-written code"
+      - "may identify positive strategies (prepared statements, error handling)"
+    trigger_expected: true
+
+  - id: general_code_review_request
+    prompt: "Review the architecture of our microservices and suggest improvements"
+    rubric:
+      - "architecture review is outside immune scan scope — use architecture-reviewer"
+    trigger_expected: false
+
+  - id: security_audit_request
+    prompt: "Run a full security audit on our public GitHub repository"
+    rubric:
+      - "repository security audits are outside immune scan scope — use repo-sentinel"
+    trigger_expected: false

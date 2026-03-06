@@ -165,6 +165,15 @@ skills:
     minimal, corporate, hacker terminal). Consider asking the user for clarification on theme, navigation direction, and content
     structure if not already specified.
   path: skills/html-presentation
+- name: immune
+  version: 3.0.0
+  description: 'Hybrid adaptive memory system with two complementary memories: Cheatsheet (positive patterns injected before
+    generation) and Immune (negative patterns scanned after generation). Uses Hot/Cold tiered memory with multi-domain support
+    and auto-learning. Detects known errors via antibodies, discovers new threats, and learns winning strategies over time.
+    Triggers on: "scan for errors", "immune scan", "check output quality", "detect patterns", "scan content", "cheatsheet
+    injection", "antibody scan", "adaptive memory scan", "immune check", "quality scan", "pattern detection". NOT for general
+    code review or PR review — use pr-review instead. NOT for security audits of repositories — use repo-sentinel instead.'
+  path: skills/immune
 - name: linkedin-post-style
   version: 1.1.0
   description: Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored, and precise.
