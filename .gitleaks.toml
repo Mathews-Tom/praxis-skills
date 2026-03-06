@@ -1,0 +1,11 @@
+[extend]
+# Use default gitleaks rules, extend with commit-specific allowlist below
+
+[[allowlist.commits]]
+# Historical commits with intentionally fake API keys in eval test prompts.
+# These were replaced in later commits but gitleaks scans full history.
+# Pinned to exact commit fingerprints — future commits are still scanned.
+commits = [
+  "4f1f98ffbce533991460754d0ea64e56789ab674",
+  "70478446ae4c2e9153561721e49ede93fbde4acd",
+]
