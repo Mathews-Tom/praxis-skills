@@ -15,7 +15,7 @@ cases:
     prompt: >
       /immune domains=fitness,code Check this workout generator API for issues:
       Programme débutant: Back squat 5x5 à 80kg for a sedentary 45-year-old.
-      const STRIPE_KEY = 'sk_live_abc123';
+      const STRIPE_KEY = 'EXAMPLE_KEY_DO_NOT_USE';
     rubric:
       - "detects heavy squat inappropriate for sedentary beginner"
       - "detects hardcoded API key in source code"

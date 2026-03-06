@@ -1,6 +1,6 @@
 cases:
   - id: detect_hardcoded_api_key
-    prompt: "Audit this file before pushing:\n```python\nAPI_KEY = 'sk-live-abc123def456ghi789'\nresponse = requests.get(url, headers={'Authorization': f'Bearer {API_KEY}'})\n```"
+    prompt: "Audit this file before pushing:\n```python\nAPI_KEY = 'EXAMPLE_KEY_DO_NOT_USE'\nresponse = requests.get(url, headers={'Authorization': f'Bearer {API_KEY}'})\n```"
     fixtures: []
     rubric:
       - "classifies as CRITICAL severity"
