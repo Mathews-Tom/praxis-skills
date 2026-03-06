@@ -1,0 +1,36 @@
+cases:
+  - id: decompose_realtime_notifications
+    prompt: >
+      Decompose this feature into phased tasks with dependencies:
+      Add real-time notifications to our chat app using WebSockets.
+    fixtures: []
+    rubric:
+      - "produces phased task tables with clear ordering"
+      - "includes dependency mapping between tasks"
+      - "includes parallelization flags indicating which tasks can run concurrently"
+    trigger_expected: true
+
+  - id: wbs_oauth2_migration
+    prompt: >
+      Create a work breakdown structure for migrating our auth system from session-based
+      to OAuth2 with PKCE flow.
+    fixtures: []
+    rubric:
+      - "identifies edge cases such as token refresh, session migration, and backward compatibility"
+      - "includes risk flags for high-impact subtasks"
+      - "maps test strategy per phase or task group"
+    trigger_expected: true
+
+  - id: negative_time_estimate
+    prompt: "How long will this feature take to build? Give me a time estimate for adding search."
+    fixtures: []
+    rubric:
+      - "time estimation is estimate-calibrator territory, not task decomposition"
+    trigger_expected: false
+
+  - id: negative_code_review
+    prompt: "Review this pull request code for bugs and security issues"
+    fixtures: []
+    rubric:
+      - "code review is outside task decomposition scope"
+    trigger_expected: false

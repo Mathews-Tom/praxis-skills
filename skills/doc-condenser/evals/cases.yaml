@@ -1,0 +1,14 @@
+cases:
+  - id: condense_technical_doc
+    prompt: "Condense this technical document into a summary"
+    fixtures: []
+    rubric:
+      - "does not activate doc-condenser (deprecated, model handles natively)"
+    trigger_expected: false
+
+  - id: concise_readme
+    prompt: "Make this README more concise"
+    fixtures: []
+    rubric:
+      - "does not activate doc-condenser (deprecated, model handles natively)"
+    trigger_expected: false
