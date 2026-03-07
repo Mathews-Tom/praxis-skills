@@ -2,6 +2,30 @@
 
 Patterns and principles for creating high-quality visuals that don't look AI-generated.
 
+## Core philosophy
+
+### Argue, don't display
+
+A visual should make an argument — showing relationships, causality, and flow that text alone can't express. A diagram that just labels boxes is formatted text, not a visual.
+
+**The isomorphism test**: If you removed all text, would the structure alone communicate the concept? If not, the visual design isn't carrying its weight. Redesign until the shapes mirror the meaning.
+
+### Multi-zoom architecture
+
+Comprehensive visuals operate at three levels simultaneously:
+
+1. **Summary flow** — Simplified overview showing the full pipeline at a glance (top or bottom of canvas)
+2. **Section boundaries** — Labeled regions that group related components into visual "rooms"
+3. **Detail inside sections** — Concrete examples, data formats, code snippets — where the educational value lives
+
+Simple concept cards need only level 1. Technical architecture diagrams need all three.
+
+### Container discipline
+
+Default to no container. Add shapes/boxes only when they carry meaning — grouping, connection endpoints, or semantic shape (decision diamond, etc.). Typography (font size, weight, color) creates hierarchy without boxes.
+
+**The container test**: For each boxed element, ask "Would this work as free-floating text with proper styling?" If yes, remove the box.
+
 ## Layout principles
 
 ### Asymmetry over symmetry
@@ -77,7 +101,21 @@ Keep icons simple — 24×24 or 32×32 viewBox. Single-color, using `currentColo
 
 Linear gradients for backgrounds. Radial gradients for spotlight effects. Use SVG `<pattern>` for subtle textures (dots, lines, crosshatch) that add depth without noise.
 
-## Layout patterns by visual type
+## Visual pattern library
+
+Match the concept's behavior to the right visual structure. Each major concept in a multi-concept visual should use a **different** pattern — no uniform grids.
+
+| If the concept...            | Pattern                  | HTML/SVG approach                                      |
+| ---------------------------- | ------------------------ | ------------------------------------------------------ |
+| Spawns multiple outputs      | **Fan-out** (radial)     | Central element + SVG arrows radiating to targets      |
+| Combines inputs into one     | **Convergence** (funnel) | Multiple sources + SVG arrows merging to single target |
+| Has hierarchy/nesting        | **Tree**                 | Nested containers or SVG lines + positioned labels     |
+| Is a sequence of steps       | **Timeline**             | SVG line + dots + labels along the axis                |
+| Loops or improves            | **Spiral / Cycle**       | SVG arrows forming a closed loop                       |
+| Transforms input to output   | **Assembly line**        | Before → process → after with clear visual contrast    |
+| Compares two things          | **Side-by-side**         | CSS Grid parallel columns with visual differentiation  |
+| Separates into phases        | **Gap / Break**          | Whitespace or dashed SVG line between sections         |
+| Is an abstract state/context | **Cloud**                | Overlapping SVG ellipses with varied sizes             |
 
 ### Flowchart / Pipeline
 
@@ -114,6 +152,19 @@ Linear gradients for backgrounds. Radial gradients for spotlight effects. Use SV
 - All positioning via SVG `transform`, `x`, `y` attributes
 - Groups (`<g>`) for logical sections
 - Best for: icons, badges, logos, technical diagrams
+
+### Evidence artifacts (for technical diagrams)
+
+When diagramming real systems, include concrete proof — not just labeled boxes:
+
+| Artifact type      | When to use                         | Rendering approach                           |
+| ------------------ | ----------------------------------- | -------------------------------------------- |
+| Code snippets      | APIs, integrations, implementations | Dark `<pre>` block with syntax-colored spans |
+| Data/JSON examples | Schemas, payloads, formats          | Monospace text in a styled container         |
+| UI mockups         | Showing actual output               | Nested HTML elements mimicking real UI       |
+| Real input content | Showing what goes IN to a system    | Container with sample content visible        |
+
+These raise a diagram from "labeled architecture" to "educational artifact."
 
 ## Anti-patterns (the "AI slop" checklist)
 
