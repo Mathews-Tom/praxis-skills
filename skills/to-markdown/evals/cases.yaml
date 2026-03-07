@@ -1,0 +1,77 @@
+cases:
+  - id: convert_pdf_to_markdown
+    prompt: "Convert this PDF to markdown: /tmp/report.pdf"
+    fixtures: []
+    rubric:
+      - "uses markitdown to convert the PDF"
+      - "outputs a .md file or returns markdown content"
+    trigger_expected: true
+
+  - id: extract_text_from_docx
+    prompt: "Extract the text from my Word document at ~/docs/proposal.docx"
+    fixtures: []
+    rubric:
+      - "uses markitdown to convert the DOCX"
+      - "returns readable markdown content"
+    trigger_expected: true
+
+  - id: scrape_url_to_markdown
+    prompt: "Scrape this URL and give me the content as markdown: https://example.com/article"
+    fixtures: []
+    rubric:
+      - "uses trafilatura or fetch layer for URL content"
+      - "converts fetched content to markdown via markitdown"
+    trigger_expected: true
+
+  - id: convert_excel_spreadsheet
+    prompt: "Turn this spreadsheet into markdown tables: data.xlsx"
+    fixtures: []
+    rubric:
+      - "uses markitdown to convert XLSX"
+      - "produces markdown tables from sheet data"
+    trigger_expected: true
+
+  - id: ingest_documents_for_rag
+    prompt: "I need to ingest these PDFs for my RAG pipeline, convert them all to markdown"
+    fixtures: []
+    rubric:
+      - "uses markitdown for batch PDF conversion"
+      - "writes individual .md files for each input"
+    trigger_expected: true
+
+  - id: read_pdf_contents
+    prompt: "What does this PDF say? /tmp/notes.pdf"
+    fixtures: []
+    rubric:
+      - "uses markitdown to extract text"
+      - "returns content inline rather than writing a file"
+    trigger_expected: true
+
+  - id: convert_pptx_to_markdown
+    prompt: "Convert my presentation slides.pptx to markdown"
+    fixtures: []
+    rubric:
+      - "uses markitdown to convert PPTX"
+      - "includes slide content and speaker notes"
+    trigger_expected: true
+
+  - id: generic_summarize_article
+    prompt: "Summarize the key points of this article for me"
+    fixtures: []
+    rubric:
+      - "does not activate to-markdown (no file or URL provided, this is a summarization request)"
+    trigger_expected: false
+
+  - id: write_markdown_document
+    prompt: "Write me a markdown document about Python best practices"
+    fixtures: []
+    rubric:
+      - "does not activate to-markdown (creating markdown content, not converting a file)"
+    trigger_expected: false
+
+  - id: convert_markdown_to_pdf
+    prompt: "Convert this markdown file to PDF"
+    fixtures: []
+    rubric:
+      - "does not activate to-markdown (opposite direction: markdown to PDF, not to markdown)"
+    trigger_expected: false
