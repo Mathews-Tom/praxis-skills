@@ -72,7 +72,7 @@ skills:
     code smells.'
   path: skills/code-refiner
 - name: concept-to-image
-  version: 1.1.0
+  version: 1.2.0
   description: 'Turn any concept, idea, or description into a polished static HTML visual, then export it as a PNG or SVG
     image file. Use this skill when the user explicitly needs an image file output (PNG or SVG). This includes: concept diagrams,
     flowcharts, comparison charts, process visuals, educational diagrams, social media graphics, data visualizations, posters,
