@@ -179,6 +179,9 @@ Avoid all of these:
 7. **Over-decoration** — Borders, shadows, gradients AND rounded corners on one element
 8. **Low density** — Fill the canvas. 70%+ content-to-whitespace ratio
 9. **Orphaned labels** — Every text element should be visually connected to what it describes
+10. **Displaying instead of arguing** — Boxes with labels connected by arrows. If the structure doesn't mirror the concept's behavior, it's just formatted text
+11. **Uniform visual patterns** — Every concept rendered the same way (all rectangles, all cards). Vary patterns per concept
+12. **Abstract when concrete is available** — Labeling a box "API Response" instead of showing the actual JSON shape. Use evidence artifacts for technical diagrams
 
 ## Pre-export checklist
 
@@ -190,3 +193,6 @@ Before running `render_to_image.py`:
 - [ ] Colors have sufficient contrast
 - [ ] Layout doesn't overflow `.canvas` bounds
 - [ ] If SVG export desired: content is inside a root `<svg>` within `.canvas`
+- [ ] Isomorphism test: structure communicates without reading text
+- [ ] Each major concept uses a distinct visual pattern (no uniform grid)
+- [ ] Technical diagrams include at least one evidence artifact
