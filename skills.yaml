@@ -184,7 +184,7 @@ skills:
     code review or PR review — use pr-review instead. NOT for security audits of repositories — use repo-sentinel instead.'
   path: skills/immune
 - name: linkedin-post-style
-  version: 1.1.0
+  version: 1.2.0
   description: Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored, and precise.
     Use this skill whenever the user asks to write, draft, rewrite, review, improve, or refine a LinkedIn post, social media
     post, tech commentary, or any public-facing short-form writing about technology, AI, software engineering, or developer
@@ -203,7 +203,7 @@ skills:
     against scripts", "provenance audit", or any request to verify that manuscript content traces back to computational outputs.'
   path: skills/manuscript-provenance
 - name: manuscript-review
-  version: 1.1.0
+  version: 1.2.0
   description: Systematic pre-publication manuscript audit producing a structured refactoring report with section-level diagnostics,
     citation hygiene analysis, and submission-readiness assessment. Use this skill whenever the user uploads a manuscript,
     paper, thesis chapter, journal submission, or conference paper and asks for review, feedback, editing, refactoring, pre-submission
