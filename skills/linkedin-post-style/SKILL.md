@@ -11,7 +11,7 @@ description: >
   md-to-pdf with Mermaid diagrams), custom images (via concept-to-image), or animations (via
   concept-to-video).
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # LinkedIn Post Style Guide
@@ -156,6 +156,19 @@ When the user provides raw content, notes, or an existing draft:
 9. **Cut pass**: Remove every sentence that doesn't earn its place. If removing it doesn't hurt, remove it.
 10. **Rhythm check**: Read aloud. Long/short alternation? Does it breathe?
 11. **Anti-pattern sweep**: Zero violations against the hard blocks list.
+12. **AI-pattern sweep**: Load `../humanize/references/detection-patterns.md` and check for residual AI tells. Specifically scan for:
+    - Copula avoidance (#8) — this voice uses "is/are" directly
+    - AI-frequency vocabulary (#7) — "delve", "crucial", "landscape", "foster", "underscore"
+    - Filler phrases (#22) — the cut pass should have caught these
+    - Sycophantic tone (#21) — hard-blocked already but verify
+    - Significance inflation (#1) — antithetical to this voice's restraint
+    - Promotional language (#4) — "groundbreaking", "stunning", "vibrant"
+    - Generic positive conclusions (#24) — the meaning layer must be specific, not upbeat filler
+
+    **Skip patterns that conflict with this voice:**
+    - Rule of three (#10) — credibility spikes use deliberate triads
+    - Em dash (#13) — this voice uses them sparingly but intentionally
+    - Negative parallelism (#9) — "Here is what it's good at / Here is what it doesn't do" is a signature construction
 
 ## Edge Cases
 

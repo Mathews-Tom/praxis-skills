@@ -1,0 +1,91 @@
+cases:
+  # Positive cases (trigger_expected: true)
+  - id: humanize_ai_text
+    prompt: "Humanize this text: 'In today's rapidly evolving landscape, AI has emerged as a transformative force, fostering innovation and enhancing productivity across industries.'"
+    fixtures: []
+    rubric:
+      - "detects AI-writing patterns including significance inflation and AI-frequency vocabulary"
+      - "rewrites to remove detected patterns"
+      - "preserves the core meaning about AI affecting multiple industries"
+      - "output sounds natural and human-written"
+    trigger_expected: true
+
+  - id: make_sound_human
+    prompt: "Make this sound more human and natural: 'Additionally, it is important to note that the implementation showcases our commitment to leveraging cutting-edge solutions for enhanced operational efficiency.'"
+    fixtures: []
+    rubric:
+      - "removes filler phrases like 'it is important to note'"
+      - "removes AI vocabulary like 'showcases', 'leveraging', 'enhanced'"
+      - "replaces promotional language with specific claims"
+      - "result is shorter and more direct"
+    trigger_expected: true
+
+  - id: detect_ai_patterns_only
+    prompt: "Check this paragraph for AI writing patterns, don't rewrite it yet: 'The event serves as a vibrant testament to the community's enduring commitment to fostering cultural exchange and enhancing social cohesion.'"
+    fixtures: []
+    rubric:
+      - "identifies specific patterns by name or number"
+      - "does not rewrite the text unless asked"
+      - "reports copula avoidance, significance inflation, AI vocabulary, and promotional language"
+    trigger_expected: true
+
+  - id: rewrite_academic_naturally
+    prompt: "This abstract sounds too AI-generated. Rewrite it for an academic audience: 'This groundbreaking study delves into the intricate interplay between climate change and agricultural yields, underscoring the pivotal role of adaptive strategies in ensuring food security.'"
+    fixtures: []
+    rubric:
+      - "applies academic style profile"
+      - "removes promotional language like 'groundbreaking'"
+      - "removes AI vocabulary like 'delves', 'intricate', 'interplay', 'pivotal', 'underscoring'"
+      - "preserves the academic register and topic"
+    trigger_expected: true
+
+  - id: deslop_blog_post
+    prompt: "De-slop this blog intro, it reads like ChatGPT wrote it: 'Welcome to this comprehensive guide! In this article, we'll explore the fascinating world of container orchestration. Whether you're a seasoned DevOps engineer or just starting your journey, this guide will equip you with valuable insights. Let's dive in!'"
+    fixtures: []
+    rubric:
+      - "removes chatbot artifacts like 'Welcome to', 'Let's dive in!'"
+      - "removes false range 'seasoned engineer or just starting'"
+      - "removes AI vocabulary like 'comprehensive', 'fascinating', 'valuable insights'"
+      - "produces a direct, blog-appropriate introduction"
+    trigger_expected: true
+
+  # Negative cases (trigger_expected: false)
+  - id: translate_text
+    prompt: "Translate this paragraph from English to Spanish."
+    fixtures: []
+    rubric:
+      - "does not activate humanization workflow"
+      - "translation is a different task from humanization"
+    trigger_expected: false
+
+  - id: write_from_scratch
+    prompt: "Write me a blog post about Kubernetes best practices."
+    fixtures: []
+    rubric:
+      - "does not activate humanization workflow"
+      - "content generation from scratch is not humanization"
+    trigger_expected: false
+
+  - id: grammar_check
+    prompt: "Check this text for grammar and spelling errors."
+    fixtures: []
+    rubric:
+      - "does not activate humanization workflow"
+      - "grammar checking is different from AI pattern detection"
+    trigger_expected: false
+
+  - id: code_review
+    prompt: "Review this Python function for bugs and suggest improvements."
+    fixtures: []
+    rubric:
+      - "does not activate humanization workflow"
+      - "code review is unrelated to text humanization"
+    trigger_expected: false
+
+  - id: summarize_document
+    prompt: "Summarize this 10-page report into 3 bullet points."
+    fixtures: []
+    rubric:
+      - "does not activate humanization workflow"
+      - "summarization is a different text transformation"
+    trigger_expected: false
