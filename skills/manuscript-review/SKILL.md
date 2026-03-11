@@ -13,7 +13,7 @@ description: >
   requests like "check my references" or "does the abstract work" — the full
   diagnostic surfaces issues across all facets even when only one was asked about.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Manuscript Review Skill
@@ -161,6 +161,30 @@ checklist sections. Work systematically — for each checkpoint:
 - Clarity and precision (marketing language advisory for arXiv)
 - Abbreviation hygiene (first-use expansion, consistency)
 - Mathematical typesetting consistency
+
+**Pass 7b — AI-Pattern Detection (advisory)**
+
+Scan prose sections for residual AI-writing patterns using detection rules
+from `../humanize/references/detection-patterns.md`. Academic manuscripts
+drafted or polished with AI assistants often retain detectable tells.
+
+Focus on patterns relevant to academic writing:
+- Significance inflation (#1) — "pivotal", "groundbreaking", "paradigm shift"
+- AI-frequency vocabulary (#7) — "delve", "landscape", "tapestry", "underscore"
+- Copula avoidance (#8) — "serves as" instead of "is"
+- Vague attributions (#5) — "experts argue", "studies have shown" without citations
+- Filler phrases (#22) — "it is important to note that"
+- Excessive hedging (#23) — beyond what epistemically appropriate hedging requires
+
+Skip patterns that are acceptable in academic prose:
+- Passive voice — standard in methods sections
+- Formal transitions — "Furthermore", "Moreover" are conventional in academic writing
+- Title case headings — journal style may require it
+
+This pass is MEDIUM priority. Flag findings but do not over-correct —
+academic conventions overlap with some AI patterns. Severity: report
+individual instances as LOW, flag clusters of 3+ patterns in a single
+paragraph as MEDIUM.
 
 **Pass 8 — Best Practices & Reproducibility (Checklist §16, §17, §18, §19)**
 
