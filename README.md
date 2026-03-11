@@ -1,6 +1,6 @@
 # praxis-skills
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 43](https://img.shields.io/badge/skills-43-informational)](skills/) [![evals: 100%](https://img.shields.io/badge/eval_coverage-100%25-success)](skills/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 44](https://img.shields.io/badge/skills-44-informational)](skills/) [![evals: 100%](https://img.shields.io/badge/eval_coverage-100%25-success)](skills/)
 
 Curated, production-grade skills for AI coding agents. No magic, no demos — battle-tested workflows built for developers who use AI seriously.
 
@@ -96,6 +96,7 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 
 | Skill                                              | Description                                                                                                                                                         |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [humanize](skills/humanize/)                       | Detect and remove AI-generated writing patterns — 24 lexical patterns + 12 statistical signals, 6 domain profiles, 5-phase pipeline with semantic preservation |
 | [linkedin-post-style](skills/linkedin-post-style/) | Write LinkedIn posts in a specific technical voice with visual companion support — carousels via md-to-pdf, images via concept-to-image, video via concept-to-video |
 
 ### Deprecated
