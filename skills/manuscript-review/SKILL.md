@@ -13,7 +13,7 @@ description: >
   requests like "check my references" or "does the abstract work" — the full
   diagnostic surfaces issues across all facets even when only one was asked about.
 metadata:
-  version: 1.2.0
+  version: 1.2.1
 ---
 
 # Manuscript Review Skill
@@ -165,7 +165,7 @@ checklist sections. Work systematically — for each checkpoint:
 **Pass 7b — AI-Pattern Detection (advisory)**
 
 Scan prose sections for residual AI-writing patterns using detection rules
-from `../humanize/references/detection-patterns.md`. Academic manuscripts
+from `references/detection-patterns.md`. Academic manuscripts
 drafted or polished with AI assistants often retain detectable tells.
 
 Focus on patterns relevant to academic writing:

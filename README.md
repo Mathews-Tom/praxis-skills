@@ -1,6 +1,6 @@
 # praxis-skills
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 44](https://img.shields.io/badge/skills-44-informational)](skills/) [![evals: 100%](https://img.shields.io/badge/eval_coverage-100%25-success)](skills/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![skills: 49](https://img.shields.io/badge/skills-49-informational)](skills/) [![evals: 100%](https://img.shields.io/badge/eval_coverage-100%25-success)](skills/)
 
 Curated, production-grade skills for AI coding agents. No magic, no demos — battle-tested workflows built for developers who use AI seriously.
 
@@ -49,11 +49,14 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 | [architecture-reviewer](skills/architecture-reviewer/) | Architecture reviews across 7 scored dimensions — structural integrity, scalability, security, performance, enterprise readiness, operations, data |
 | [code-refiner](skills/code-refiner/)                   | Deep code simplification and refactoring — structural complexity analysis, anti-pattern detection, idiomatic rewrites across Python, Go, TS, Rust  |
 | [pr-review](skills/pr-review/)                         | Diff-based PR review across 5 dimensions — code quality, test coverage, silent failures, type design, comment quality with severity-ranked output  |
+| [pre-landing-review](skills/pre-landing-review/)       | Gate-oriented safety audit with two-pass severity triage — CRITICAL (SQL, races, trust) blocks landing, INFORMATIONAL is advisory                  |
+| [plan-review](skills/plan-review/)                     | Pre-implementation plan audit stress-testing scope, assumptions, risks, and failure modes with product and engineering lenses                       |
 | [manuscript-review](skills/manuscript-review/)         | Pre-publication manuscript audit with 24 diagnostic dimensions, citation hygiene, and cross-element coherence                                      |
 | [manuscript-provenance](skills/manuscript-provenance/) | Computational provenance audit verifying every number, table, and figure in a manuscript traces back to code                                       |
 | [repo-sentinel](skills/repo-sentinel/)                 | Security audit and enforcement for public repos — 12 attack surfaces, pre-release readiness, history scrubbing, CI gates                           |
 | [skill-evaluator](skills/skill-evaluator/)             | Evaluate skill quality across 6 weighted dimensions — frontmatter, triggers, structure, depth, consistency, compliance                             |
 | [dependency-audit](skills/dependency-audit/)           | Dependency risk assessment — license compliance, maintenance health scoring, CVE detection, bloat identification, supply chain analysis            |
+| [qa-systematic](skills/qa-systematic/)                 | Systematic web QA testing with 8-category health scoring, issue taxonomy, and regression tracking — full, quick, and regression modes              |
 
 ### Visualization & Documents
 
@@ -72,6 +75,8 @@ Intended for developers who treat AI coding agents as a serious part of their wo
 | Skill                                            | Description                                                                                                                |
 | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | [changelog-composer](skills/changelog-composer/) | Structured changelogs from git history — conventional commit parsing, audience filtering, breaking change detection        |
+| [ship-workflow](skills/ship-workflow/)           | Automated release pipeline — merge main, run tests, pre-landing review, version bump, changelog, bisectable commits, PR  |
+| [engineering-retro](skills/engineering-retro/)   | Git-based engineering retrospective — commit analysis, velocity metrics, session patterns, health scoring over time windows |
 | [adr-writer](skills/adr-writer/)                 | Architecture Decision Records — context capture, alternatives analysis, consequence projection, status lifecycle           |
 | [api-docs-generator](skills/api-docs-generator/) | API documentation audit and enhancement — FastAPI docstrings, Pydantic examples, OpenAPI spec enrichment, coverage reports |
 

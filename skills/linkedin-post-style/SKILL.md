@@ -11,7 +11,7 @@ description: >
   md-to-pdf with Mermaid diagrams), custom images (via concept-to-image), or animations (via
   concept-to-video).
 metadata:
-  version: 1.2.0
+  version: 1.2.1
 ---
 
 # LinkedIn Post Style Guide
@@ -156,7 +156,7 @@ When the user provides raw content, notes, or an existing draft:
 9. **Cut pass**: Remove every sentence that doesn't earn its place. If removing it doesn't hurt, remove it.
 10. **Rhythm check**: Read aloud. Long/short alternation? Does it breathe?
 11. **Anti-pattern sweep**: Zero violations against the hard blocks list.
-12. **AI-pattern sweep**: Load `../humanize/references/detection-patterns.md` and check for residual AI tells. Specifically scan for:
+12. **AI-pattern sweep**: Load `references/detection-patterns.md` and check for residual AI tells. Specifically scan for:
     - Copula avoidance (#8) — this voice uses "is/are" directly
     - AI-frequency vocabulary (#7) — "delve", "crucial", "landscape", "foster", "underscore"
     - Filler phrases (#22) — the cut pass should have caught these

@@ -1,0 +1,34 @@
+cases:
+  - id: ship_it
+    prompt: "Ship it — merge main, run tests, and open a PR"
+    fixtures: []
+    rubric:
+      - "executes full release pipeline from pre-flight through PR creation"
+      - "detects test command and version strategy from project configuration"
+      - "creates bisectable commits and opens a pull request"
+    trigger_expected: true
+
+  - id: release_with_context
+    prompt: "Get this feature ready to ship. Run the tests, bump the version, and create the PR."
+    fixtures: []
+    rubric:
+      - "performs pre-flight checks before proceeding"
+      - "runs detected test suite and stops on failure"
+      - "bumps version and updates changelog before creating PR"
+    trigger_expected: true
+
+  - id: deploy_to_prod
+    prompt: "Deploy this to production"
+    fixtures: []
+    rubric:
+      - "does not activate ship workflow"
+      - "deployment to production is different from creating a release PR"
+    trigger_expected: false
+
+  - id: version_bump_only
+    prompt: "Bump the version number to 2.0.0"
+    fixtures: []
+    rubric:
+      - "does not activate ship workflow"
+      - "isolated version bump is different from full release pipeline"
+    trigger_expected: false

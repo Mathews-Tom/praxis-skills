@@ -42,6 +42,50 @@ uv run scripts/generate_manifest.py
 - Skill names: kebab-case, maximum 64 characters
 - Directory name must match the `name` field in frontmatter
 
+## Self-Containment
+
+Skills must be standalone packages. Every file a skill references must live within its own directory.
+
+**Blocked:**
+- `../other-skill/references/file.md` — cross-skill path references
+- Absolute paths to files outside the skill directory
+- References to files that only exist in other skills
+
+**Why:** Skills are distributed individually via `npx skills add` and `.skill` archives. Cross-skill references break when a skill is installed without its dependency. The skill-evaluator flags this as a CRITICAL D5 finding.
+
+**Shared content:** If multiple skills need the same reference file, use the template sync system (see below). Each skill gets its own physical copy, managed by `scripts/sync_templates.py`.
+
+## Shared Templates
+
+The `_templates/` directory holds reference files shared across multiple skills. The sync system copies templates into each consuming skill's `references/` directory.
+
+**How it works:**
+
+1. Source files live in `_templates/` (e.g., `_templates/detection-patterns.md`)
+2. `scripts/sync_templates.py` defines which skills consume each template via `TEMPLATE_CONSUMERS`
+3. Running the script copies templates to `skills/{consumer}/references/{template}`
+4. A pre-commit hook runs sync automatically when templates or references change
+
+**To add a shared template:**
+
+1. Create the file in `_templates/`
+2. Add the template name and consumer list to `TEMPLATE_CONSUMERS` in `scripts/sync_templates.py`
+3. Run `uv run python scripts/sync_templates.py` to populate copies
+4. Commit both the template and the synced copies
+
+**To use an existing template in a new skill:**
+
+1. Add your skill name to the consumer list in `scripts/sync_templates.py`
+2. Run `uv run python scripts/sync_templates.py`
+3. Reference the file as `references/{template}` in your SKILL.md (local path, not `../`)
+
+Current templates:
+
+| Template | Consumers | Purpose |
+|----------|-----------|---------|
+| `detection-patterns.md` | humanize, linkedin-post-style, manuscript-review | AI writing detection patterns |
+| `project-detection.md` | ship-workflow, plan-review, qa-systematic | Stack-agnostic project detection |
+
 ## Description Rules
 
 - Maximum 1024 characters (sweet spot: 200-800 characters)
@@ -104,6 +148,44 @@ The evaluator scores 6 dimensions:
 
 Skills scoring below 70% need improvement before review. Skills with CRITICAL findings (missing frontmatter, name mismatch) are automatically rejected.
 
+## Eval Cases
+
+Every skill must have eval cases in `skills/<name>/evals/cases.yaml`. These define trigger accuracy — does the skill activate on the right queries and stay silent on the wrong ones?
+
+**Schema:**
+
+```yaml
+cases:
+  - id: unique_snake_case_id
+    prompt: "What the user would type"
+    fixtures: []
+    rubric:
+      - "Expected behavior point 1"
+      - "Expected behavior point 2"
+    trigger_expected: true  # or false
+```
+
+**Requirements:**
+
+| Skill Status | Positive Cases (trigger_expected: true) | Negative Cases (trigger_expected: false) |
+|-------------|----------------------------------------|------------------------------------------|
+| Active | 1+ (recommended: 2+) | 2+ |
+| Deprecated | 0 (must be zero) | 2+ |
+
+**Guidelines:**
+- Positive cases should use natural language a real user would type
+- Negative cases should test plausible but incorrect triggers (adjacent tasks the skill should NOT handle)
+- Each case needs a unique `id` (snake_case)
+- Rubric items describe what a correct response looks like, not implementation details
+
+**Validation:**
+
+```bash
+uv run python scripts/validate_evals.py
+```
+
+CI runs this on every PR. Skills without valid evals will fail the pipeline.
+
 ## Testing Locally
 
 Point Claude Code at the skill directory:
@@ -134,6 +216,10 @@ Before opening a PR, confirm:
 - [ ] No angle brackets or pushy language in description
 - [ ] No secrets, credentials, or internal URLs in any file
 - [ ] Tested locally with Claude Code
-- [ ] All file references in `SKILL.md` resolve to existing files
+- [ ] All file references in `SKILL.md` resolve to existing files within the skill directory
+- [ ] No cross-skill references (`../other-skill/`) — skill is fully self-contained
+- [ ] Eval cases exist in `evals/cases.yaml` with 1+ positive and 2+ negative triggers
+- [ ] Evals pass: `uv run python scripts/validate_evals.py`
+- [ ] Templates synced (if using shared templates): `uv run python scripts/sync_templates.py`
 - [ ] Skill evaluator score is 70% or above (paste the scorecard in your PR)
 - [ ] No CRITICAL or HIGH findings from skill evaluator

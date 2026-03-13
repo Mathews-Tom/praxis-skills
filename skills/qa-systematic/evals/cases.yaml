@@ -1,0 +1,34 @@
+cases:
+  - id: full_qa
+    prompt: "Run a full QA test on the web app at localhost:3000"
+    fixtures: []
+    rubric:
+      - "performs systematic page-by-page testing with structured checklist"
+      - "computes health score across 8 weighted categories"
+      - "produces a structured QA report with issue taxonomy"
+    trigger_expected: true
+
+  - id: smoke_test
+    prompt: "Quick smoke test — just check the critical paths are working"
+    fixtures: []
+    rubric:
+      - "uses quick mode for 30-second critical path verification"
+      - "tests login, main navigation, and primary user actions"
+      - "reports pass/fail without full health score"
+    trigger_expected: true
+
+  - id: unit_tests
+    prompt: "Write unit tests for the user authentication module"
+    fixtures: []
+    rubric:
+      - "does not activate QA testing workflow"
+      - "unit test writing is different from systematic web QA"
+    trigger_expected: false
+
+  - id: load_test
+    prompt: "Run a load test to see how many concurrent users the API can handle"
+    fixtures: []
+    rubric:
+      - "does not activate QA testing workflow"
+      - "load/performance testing is different from functional QA"
+    trigger_expected: false
