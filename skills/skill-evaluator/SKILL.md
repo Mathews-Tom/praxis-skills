@@ -14,7 +14,7 @@ description: >
   skill fails to activate on relevant queries.
   NOT for evaluating or improving LLM prompts — use prompt-lab instead.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Skill Evaluator
@@ -129,9 +129,14 @@ Evaluates internal consistency and structural integrity.
   the body does not deliver)
 - Consistent terminology throughout (same concept uses same term)
 - No broken internal links or dangling references
+- **Self-containment**: No cross-skill references (`../other-skill/`) in SKILL.md or
+  reference files. Skills must be standalone packages — all referenced files must live
+  within the skill's own directory. Shared content should use the `_templates/` sync
+  system to maintain local copies.
 
 **Scoring constraints:** A name mismatch between directory and frontmatter is a CRITICAL
-finding and caps at 1/5. Missing referenced files cap at 2/5.
+finding and caps at 1/5. Cross-skill `../` references are a CRITICAL finding and cap
+at 1/5 — they break standalone packaging. Missing referenced files cap at 2/5.
 
 ### D6: CONTRIBUTING.md Compliance (8%)
 
@@ -180,6 +185,8 @@ For each skill under evaluation:
    fails, record a CRITICAL finding and score D1 and D6 as 1/5.
 3. Check the `references/` directory for existence and contents. Verify every file
    referenced in the SKILL.md body exists on disk.
+4. Scan SKILL.md and all reference files for cross-skill path references (`../`
+   patterns pointing outside the skill directory). Flag any as CRITICAL D5 findings.
 4. Evaluate each of the 6 dimensions using the criteria above and the detailed rubric
    in `references/evaluation-rubric.md`.
 5. Record findings with severity, dimension tag, description, and recommendation.

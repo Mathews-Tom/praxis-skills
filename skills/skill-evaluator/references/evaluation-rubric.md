@@ -62,11 +62,11 @@ General criteria for the 1-5 scale. Dimension-specific tables below refine these
 
 | Score | Criteria |
 | ----- | -------- |
-| 1 | Directory name does not match frontmatter `name` field (CRITICAL finding) |
+| 1 | Directory name does not match frontmatter `name` field, OR skill contains cross-skill `../` references that break standalone packaging (CRITICAL findings) |
 | 2 | Name matches but 2+ referenced files do not exist on disk, or description promises features the body does not deliver |
 | 3 | Name matches, 1 referenced file missing or 1 description-body mismatch, minor terminology inconsistencies |
-| 4 | Name matches, all referenced files exist, description aligns with body, minor terminology variation |
-| 5 | Name matches directory exactly, all referenced files exist and contain substantive content, description accurately reflects body, consistent terminology throughout |
+| 4 | Name matches, all referenced files exist and are self-contained (no `../` paths), description aligns with body, minor terminology variation |
+| 5 | Name matches directory exactly, all referenced files exist within the skill directory, description accurately reflects body, consistent terminology throughout, fully self-contained |
 
 ### D6: CONTRIBUTING.md Compliance (8%)
 
