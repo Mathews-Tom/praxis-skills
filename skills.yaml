@@ -117,6 +117,14 @@ skills:
   description: 'DEPRECATED: The base model handles document condensation and summarization natively at high quality. This
     skill no longer provides meaningful uplift. Retained for reference only.'
   path: skills/doc-condenser
+- name: engineering-retro
+  version: 1.0.0
+  description: Git-based engineering retrospective analyzing commit history, PR patterns, and development velocity over a
+    configurable time window. Use this skill when the user asks for a retrospective, retro, sprint review, weekly review,
+    engineering review, development summary, commit analysis, team velocity report, or says "what did we ship", "what happened
+    this week", "engineering retro", "sprint retro", "dev summary", "/engineering-retro". Supports time windows (7d default,
+    24h, 14d, 30d) and monorepo path scoping.
+  path: skills/engineering-retro
 - name: estimate-calibrator
   version: 1.1.0
   description: 'Produces calibrated three-point estimates (best/likely/worst case) with explicit unknowns, confidence intervals,
@@ -184,7 +192,7 @@ skills:
     code review or PR review — use pr-review instead. NOT for security audits of repositories — use repo-sentinel instead.'
   path: skills/immune
 - name: linkedin-post-style
-  version: 1.2.0
+  version: 1.2.1
   description: Write LinkedIn posts matching a specific technical author's voice — direct, analytical, dry-humored, and precise.
     Use this skill whenever the user asks to write, draft, rewrite, review, improve, or refine a LinkedIn post, social media
     post, tech commentary, or any public-facing short-form writing about technology, AI, software engineering, or developer
@@ -203,7 +211,7 @@ skills:
     against scripts", "provenance audit", or any request to verify that manuscript content traces back to computational outputs.'
   path: skills/manuscript-provenance
 - name: manuscript-review
-  version: 1.2.0
+  version: 1.2.1
   description: Systematic pre-publication manuscript audit producing a structured refactoring report with section-level diagnostics,
     citation hygiene analysis, and submission-readiness assessment. Use this skill whenever the user uploads a manuscript,
     paper, thesis chapter, journal submission, or conference paper and asks for review, feedback, editing, refactoring, pre-submission
@@ -253,6 +261,14 @@ skills:
     research with notebooklm, offload analysis, bulk source import, download from notebooklm, notebooklm deliverables, or
     uses /notebooklm.'
   path: skills/notebooklm
+- name: plan-review
+  version: 1.0.0
+  description: Pre-implementation plan audit that stress-tests scope, assumptions, risks, and failure modes before code is
+    written. Use this skill when the user asks to review a plan, audit a proposal, challenge scope, stress-test an approach,
+    evaluate a technical design, or says "review this plan", "is this plan solid", "what am I missing", "challenge my assumptions",
+    "plan review", "scope check", "stress-test this", "/plan-review". Supports product lens, engineering lens, or combined
+    review.
+  path: skills/plan-review
 - name: pr-review
   version: 1.1.0
   description: 'Pull request and code review with diff-based routing across five dimensions: code quality and guideline compliance,
@@ -263,6 +279,13 @@ skills:
     with this code", "pre-merge review", "look over my changes", "code review". Use this skill when reviewing code before
     commit or merge, checking PR quality, or when the user asks for feedback on recent modifications.'
   path: skills/pr-review
+- name: pre-landing-review
+  version: 1.0.0
+  description: Gate-oriented safety audit for code changes before landing, using a structured checklist with two-pass severity
+    triage. Distinct from pr-review (which is diff-based multi-dimension review) — this is a blocking safety gate. Use this
+    skill when the user asks for a pre-landing check, safety audit, pre-merge review, gate check, landing review, or says
+    "is this safe to land", "pre-landing review", "safety check before merge", "run the checklist", "gate check", "/pre-landing-review".
+  path: skills/pre-landing-review
 - name: prompt-lab
   version: 1.1.0
   description: 'Systematic LLM prompt engineering: analyzes existing prompts for failure modes, generates structured variants
@@ -273,6 +296,13 @@ skills:
     or evaluating LLM prompts specifically. NOT for evaluating Claude Code skills or SKILL.md files — use skill-evaluator
     instead.'
   path: skills/prompt-lab
+- name: qa-systematic
+  version: 1.0.0
+  description: Systematic web application QA testing with structured issue taxonomy, health scoring, and regression tracking.
+    Use this skill when the user asks for QA testing, systematic testing, smoke testing, regression testing, web app testing,
+    browser testing, or says "QA this", "test the app", "smoke test", "run QA", "systematic test", "check the site", "regression
+    test", "full QA", "/qa-systematic". Supports full, quick, and regression modes.
+  path: skills/qa-systematic
 - name: rag-auditor
   version: 1.1.0
   description: 'Evaluates RAG (Retrieval-Augmented Generation) pipeline quality across retrieval and generation stages. Measures
@@ -315,6 +345,13 @@ skills:
   description: 'DEPRECATED: Use the model''s native extended thinking instead. Structured, reflective problem-solving through
     sequential chain-of-thought reasoning that replaced the Sequential Thinking MCP server.'
   path: skills/sequential-thinking
+- name: ship-workflow
+  version: 1.0.0
+  description: Automated release pipeline that merges main, runs tests, performs pre-landing review, bumps version, updates
+    changelog, creates bisectable commits, and opens a pull request. Use this skill when the user says "ship it", "ship this",
+    "release this", "prepare for release", "open a PR", "push and PR", "land this", "get this ready to ship", "create release",
+    "/ship-workflow". Handles the full lifecycle from pre-flight checks through PR creation.
+  path: skills/ship-workflow
 - name: skill-evaluator
   version: 1.1.0
   description: 'Evaluate Claude Code SKILL.md quality across 6 weighted dimensions: frontmatter quality, trigger coverage,
