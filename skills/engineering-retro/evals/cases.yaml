@@ -1,0 +1,34 @@
+cases:
+  - id: default_retro
+    prompt: "Run an engineering retro for this week"
+    fixtures: []
+    rubric:
+      - "analyzes git commit history for the default time window"
+      - "produces metrics including commits, files changed, and lines modified"
+      - "generates a narrative summary with patterns and highlights"
+    trigger_expected: true
+
+  - id: time_windowed_retro
+    prompt: "/engineering-retro 30d"
+    fixtures: []
+    rubric:
+      - "uses 30-day time window instead of default 7d"
+      - "analyzes git history for the specified period"
+      - "produces comparative metrics if prior data exists"
+    trigger_expected: true
+
+  - id: code_review_request
+    prompt: "Review this pull request for code quality issues"
+    fixtures: []
+    rubric:
+      - "does not activate engineering retrospective workflow"
+      - "code review is a different task from retrospective analysis"
+    trigger_expected: false
+
+  - id: git_log_request
+    prompt: "Show me the git log for the last 5 commits"
+    fixtures: []
+    rubric:
+      - "does not activate engineering retrospective workflow"
+      - "raw git log display is different from structured retrospective analysis"
+    trigger_expected: false
