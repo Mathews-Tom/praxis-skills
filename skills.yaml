@@ -353,7 +353,7 @@ skills:
     "/ship-workflow". Handles the full lifecycle from pre-flight checks through PR creation.
   path: skills/ship-workflow
 - name: skill-evaluator
-  version: 1.1.0
+  version: 1.2.0
   description: 'Evaluate Claude Code SKILL.md quality across 6 weighted dimensions: frontmatter quality, trigger coverage,
     structural completeness, content depth, consistency and integrity, and CONTRIBUTING.md compliance. Produces scored audit
     reports with severity-classified findings and actionable recommendations. Two modes: (1) Quick Audit — single skill, full
