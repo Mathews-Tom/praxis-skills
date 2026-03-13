@@ -1,0 +1,34 @@
+cases:
+  - id: plan_audit
+    prompt: "Review this implementation plan before I start coding"
+    fixtures: []
+    rubric:
+      - "performs multi-section plan audit covering assumptions, risks, and failure modes"
+      - "produces severity-tagged findings"
+      - "delivers a ship/rethink/reject verdict"
+    trigger_expected: true
+
+  - id: scope_challenge
+    prompt: "Stress-test this proposal — what am I missing and where will it break?"
+    fixtures: []
+    rubric:
+      - "challenges implicit assumptions in the plan"
+      - "maps failure modes and blast radius for each component"
+      - "identifies gaps and missing considerations"
+    trigger_expected: true
+
+  - id: code_review_not_plan
+    prompt: "Review this Python function for bugs and performance issues"
+    fixtures: []
+    rubric:
+      - "does not activate plan review workflow"
+      - "code review of existing code is different from pre-implementation plan audit"
+    trigger_expected: false
+
+  - id: architecture_diagram
+    prompt: "Draw me an architecture diagram for this system"
+    fixtures: []
+    rubric:
+      - "does not activate plan review workflow"
+      - "diagram creation is different from plan audit"
+    trigger_expected: false
