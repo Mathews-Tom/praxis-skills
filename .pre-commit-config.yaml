@@ -20,6 +20,13 @@ repos:
 
   - repo: local
     hooks:
+      - id: sync-templates
+        name: Sync shared templates to skills
+        entry: python scripts/sync_templates.py
+        language: python
+        pass_filenames: false
+        files: ^(_templates/|skills/.*/references/)
+
       - id: generate-manifest
         name: Regenerate skills.yaml
         entry: python scripts/generate_manifest.py
