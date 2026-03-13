@@ -1,0 +1,34 @@
+cases:
+  - id: pre_landing_check
+    prompt: "Run a pre-landing review on my branch before I merge"
+    fixtures: []
+    rubric:
+      - "loads and follows the structured checklist"
+      - "performs two-pass review with CRITICAL and INFORMATIONAL severity"
+      - "produces a gate verdict (CLEAR TO LAND or BLOCKED)"
+    trigger_expected: true
+
+  - id: safety_audit
+    prompt: "Is this safe to land? Check for data safety issues and race conditions"
+    fixtures: []
+    rubric:
+      - "prioritizes SQL/data safety and race condition checks"
+      - "uses AskUserQuestion for critical findings"
+      - "classifies findings by blocking vs non-blocking severity"
+    trigger_expected: true
+
+  - id: general_code_review
+    prompt: "Review this code for quality, readability, and best practices"
+    fixtures: []
+    rubric:
+      - "does not activate pre-landing review workflow"
+      - "general code quality review is different from gate-oriented safety audit"
+    trigger_expected: false
+
+  - id: write_tests
+    prompt: "Write unit tests for this module"
+    fixtures: []
+    rubric:
+      - "does not activate pre-landing review workflow"
+      - "test generation is different from pre-landing safety audit"
+    trigger_expected: false
